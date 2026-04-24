@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom"
+import logo from '../../assets/logo.png';
+
 export default function Footer() {
   return (
     <footer style={{
@@ -11,8 +14,10 @@ export default function Footer() {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
             <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2 }}>
-              <span style={{ color: 'var(--blue-hi)' }}>WATTEN </span>
-              <span style={{ color: 'var(--green-hi)' }}>POWER</span>
+              <Link to="/" className="flex items-center gap-3">
+        <img src={logo} alt="logo" className="h-[40px]" />
+      </Link>
+
             </span>
           </div>
           <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>

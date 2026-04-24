@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Landing from "../components/Landingpage/Landing";
 import EVPage from "../components/EV/Evpage ";
 import SolarInstallation from "../components/Solar/SolarInstallation";
+import ContactPage from "../components/Contact/ContactUs";
 
 
 export default function WattenRoute() {
@@ -9,8 +10,9 @@ export default function WattenRoute() {
         <>
             <Routes>
                 <Route path="/" element={<Landing/>} />
-                <Route path="ev" element={<EVPage/>}/>
+                <Route path="ev-charging" element={<EVPage/>}/>
                 <Route path="solar" element={<SolarInstallation/>}/>
+                <Route path="contact-us" element={<ContactPage/>}/>
             </Routes>
         </>
     )

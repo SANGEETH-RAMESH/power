@@ -1,5 +1,13 @@
-import { useReveal } from '../../hooks/useReveal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import logo from '../../assets/logo.png'; 
+
+const navItems = [
+  { label: 'Solar', link: '/solar' },
+  { label: 'Services', link: '#services' },
+  { label: 'Process', link: '#process' },
+  { label: 'Range', link: '#range' },
+  { label: 'Support', link: '#support' },
+];
 
 const installSteps = [
   { num: '01', title: 'SITE SURVEY', desc: 'We assess your electrical capacity, parking layout, and installation feasibility.' },
@@ -16,46 +24,50 @@ const chargerRanges = [
     title: 'Simple & Reliable',
     sub: 'Cost-effective daily charging',
     features: ['Ideal for daily residential use', '7.4 kW single-phase systems', 'Basic smart functionality', 'Compact and practical design'],
-    color: 'var(--muted)',
-    accent: 'rgba(200,216,240,.15)',
-    border: 'rgba(200,216,240,.2)',
+    color: 'text-[#6a80a8]',
+    bgAccent: 'bg-[#c8d8f0]/10',
+    borderColor: 'border-[#c8d8f0]/20',
+    hoverBorder: 'hover:border-[#c8d8f0]/40',
   },
   {
     label: 'SMART',
     title: 'Enhanced Control',
     sub: 'Performance meets intelligence',
     features: ['App-enabled charging control', 'Scheduling & off-peak optimisation', 'Energy usage monitoring', 'Suitable for homes & small businesses'],
-    color: 'var(--blue-hi)',
-    accent: 'rgba(43,91,168,.15)',
-    border: 'rgba(43,91,168,.35)',
-    featured: true,
+    color: 'text-[#4a7fd4]',
+    bgAccent: 'bg-[#2b5ba8]/15',
+    borderColor: 'border-[#2b5ba8]/35',
+    hoverBorder: 'hover:border-[#4a7fd4]/60',
   },
   {
     label: 'PREMIUM',
     title: 'Advanced Performance',
     sub: 'For a refined experience',
     features: ['Advanced smart features', 'Faster charging capability', 'Sleek modern design', 'Enhanced user interface & control'],
-    color: 'var(--green-hi)',
-    accent: 'rgba(90,140,46,.15)',
-    border: 'rgba(90,140,46,.35)',
+    color: 'text-[#79bc3c]',
+    bgAccent: 'bg-[#2b5ba8]/15',
+    borderColor: 'border-[#2b5ba8]/35',
+    hoverBorder: 'hover:border-[#79bc3c]/60',
   },
   {
     label: 'COMMERCIAL',
     title: 'Built for Scale',
     sub: 'Workplace & fleet infrastructure',
     features: ['Multiple charger installations', 'Load balancing across units', 'User access control', 'Usage tracking and reporting'],
-    color: 'var(--blue-hi)',
-    accent: 'rgba(43,91,168,.12)',
-    border: 'rgba(43,91,168,.25)',
+    color: 'text-[#4a7fd4]',
+    bgAccent: 'bg-[#2b5ba8]/10',
+    borderColor: 'border-[#2b5ba8]/25',
+    hoverBorder: 'hover:border-[#4a7fd4]/50',
   },
   {
     label: 'FUTURE-READY',
     title: 'Integrated Energy',
     sub: 'Designed for smart ecosystems',
     features: ['Solar-compatible systems', 'Battery-ready integration', 'Smart energy ecosystem support', 'Ideal for long-term optimisation'],
-    color: 'var(--green-hi)',
-    accent: 'rgba(90,140,46,.12)',
-    border: 'rgba(90,140,46,.25)',
+    color: 'text-[#79bc3c]',
+    bgAccent: 'bg-[#2b5ba8]/15',
+    borderColor: 'border-[#2b5ba8]/35',
+    hoverBorder: 'hover:border-[#79bc3c]/60',
   },
 ]
 
@@ -83,126 +95,111 @@ const whyUs = [
 ]
 
 export default function EVPage() {
-  const ref = useReveal()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal-tw");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.remove("opacity-0", "translate-y-7");
+          e.target.classList.add("opacity-100", "translate-y-0");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <div ref={ref} style={{ position: 'relative', zIndex: 2 }}>
+    <div className="relative z-10 bg-[#04101f] text-[#f2f7ff] font-['DM_Sans'] font-light leading-relaxed overflow-x-hidden selection:bg-[#2B5BA8] selection:text-white">
+      
+      {/* ── NAV ── */}
+      <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 lg:px-12 h-[70px] bg-[#04101f]/90 backdrop-blur-xl border-b border-[#2b5ba8]/20 transition-colors">
+        <a href="/" className="flex items-center gap-3">
+          <img src={logo} alt="logo" className="h-[40px]" />
+        </a>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className="flex lg:hidden flex-col gap-[5px] p-2 z-[101]"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? 'translate-y-[7px] rotate-45' : ''}`}></span>
+          <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+          <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? '-translate-y-[7px] -rotate-45' : ''}`}></span>
+        </button>
+
+        {/* Links */}
+        <ul className={`
+          absolute lg:static top-[70px] inset-x-0 bg-[#04101f]/95 lg:bg-transparent backdrop-blur-xl lg:backdrop-blur-none
+          border-b lg:border-none border-[#2b5ba8]/20
+          flex-col lg:flex-row p-6 lg:p-0 gap-6 lg:gap-9 items-start lg:items-center
+          transition-all duration-300 ease-in-out lg:transform-none lg:opacity-100 lg:pointer-events-auto lg:flex
+          ${isMenuOpen ? 'translate-y-0 opacity-100 pointer-events-auto flex' : '-translate-y-full opacity-0 pointer-events-none hidden'}
+        `}>
+          {navItems.map((item) => (
+            <li key={item.label} className="w-full lg:w-auto border-b lg:border-none border-[#2b5ba8]/10 pb-4 lg:pb-0">
+              <a 
+                href={item.link} 
+                onClick={() => setIsMenuOpen(false)}
+                className="text-[#6a80a8] hover:text-white text-sm tracking-wide transition-colors"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+          <li className="pt-2 lg:pt-0">
+            <a 
+              href="#survey" 
+              onClick={() => setIsMenuOpen(false)}
+              className="bg-[#2B5BA8] hover:bg-[#4a7fd4] text-white text-sm font-medium px-6 py-2.5 rounded-full transition-all hover:-translate-y-0.5 inline-block"
+            >
+              Get a Quote
+            </a>
+          </li>
+        </ul>
+      </nav>
 
       {/* ── HERO ── */}
-      <section className="ev-hero" style={{
-        position: 'relative',
-        minHeight: '88vh',
-        display: 'flex', flexDirection: 'column', justifyContent: 'center',
-        padding: '120px 52px 80px',
-        overflow: 'hidden',
-        borderBottom: '1px solid var(--line)',
-      }}>
+      <section className="relative min-h-[88vh] flex flex-col justify-center pt-[120px] px-6 lg:px-12 pb-20 overflow-hidden border-b border-[#2b5ba8]/22">
         {/* Animated background grid */}
-        <div style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none',
-          backgroundImage: `
-            linear-gradient(rgba(43,91,168,.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(43,91,168,.06) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-          maskImage: 'radial-gradient(ellipse at 60% 50%, black 30%, transparent 80%)',
-        }} />
+        <div className="absolute inset-0 pointer-events-none opacity-50 bg-[size:60px_60px] bg-[linear-gradient(rgba(43,91,168,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(43,91,168,0.15)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_60%_50%,black_30%,transparent_80%)]" />
+        
         {/* Glow */}
-        <div style={{
-          position: 'absolute', right: '10%', top: '50%', transform: 'translateY(-50%)',
-          width: 500, height: 500,
-          background: 'radial-gradient(circle, rgba(43,91,168,.2) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
+        <div className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(43,91,168,0.2)_0%,transparent_70%)] pointer-events-none" />
 
-        <div style={{ maxWidth: 1140, margin: '0 auto', width: '100%', position: 'relative', zIndex: 1 }}>
+        <div className="max-w-[1140px] mx-auto w-full relative z-10">
           {/* Breadcrumb */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 32,
-            fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 2,
-            color: 'var(--muted)', textTransform: 'uppercase',
-          }}>
-            <a href="/" style={{ color: 'var(--muted)', textDecoration: 'none' }}>Home</a>
-            <span style={{ color: 'var(--line)' }}>→</span>
-            <span style={{ color: 'var(--blue-hi)' }}>EV Charger Installation</span>
+          <div className="inline-flex items-center gap-2 mb-8 font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#6a80a8] uppercase">
+            <a href="/" className="hover:text-white transition-colors">Home</a>
+            <span className="text-[#2b5ba8]/50">→</span>
+            <span className="text-[#4a7fd4]">EV Charger Installation</span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }} className="ev-hero-grid">
-            <div>
-              <div style={{
-                display: 'inline-flex', alignItems: 'center', gap: 10,
-                border: '1px solid rgba(43,91,168,.4)', background: 'rgba(43,91,168,.12)',
-                borderRadius: 50, padding: '6px 16px 6px 10px', marginBottom: 28,
-                fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 2,
-                textTransform: 'uppercase', color: 'var(--blue-hi)',
-              }}>
-                <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--blue-hi)', display: 'inline-block' }} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
+              <div className="inline-flex items-center gap-2.5 border border-[#2b5ba8]/40 bg-[#2b5ba8]/10 rounded-full py-1.5 px-4 pl-2.5 mb-7 font-['Space_Mono'] font-mono text-[10px] tracking-widest uppercase text-[#4a7fd4]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#4a7fd4] inline-block animate-pulse" />
                 Residential · Commercial · Fleet
               </div>
-              <h1 className="anim-fade-up" style={{
-                fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: 'clamp(48px, 6.5vw, 88px)',
-                lineHeight: .92, letterSpacing: 2, margin: '0 0 24px',
-              }}>
-                <span style={{ color: 'var(--white)', display: 'block' }}>EV CHARGER</span>
-                <span style={{ color: 'var(--blue-hi)', display: 'block' }}>INSTALLATION</span>
+              <h1 className="font-['Bebas_Neue'] text-[clamp(48px,6.5vw,88px)] leading-[0.92] tracking-wide mb-6">
+                <span className="text-white block">EV CHARGER</span>
+                <span className="text-[#4a7fd4] block">INSTALLATION</span>
               </h1>
-              <p style={{ fontSize: 17, color: 'var(--light)', fontWeight: 300, lineHeight: 1.75, maxWidth: 480, margin: '0 0 40px' }}>
+              <p className="text-[17px] text-[#c8d8f0] font-light leading-relaxed max-w-lg mb-10">
                 Reliable. Compliant. Future-Ready. Power your transition to electric mobility with professionally installed EV charging solutions by Watten Power Ltd.
               </p>
-              <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }} className="ev-hero-cta">
-                <a href="#contact" style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 10,
-                  background: 'linear-gradient(135deg, var(--blue), var(--blue-hi))',
-                  color: '#fff', fontWeight: 500, fontSize: 14,
-                  textTransform: 'uppercase', letterSpacing: 1,
-                  padding: '15px 36px', borderRadius: 50,
-                  textDecoration: 'none', transition: 'all .25s',
-                  boxShadow: '0 8px 28px rgba(43,91,168,.4)',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 14px 40px rgba(43,91,168,.55)' }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 8px 28px rgba(43,91,168,.4)' }}
-                >Request a Quote →</a>
-                <a href="#survey" style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  color: 'var(--light)', fontSize: 14,
-                  textDecoration: 'none',
-                  border: '1px solid rgba(255,255,255,.15)',
-                  padding: '15px 28px', borderRadius: 50,
-                  transition: 'all .25s',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--blue-hi)'; e.currentTarget.style.color = 'var(--blue-hi)' }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,.15)'; e.currentTarget.style.color = 'var(--light)' }}
-                >Book Site Survey ↗</a>
-              </div>
-            </div>
-
-            {/* Stats card */}
-            <div className="ev-hero-card">
-              <div style={{
-                background: 'var(--panel)', border: '1px solid rgba(43,91,168,.3)',
-                borderRadius: 20, padding: 32, backdropFilter: 'blur(20px)',
-              }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1, background: 'rgba(43,91,168,.2)', borderRadius: 14, overflow: 'hidden', marginBottom: 24 }}>
-                  {[
-                    { v: '7–22', u: 'kW OUTPUT' },
-                    { v: '~50mi', u: 'PER HOUR' },
-                    { v: '100%', u: 'UK COMPLIANT' },
-                    { v: '0%', u: 'VAT ELIGIBLE' },
-                  ].map((s, i) => (
-                    <div key={i} style={{ background: 'var(--panel)', padding: '22px 20px', textAlign: 'center' }}>
-                      <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, color: i % 2 === 0 ? 'var(--blue-hi)' : 'var(--green-hi)', letterSpacing: 1 }}>{s.v}</div>
-                      <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, color: 'var(--muted)', letterSpacing: 1.5, marginTop: 4 }}>{s.u}</div>
-                    </div>
-                  ))}
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  {['Smart 7 kW home chargers', '22 kW commercial solutions', 'OZEV grant assistance', 'NAPIT certified engineers'].map((f, i) => (
-                    <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 13, color: 'var(--muted)' }}>
-                      <span style={{ color: 'var(--blue-hi)', fontFamily: "'Space Mono', monospace", flexShrink: 0 }}>→</span>{f}
-                    </div>
-                  ))}
-                </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="#survey" className="inline-flex justify-center items-center gap-2 bg-gradient-to-br from-[#2B5BA8] to-[#4a7fd4] text-white font-medium text-sm uppercase tracking-wide py-3.5 px-8 rounded-full shadow-[0_8px_28px_rgba(43,91,168,0.4)] hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(43,91,168,0.55)] transition-all">
+                  Request a Quote →
+                </a>
+                <a href="#services" className="inline-flex justify-center items-center gap-2 text-[#c8d8f0] text-sm uppercase tracking-wide py-3.5 px-8 rounded-full border border-white/15 hover:border-[#4a7fd4] hover:text-[#4a7fd4] transition-all">
+                  Book Site Survey ↗
+                </a>
               </div>
             </div>
           </div>
@@ -210,47 +207,31 @@ export default function EVPage() {
       </section>
 
       {/* ── WHAT WE INSTALL ── */}
-      <section style={{ padding: '90px 52px', borderBottom: '1px solid var(--line)' }} className="ev-install-section">
-        <div style={{ maxWidth: 1140, margin: '0 auto' }}>
-          <div className="section-label reveal">What We Install</div>
-          <h2 className="reveal reveal-delay-1" style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: 'clamp(34px,5vw,58px)', letterSpacing: 2, lineHeight: .95, marginBottom: 56,
-          }}>CHARGING SOLUTIONS<br /><span style={{ color: 'var(--blue-hi)' }}>FOR EVERY NEED</span></h2>
+      <section id="services" className="py-20 lg:py-24 px-6 lg:px-12 border-b border-[#2b5ba8]/22">
+        <div className="max-w-[1140px] mx-auto">
+          <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
+            <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
+              <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> What We Install
+            </div>
+            <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,58px)] leading-[0.95] tracking-wide mb-12 lg:mb-14">
+              CHARGING SOLUTIONS<br /><span className="text-[#4a7fd4]">FOR EVERY NEED</span>
+            </h2>
+          </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }} className="ev-install-grid">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              {
-                icon: '🏠', label: 'RESIDENTIAL', title: 'Home EV Charging',
-                items: ['Smart home chargers (7.4 kW single-phase)', 'App-controlled charging systems', 'Off-peak tariff integration', 'OZEV grant eligible installs'],
-                color: 'rgba(43,91,168,.15)', border: 'rgba(43,91,168,.3)',
-              },
-              {
-                icon: '🏢', label: 'COMMERCIAL', title: 'Workplace & Fleet',
-                items: ['7 kW to 22 kW systems', 'Multi-point installations', 'Load balancing for multiple vehicles', 'Fleet charging infrastructure'],
-                color: 'rgba(90,140,46,.12)', border: 'rgba(90,140,46,.3)',
-              },
-              {
-                icon: '🧠', label: 'SMART', title: 'Smart Charging',
-                items: ['OCPP-enabled systems', 'Remote monitoring & control', 'Energy usage tracking', 'Solar & battery integration ready'],
-                color: 'rgba(43,91,168,.1)', border: 'rgba(43,91,168,.2)',
-              },
+              { icon: '🏠', label: 'RESIDENTIAL', title: 'Home EV Charging', items: ['Smart home chargers (7.4 kW single-phase)', 'App-controlled charging systems', 'Off-peak tariff integration', 'OZEV grant eligible installs'], bg: 'bg-[#2b5ba8]/15', border: 'border-[#2b5ba8]/30', hover: 'hover:border-[#4a7fd4]/60' },
+              { icon: '🏢', label: 'COMMERCIAL', title: 'Workplace & Fleet', items: ['7 kW to 22 kW systems', 'Multi-point installations', 'Load balancing for multiple vehicles', 'Fleet charging infrastructure'], bg: 'bg-[#2b5ba8]/15', border: 'border-[#2b5ba8]/30', hover: 'hover:border-[#4a7fd4]/60' },
+              { icon: '🧠', label: 'SMART', title: 'Smart Charging', items: ['OCPP-enabled systems', 'Remote monitoring & control', 'Energy usage tracking', 'Solar & battery integration ready'], bg: 'bg-[#2b5ba8]/10', border: 'border-[#2b5ba8]/20', hover: 'hover:border-[#4a7fd4]/50' },
             ].map((item, i) => (
-              <div key={i} className={`reveal reveal-delay-${i + 1}`} style={{
-                background: item.color, border: `1px solid ${item.border}`,
-                borderRadius: 18, padding: '32px 28px',
-                transition: 'transform .3s', cursor: 'default',
-              }}
-                onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
-                onMouseLeave={e => e.currentTarget.style.transform = ''}
-              >
-                <div style={{ fontSize: 32, marginBottom: 16 }}>{item.icon}</div>
-                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 2, color: 'var(--blue-hi)', marginBottom: 8 }}>{item.label}</div>
-                <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, letterSpacing: 1, marginBottom: 20 }}>{item.title}</div>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div key={i} className={`reveal-tw opacity-0 translate-y-7 transition-all duration-700 ${item.bg} border ${item.border} ${item.hover} rounded-[18px] p-8 hover:-translate-y-1`} style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="text-[32px] mb-4">{item.icon}</div>
+                <div className="font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#4a7fd4] mb-2">{item.label}</div>
+                <div className="font-['Bebas_Neue'] text-[22px] tracking-wide mb-5">{item.title}</div>
+                <ul className="flex flex-col gap-2.5">
                   {item.items.map((f, j) => (
-                    <li key={j} style={{ display: 'flex', gap: 10, fontSize: 13, color: 'var(--muted)', alignItems: 'flex-start' }}>
-                      <span style={{ color: 'var(--blue-hi)', flexShrink: 0, fontFamily: "'Space Mono',monospace" }}>→</span>{f}
+                    <li key={j} className="flex gap-2.5 text-[13px] text-[#6a80a8] items-start">
+                      <span className="text-[#4a7fd4] shrink-0 font-['Space_Mono'] font-mono">→</span>{f}
                     </li>
                   ))}
                 </ul>
@@ -258,340 +239,215 @@ export default function EVPage() {
             ))}
           </div>
         </div>
-        <style>{`
-          @media(max-width:960px){ .ev-install-grid{ grid-template-columns:1fr !important; } .ev-install-section{ padding:70px 32px !important; } }
-          @media(max-width:600px){ .ev-install-section{ padding:60px 20px !important; } }
-        `}</style>
       </section>
 
       {/* ── INSTALLATION PROCESS ── */}
-      <section style={{
-        padding: '90px 52px',
-        background: 'linear-gradient(180deg, var(--ink-2) 0%, var(--ink) 100%)',
-        borderBottom: '1px solid var(--line)',
-      }} className="ev-process-section">
-        <div style={{ maxWidth: 1140, margin: '0 auto' }}>
-          <div className="section-label reveal">Our Process</div>
-          <h2 className="reveal reveal-delay-1" style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: 'clamp(34px,5vw,58px)', letterSpacing: 2, lineHeight: .95, marginBottom: 56,
-          }}>ENGINEERING-LED<br /><span style={{ color: 'var(--blue-hi)' }}>INSTALLATION</span></h2>
+      <section id="process" className="py-20 lg:py-24 px-6 lg:px-12 bg-gradient-to-b from-[#081828] to-[#04101f] border-b border-[#2b5ba8]/22">
+        <div className="max-w-[1140px] mx-auto">
+          <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
+            <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
+              <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Our Process
+            </div>
+            <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,58px)] leading-[0.95] tracking-wide mb-12 lg:mb-14">
+              ENGINEERING-LED<br /><span className="text-[#4a7fd4]">INSTALLATION</span>
+            </h2>
+          </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2, background: 'var(--line)', border: '1px solid var(--line)', borderRadius: 18, overflow: 'hidden' }} className="ev-steps-grid">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2px] bg-[#2b5ba8]/22 border border-[#2b5ba8]/22 rounded-[18px] overflow-hidden reveal-tw opacity-0 translate-y-7 transition-all duration-700">
             {installSteps.map((s, i) => (
-              <div key={i} className={`reveal reveal-delay-${(i % 3) + 1}`} style={{
-                background: 'var(--panel)', padding: '32px 28px',
-                transition: 'background .25s', position: 'relative',
-              }}
-                onMouseEnter={e => e.currentTarget.style.background = 'rgba(43,91,168,.08)'}
-                onMouseLeave={e => e.currentTarget.style.background = 'var(--panel)'}
-              >
-                <div style={{
-                  fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 2,
-                  color: 'var(--blue-hi)', marginBottom: 16,
-                }}>{s.num}</div>
-                <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: 1, marginBottom: 10 }}>{s.title}</div>
-                <div style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.75 }}>{s.desc}</div>
+              <div key={i} className="bg-[#0b1830]/90 hover:bg-[#2b5ba8]/10 p-8 lg:p-7 transition-colors">
+                <div className="font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#4a7fd4] mb-4">{s.num}</div>
+                <div className="font-['Bebas_Neue'] text-xl tracking-wide mb-2.5">{s.title}</div>
+                <div className="text-[13px] text-[#6a80a8] leading-relaxed">{s.desc}</div>
               </div>
             ))}
           </div>
         </div>
-        <style>{`
-          @media(max-width:960px){ .ev-steps-grid{ grid-template-columns:1fr 1fr !important; } .ev-process-section{ padding:70px 32px !important; } }
-          @media(max-width:600px){ .ev-steps-grid{ grid-template-columns:1fr !important; } .ev-process-section{ padding:60px 20px !important; } }
-        `}</style>
       </section>
 
       {/* ── CHARGER RANGES ── */}
-      <section style={{ padding: '90px 52px', borderBottom: '1px solid var(--line)' }} className="ev-range-section">
-        <div style={{ maxWidth: 1140, margin: '0 auto' }}>
-          <div className="section-label reveal">Our Range</div>
-          <h2 className="reveal reveal-delay-1" style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: 'clamp(34px,5vw,58px)', letterSpacing: 2, lineHeight: .95, marginBottom: 12,
-          }}>CHARGER RANGE</h2>
-          <p className="reveal reveal-delay-2" style={{ fontSize: 15, color: 'var(--muted)', maxWidth: 520, lineHeight: 1.75, marginBottom: 52 }}>
-            We take a consultative approach — recommending the most suitable charger based on your property, vehicle usage, and future energy plans.
-          </p>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 20 }} className="ev-range-grid-top">
-            {chargerRanges.slice(0, 3).map((r, i) => (
-              <RangeCard key={i} r={r} i={i} />
-            ))}
+      <section id="range" className="py-20 lg:py-24 px-6 lg:px-12 border-b border-[#2b5ba8]/22">
+        <div className="max-w-[1140px] mx-auto">
+          <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
+            <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
+              <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Our Range
+            </div>
+            <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,58px)] leading-[0.95] tracking-wide mb-3">
+              CHARGER RANGE
+            </h2>
+            <p className="text-[15px] text-[#6a80a8] max-w-xl leading-relaxed mb-12 lg:mb-14">
+              We take a consultative approach — recommending the most suitable charger based on your property, vehicle usage, and future energy plans.
+            </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ev-range-grid-bot">
-            {chargerRanges.slice(3).map((r, i) => (
-              <RangeCard key={i + 3} r={r} i={i + 3} />
-            ))}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-5">
+            {chargerRanges.slice(0, 3).map((r, i) => <RangeCard key={i} r={r} i={i} />)}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:w-2/3 lg:mx-auto">
+            {chargerRanges.slice(3).map((r, i) => <RangeCard key={i + 3} r={r} i={i + 3} />)}
           </div>
 
           {/* CTA strip */}
-          <div className="reveal" style={{
-            marginTop: 40, padding: '28px 36px',
-            background: 'rgba(43,91,168,.1)', border: '1px solid rgba(43,91,168,.25)',
-            borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap',
-          }}>
+          <div className="mt-10 p-7 lg:p-9 bg-[#2b5ba8]/10 border border-[#2b5ba8]/25 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 reveal-tw opacity-0 translate-y-7 transition-all duration-700">
             <div>
-              <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, letterSpacing: 1, marginBottom: 4 }}>NOT SURE WHICH OPTION IS RIGHT?</div>
-              <div style={{ fontSize: 13, color: 'var(--muted)' }}>Our team will assess your site and recommend the most suitable solution.</div>
+              <div className="font-['Bebas_Neue'] text-[22px] tracking-wide mb-1">NOT SURE WHICH OPTION IS RIGHT?</div>
+              <div className="text-[13px] text-[#6a80a8]">Our team will assess your site and recommend the most suitable solution.</div>
             </div>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              <a href="#contact" style={{
-                display: 'inline-flex', alignItems: 'center', gap: 8,
-                background: 'var(--blue)', color: '#fff',
-                padding: '12px 28px', borderRadius: 50,
-                fontSize: 13, fontWeight: 500, textDecoration: 'none', textTransform: 'uppercase', letterSpacing: .5,
-                transition: 'all .2s',
-              }}
-                onMouseEnter={e => e.currentTarget.style.background = 'var(--blue-hi)'}
-                onMouseLeave={e => e.currentTarget.style.background = 'var(--blue)'}
-              >Request a Quote →</a>
-              <a href="#survey" style={{
-                display: 'inline-flex', alignItems: 'center', gap: 8,
-                border: '1px solid rgba(255,255,255,.15)', color: 'var(--light)',
-                padding: '12px 28px', borderRadius: 50,
-                fontSize: 13, textDecoration: 'none', textTransform: 'uppercase', letterSpacing: .5,
-                transition: 'all .2s',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--blue-hi)'; e.currentTarget.style.color = 'var(--blue-hi)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,.15)'; e.currentTarget.style.color = 'var(--light)' }}
-              >Book Site Survey</a>
+            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+              <a href="#survey" className="inline-flex justify-center items-center gap-2 bg-[#2B5BA8] hover:bg-[#4a7fd4] text-white text-[13px] font-medium uppercase tracking-wide py-3 px-7 rounded-full transition-colors">
+                Request a Quote →
+              </a>
+              <a href="#services" className="inline-flex justify-center items-center gap-2 border border-white/15 text-[#c8d8f0] hover:border-[#4a7fd4] hover:text-[#4a7fd4] text-[13px] uppercase tracking-wide py-3 px-7 rounded-full transition-colors">
+                Book Site Survey
+              </a>
             </div>
           </div>
         </div>
-        <style>{`
-          @media(max-width:960px){ .ev-range-grid-top,.ev-range-grid-bot{ grid-template-columns:1fr 1fr !important; } .ev-range-section{ padding:70px 32px !important; } }
-          @media(max-width:600px){ .ev-range-grid-top,.ev-range-grid-bot{ grid-template-columns:1fr !important; } .ev-range-section{ padding:60px 20px !important; } }
-        `}</style>
       </section>
 
       {/* ── AFTER SALES ── */}
-      <section style={{
-        padding: '90px 52px',
-        background: 'linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%)',
-        borderBottom: '1px solid var(--line)',
-      }} className="ev-aftersales-section">
-        <div style={{ maxWidth: 1140, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 72, alignItems: 'start' }} className="ev-aftersales-grid">
-            <div>
-              <div className="section-label reveal">After Sales</div>
-              <h2 className="reveal reveal-delay-1" style={{
-                fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: 'clamp(34px,5vw,54px)', letterSpacing: 2, lineHeight: .95, marginBottom: 18,
-              }}>ONGOING<br />SUPPORT</h2>
-              <p className="reveal reveal-delay-2" style={{ fontSize: 15, color: 'var(--light)', lineHeight: 1.75 }}>
+      <section id="support" className="py-20 lg:py-24 px-6 lg:px-12 bg-gradient-to-b from-[#04101f] to-[#081828] border-b border-[#2b5ba8]/22">
+        <div className="max-w-[1140px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16 items-start">
+            <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
+              <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
+                <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> After Sales
+              </div>
+              <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,54px)] leading-[0.95] tracking-wide mb-4">
+                ONGOING<br />SUPPORT
+              </h2>
+              <p className="text-[15px] text-[#c8d8f0] leading-relaxed">
                 Installation is only the first step. Reliable performance depends on proper support and maintenance. We remain your partner for the long term.
               </p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="ev-aftersales-cards">
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {afterSales.map((a, i) => (
-                <div key={i} className={`reveal reveal-delay-${(i % 2) + 1}`} style={{
-                  background: 'var(--panel)', border: '1px solid var(--line)',
-                  borderRadius: 14, padding: '22px 20px',
-                  transition: 'border-color .25s, transform .25s',
-                  gridColumn: i === 4 ? 'span 2' : undefined,
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(43,91,168,.4)'; e.currentTarget.style.transform = 'translateY(-3px)' }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line)'; e.currentTarget.style.transform = '' }}
-                >
-                  <div style={{ fontSize: 24, marginBottom: 10 }}>{a.icon}</div>
-                  <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 16, letterSpacing: 1, marginBottom: 6 }}>{a.title}</div>
-                  <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.7 }}>{a.desc}</div>
+                <div key={i} className={`reveal-tw opacity-0 translate-y-7 transition-all duration-700 bg-[#0b1830]/75 border border-[#2b5ba8]/22 rounded-[14px] p-5 hover:border-[#4a7fd4]/40 hover:-translate-y-1 ${i === 4 ? 'sm:col-span-2' : ''}`} style={{ transitionDelay: `${(i % 2) * 100}ms` }}>
+                  <div className="text-[24px] mb-2.5">{a.icon}</div>
+                  <div className="font-['Bebas_Neue'] text-[16px] tracking-wide mb-1.5">{a.title}</div>
+                  <div className="text-[12px] text-[#6a80a8] leading-relaxed">{a.desc}</div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <style>{`
-          @media(max-width:960px){ .ev-aftersales-grid{ grid-template-columns:1fr !important; gap:40px !important; } .ev-aftersales-section{ padding:70px 32px !important; } }
-          @media(max-width:600px){ .ev-aftersales-cards{ grid-template-columns:1fr !important; } .ev-aftersales-section{ padding:60px 20px !important; } .ev-aftersales-cards > div[style*="span 2"]{ grid-column: span 1 !important; } }
-        `}</style>
       </section>
 
       {/* ── COMPLIANCE ── */}
-      <section style={{ padding: '80px 52px', borderBottom: '1px solid var(--line)' }} className="ev-compliance-section">
-        <div style={{ maxWidth: 1140, margin: '0 auto' }}>
-          <div className="section-label reveal">Standards</div>
-          <h2 className="reveal reveal-delay-1" style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: 'clamp(34px,5vw,58px)', letterSpacing: 2, lineHeight: .95, marginBottom: 40,
-          }}>COMPLIANCE &<br /><span style={{ color: 'var(--blue-hi)' }}>CERTIFICATIONS</span></h2>
+      <section className="py-16 lg:py-20 px-6 lg:px-12 border-b border-[#2b5ba8]/22">
+        <div className="max-w-[1140px] mx-auto">
+          <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
+            <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
+              <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Standards
+            </div>
+            <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,58px)] leading-[0.95] tracking-wide mb-10">
+              COMPLIANCE &<br /><span className="text-[#4a7fd4]">CERTIFICATIONS</span>
+            </h2>
+          </div>
 
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }} className="reveal reveal-delay-2">
+          <div className="flex flex-wrap gap-4 reveal-tw opacity-0 translate-y-7 transition-all duration-700">
             {compliance.map((c, i) => (
-              <div key={i} style={{
-                background: 'var(--panel)', border: '1px solid var(--line)',
-                borderRadius: 12, padding: '18px 24px', minWidth: 160,
-                transition: 'border-color .2s, transform .2s',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(43,91,168,.5)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line)'; e.currentTarget.style.transform = '' }}
-              >
-                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 12, color: 'var(--blue-hi)', letterSpacing: 1, marginBottom: 6 }}>{c.code}</div>
-                <div style={{ fontSize: 12, color: 'var(--muted)' }}>{c.desc}</div>
+              <div key={i} className="bg-[#0b1830]/75 border border-[#2b5ba8]/22 rounded-xl p-5 min-w-[160px] flex-1 hover:border-[#4a7fd4]/50 hover:-translate-y-0.5 transition-all">
+                <div className="font-['Space_Mono'] font-mono text-[12px] text-[#4a7fd4] tracking-wide mb-1.5">{c.code}</div>
+                <div className="text-[12px] text-[#6a80a8]">{c.desc}</div>
               </div>
             ))}
           </div>
         </div>
-        <style>{`
-          @media(max-width:960px){ .ev-compliance-section{ padding:70px 32px !important; } }
-          @media(max-width:600px){ .ev-compliance-section{ padding:60px 20px !important; } }
-        `}</style>
       </section>
 
       {/* ── WHY CHOOSE US ── */}
-      <section style={{ padding: '90px 52px', borderBottom: '1px solid var(--line)' }} className="ev-why-section">
-        <div style={{ maxWidth: 1140, margin: '0 auto' }}>
-          <div className="section-label reveal">Why Watten Power</div>
-          <h2 className="reveal reveal-delay-1" style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: 'clamp(34px,5vw,58px)', letterSpacing: 2, lineHeight: .95, marginBottom: 52,
-          }}>THE WATTEN<br /><span style={{ color: 'var(--blue-hi)' }}>DIFFERENCE</span></h2>
+      <section className="py-20 lg:py-24 px-6 lg:px-12 border-b border-[#2b5ba8]/22">
+        <div className="max-w-[1140px] mx-auto">
+          <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
+            <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
+              <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Why Watten Power
+            </div>
+            <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,58px)] leading-[0.95] tracking-wide mb-12">
+              THE WATTEN<br /><span className="text-[#4a7fd4]">DIFFERENCE</span>
+            </h2>
+          </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20 }} className="ev-why-grid">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {whyUs.map((w, i) => (
-              <div key={i} className={`reveal reveal-delay-${i + 1}`} style={{
-                background: 'var(--panel)', border: '1px solid var(--line)',
-                borderRadius: 16, padding: '28px 24px',
-                transition: 'border-color .25s, transform .25s',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(43,91,168,.4)'; e.currentTarget.style.transform = 'translateY(-3px)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line)'; e.currentTarget.style.transform = '' }}
-              >
-                <div style={{ fontSize: 28, marginBottom: 14 }}>{w.icon}</div>
-                <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 17, letterSpacing: 1, marginBottom: 8 }}>{w.title}</div>
-                <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.7 }}>{w.desc}</div>
+              <div key={i} className="reveal-tw opacity-0 translate-y-7 transition-all duration-700 bg-[#0b1830]/75 border border-[#2b5ba8]/22 rounded-2xl p-7 hover:border-[#4a7fd4]/40 hover:-translate-y-1" style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className="text-[28px] mb-3.5">{w.icon}</div>
+                <div className="font-['Bebas_Neue'] text-[17px] tracking-wide mb-2">{w.title}</div>
+                <div className="text-[12px] text-[#6a80a8] leading-relaxed">{w.desc}</div>
               </div>
             ))}
           </div>
 
           {/* Future-ready strip */}
-          <div className="reveal" style={{
-            marginTop: 40, padding: '32px 36px',
-            background: 'linear-gradient(135deg, rgba(43,91,168,.15), rgba(90,140,46,.1))',
-            border: '1px solid rgba(43,91,168,.3)',
-            borderRadius: 16,
-          }}>
-            <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 24, letterSpacing: 1, marginBottom: 8 }}>
+          <div className="mt-10 p-8 lg:p-9 bg-gradient-to-br from-[#2b5ba8]/15 to-[#5a8c2e]/10 border border-[#2b5ba8]/30 rounded-2xl reveal-tw opacity-0 translate-y-7 transition-all duration-700">
+            <div className="font-['Bebas_Neue'] text-[24px] tracking-wide mb-2">
               FUTURE-READY ENERGY INTEGRATION
             </div>
-            <p style={{ fontSize: 14, color: 'var(--muted)', lineHeight: 1.75, marginBottom: 20, maxWidth: 600 }}>
+            <p className="text-[14px] text-[#6a80a8] leading-relaxed mb-5 max-w-2xl">
               Your EV charger is part of a wider energy ecosystem. Our systems are designed to integrate with solar PV, battery storage, and smart energy management platforms.
             </p>
-            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+            <div className="flex flex-wrap gap-4">
               {['☀️ Solar PV Systems', '🔋 Battery Storage', '⚡ Smart Energy Management'].map((t, i) => (
-                <span key={i} style={{
-                  fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: 1,
-                  padding: '6px 14px', borderRadius: 50,
-                  background: 'rgba(43,91,168,.2)', border: '1px solid rgba(43,91,168,.3)',
-                  color: 'var(--blue-hi)',
-                }}>{t}</span>
+                <span key={i} className="font-['Space_Mono'] font-mono text-[11px] tracking-wide py-1.5 px-3.5 rounded-full bg-[#2b5ba8]/20 border border-[#2b5ba8]/30 text-[#4a7fd4]">
+                  {t}
+                </span>
               ))}
             </div>
           </div>
         </div>
-        <style>{`
-          @media(max-width:960px){ .ev-why-grid{ grid-template-columns:1fr 1fr !important; } .ev-why-section{ padding:70px 32px !important; } }
-          @media(max-width:600px){ .ev-why-grid{ grid-template-columns:1fr !important; } .ev-why-section{ padding:60px 20px !important; } }
-        `}</style>
       </section>
 
       {/* ── FINAL CTA ── */}
-      <section id="survey" style={{ padding: '90px 52px' }} className="ev-final-cta">
-        <div style={{ maxWidth: 1140, margin: '0 auto' }}>
-          <div className="reveal" style={{
-            background: 'linear-gradient(135deg, rgba(43,91,168,.22), rgba(90,140,46,.12))',
-            border: '1px solid rgba(43,91,168,.35)',
-            borderRadius: 24, padding: '64px 56px', textAlign: 'center', position: 'relative', overflow: 'hidden',
-          }}>
-            <div style={{
-              position: 'absolute', top: -80, left: '50%', transform: 'translateX(-50%)',
-              width: 400, height: 300,
-              background: 'radial-gradient(circle, rgba(43,91,168,.15), transparent 70%)',
-              pointerEvents: 'none',
-            }} />
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--blue-hi)', marginBottom: 20 }}>
-                Planning to install an EV charger?
+      <section id="survey" className="py-20 lg:py-24 px-6 lg:px-12">
+        <div className="max-w-[1140px] mx-auto">
+          <div className="bg-gradient-to-br from-[#2b5ba8]/20 to-[#5a8c2e]/10 border border-[#2b5ba8]/35 rounded-[24px] p-10 sm:p-14 lg:p-16 text-center relative overflow-hidden reveal-tw opacity-0 translate-y-7 transition-all duration-700">
+            <div className="absolute -top-[80px] left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-[radial-gradient(circle,rgba(43,91,168,0.15),transparent_70%)] pointer-events-none" />
+            
+            <div className="relative z-10">
+              <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] text-[#4a7fd4] uppercase mb-5 flex items-center justify-center gap-3">
+                 <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Planning to install an EV charger? <span className="block w-6 h-[1px] bg-[#4a7fd4]" />
               </div>
-              <h2 style={{
-                fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: 'clamp(36px,5vw,64px)', letterSpacing: 2, lineHeight: .95, marginBottom: 16,
-              }}>
+              <h2 className="font-['Bebas_Neue'] text-[clamp(36px,5vw,64px)] leading-[0.95] tracking-wide mb-4">
                 GET STARTED<br />
-                <span style={{ color: 'var(--blue-hi)' }}>TODAY</span>
+                <span className="text-[#4a7fd4]">TODAY</span>
               </h2>
-              <p style={{ fontSize: 16, color: 'var(--light)', maxWidth: 480, margin: '0 auto 40px', lineHeight: 1.7 }}>
+              <p className="text-[16px] text-[#c8d8f0] max-w-[480px] mx-auto mb-10 leading-relaxed">
                 Speak with our team for a technical assessment and tailored recommendation — at no cost.
               </p>
-              <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }} className="ev-final-btns">
-                <a href="mailto:hello@wattenpower.co.uk" style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  background: 'linear-gradient(135deg, var(--blue), var(--blue-hi))',
-                  color: '#fff', fontWeight: 500, fontSize: 14, textTransform: 'uppercase', letterSpacing: 1,
-                  padding: '15px 36px', borderRadius: 50, textDecoration: 'none', transition: 'all .25s',
-                  boxShadow: '0 8px 28px rgba(43,91,168,.4)',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 14px 40px rgba(43,91,168,.55)' }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 8px 28px rgba(43,91,168,.4)' }}
-                >Request a Quote →</a>
-                <a href="mailto:hello@wattenpower.co.uk" style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  background: 'transparent', color: 'var(--white)',
-                  fontSize: 14, textTransform: 'uppercase', letterSpacing: 1,
-                  padding: '15px 36px', borderRadius: 50,
-                  border: '1px solid rgba(255,255,255,.2)',
-                  textDecoration: 'none', transition: 'all .25s',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--blue-hi)'; e.currentTarget.style.color = 'var(--blue-hi)' }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,.2)'; e.currentTarget.style.color = 'var(--white)' }}
-                >Book Site Survey ↗</a>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="mailto:hello@wattenpower.co.uk" className="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-gradient-to-br from-[#2B5BA8] to-[#4a7fd4] text-white font-medium text-[14px] uppercase tracking-wide py-3.5 px-9 rounded-full shadow-[0_8px_28px_rgba(43,91,168,0.4)] hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(43,91,168,0.55)] transition-all">
+                  Request a Quote →
+                </a>
+                <a href="mailto:hello@wattenpower.co.uk" className="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-transparent text-white text-[14px] uppercase tracking-wide py-3.5 px-9 rounded-full border border-white/20 hover:border-[#4a7fd4] hover:text-[#4a7fd4] transition-all">
+                  Book Site Survey ↗
+                </a>
               </div>
             </div>
           </div>
         </div>
-        <style>{`
-          @media(max-width:960px){ .ev-final-cta{ padding:70px 32px !important; } }
-          @media(max-width:600px){ .ev-final-cta{ padding:60px 20px !important; } .ev-final-cta > div > div{ padding:44px 24px !important; border-radius:18px !important; } .ev-final-btns{ flex-direction:column !important; align-items:stretch !important; } .ev-final-btns a{ justify-content:center !important; } }
-        `}</style>
       </section>
 
-      {/* Hero responsive */}
-      <style>{`
-        @media(max-width:960px){ .ev-hero{ padding:100px 32px 64px !important; } .ev-hero-grid{ grid-template-columns:1fr !important; gap:40px !important; } .ev-hero-card{ display:block; } }
-        @media(max-width:600px){ .ev-hero{ padding:100px 20px 56px !important; } .ev-hero-cta{ flex-direction:column !important; align-items:stretch !important; } .ev-hero-cta a{ justify-content:center !important; } }
-      `}</style>
     </div>
   )
 }
 
 function RangeCard({ r, i }) {
   return (
-    <div className={`reveal reveal-delay-${(i % 3) + 1}`} style={{
-      background: r.accent, border: `1px solid ${r.border}`,
-      borderRadius: 16, padding: '28px 24px', position: 'relative',
-      transition: 'transform .3s', cursor: 'default',
-    }}
-      onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
-      onMouseLeave={e => e.currentTarget.style.transform = ''}
-    >
+    <div className={`reveal-tw opacity-0 translate-y-7 transition-all duration-700 ${r.bgAccent} border ${r.borderColor} ${r.hoverBorder} rounded-2xl p-7 relative hover:-translate-y-1`} style={{ transitionDelay: `${(i % 3) * 100}ms` }}>
       {r.featured && (
-        <div style={{
-          position: 'absolute', top: 16, right: 16,
-          fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: 1.5,
-          padding: '4px 10px', borderRadius: 50,
-          background: 'rgba(43,91,168,.3)', color: 'var(--blue-hi)',
-          border: '1px solid rgba(43,91,168,.4)',
-          textTransform: 'uppercase',
-        }}>Popular</div>
+        <div className="absolute top-4 right-4 font-['Space_Mono'] font-mono text-[9px] tracking-widest py-1 px-2.5 rounded-full bg-[#2b5ba8]/30 text-[#4a7fd4] border border-[#2b5ba8]/40 uppercase">
+          Popular
+        </div>
       )}
-      <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 2, color: r.color, marginBottom: 10 }}>{r.label}</div>
-      <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, letterSpacing: 1, marginBottom: 4 }}>{r.title}</div>
-      <div style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 20 }}>{r.sub}</div>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div className={`font-['Space_Mono'] font-mono text-[10px] tracking-widest mb-2.5 ${r.color}`}>{r.label}</div>
+      <div className="font-['Bebas_Neue'] text-[22px] tracking-wide mb-1">{r.title}</div>
+      <div className="text-[12px] text-[#6a80a8] mb-5">{r.sub}</div>
+      <ul className="flex flex-col gap-2">
         {r.features.map((f, j) => (
-          <li key={j} style={{ display: 'flex', gap: 8, fontSize: 12, color: 'var(--muted)', alignItems: 'flex-start' }}>
-            <span style={{ color: r.color, flexShrink: 0, fontFamily: "'Space Mono',monospace" }}>→</span>{f}
+          <li key={j} className="flex gap-2 text-[12px] text-[#6a80a8] items-start">
+            <span className={`${r.color} shrink-0 font-['Space_Mono'] font-mono`}>→</span>{f}
           </li>
         ))}
       </ul>

@@ -1,146 +1,86 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../../assets/logo.png';
+
+const navItems = [
+  { label: "EV", link: "/ev-charging" },
+  { label: "Solar", link: "/solar" },
+  { label: "Services", link: "#services" },
+  { label: "Why Us", link: "#why" },
+  { label: "Our Approach", link: "#approach" },
+  { label: "Compliance", link: "#compliance" },
+];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  const closeMenu = () => setMenuOpen(false)
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <>
-      <nav style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '0 52px', height: '70px',
-        background: scrolled ? 'rgba(4,16,31,.97)' : 'rgba(4,16,31,.88)',
-        backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(43,91,168,.22)',
-        transition: 'background .3s',
-      }}>
-        <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none' }}>
-          <span style={{
-            fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, letterSpacing: 2, lineHeight: 1
-          }}>
-            <span style={{ color: 'var(--blue-hi)' }}>WATTEN </span>
-            <span style={{ color: 'var(--green-hi)' }}>POWER</span>
-          </span>
-        </a>
+    <nav 
+      className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 lg:px-12 h-[70px] backdrop-blur-xl border-b border-[#2b5ba8]/20 transition-all duration-300 ${
+        scrolled ? 'bg-[#04101f]/95 shadow-lg' : 'bg-[#04101f]/90'
+      }`}
+    >
+      {/* ── LOGO ── */}
+      <Link to="/" className="flex items-center gap-3">
+        <img src={logo} alt="logo" className="h-[40px]" />
+      </Link>
 
-        {/* Desktop links */}
-        <ul style={{
-          display: 'flex', alignItems: 'center', gap: 36, listStyle: 'none', margin: 0, padding: 0
-        }} className="nav-links-desktop">
-          {['Services', 'Why Us', 'Our Approach', 'Compliance'].map((item, i) => (
-            <li key={i}>
-              <a href={`#${item.toLowerCase().replace(/\s+/g, '').replace('whyus', 'why').replace('ourapproach', 'approach')}`}
-                style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: 13, fontWeight: 400, letterSpacing: .5, transition: 'color .2s' }}
-                onMouseEnter={e => e.target.style.color = 'var(--white)'}
-                onMouseLeave={e => e.target.style.color = 'var(--muted)'}
-              >{item}</a>
-            </li>
-          ))}
-          <li>
-            <a href="#contact" style={{
-              background: 'var(--green)', color: '#fff', padding: '9px 22px',
-              borderRadius: 50, fontWeight: 500, fontSize: 13, textDecoration: 'none',
-              transition: 'background .2s, transform .2s', display: 'inline-block'
-            }}
-              onMouseEnter={e => { e.target.style.background = 'var(--green-hi)'; e.target.style.transform = 'translateY(-1px)' }}
-              onMouseLeave={e => { e.target.style.background = 'var(--green)'; e.target.style.transform = '' }}
-            >Get a Quote</a>
+      {/* ── MOBILE HAMBURGER BUTTON ── */}
+      <button 
+        className="flex lg:hidden flex-col gap-[5px] p-2 z-[101]"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`}></span>
+        <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+        <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`}></span>
+      </button>
+
+      {/* ── UNIFIED LINKS (DESKTOP + MOBILE) ── */}
+      <ul className={`
+        absolute lg:static top-[70px] inset-x-0 bg-[#04101f]/95 lg:bg-transparent backdrop-blur-xl lg:backdrop-blur-none
+        border-b lg:border-none border-[#2b5ba8]/20
+        flex-col lg:flex-row p-6 lg:p-0 gap-6 lg:gap-9 items-start lg:items-center
+        transition-all duration-300 ease-in-out lg:transform-none lg:opacity-100 lg:pointer-events-auto lg:flex
+        ${menuOpen ? 'translate-y-0 opacity-100 pointer-events-auto flex' : '-translate-y-full opacity-0 pointer-events-none hidden'}
+      `}>
+        {navItems.map((item) => (
+          <li key={item.label} className="w-full lg:w-auto border-b lg:border-none border-[#2b5ba8]/10 pb-4 lg:pb-0">
+            {item.link.startsWith('/') ? (
+              <Link 
+                to={item.link} 
+                onClick={() => setMenuOpen(false)}
+                className="text-[#6a80a8] hover:text-white text-sm tracking-wide transition-colors block"
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <a 
+                href={item.link} 
+                onClick={() => setMenuOpen(false)}
+                className="text-[#6a80a8] hover:text-white text-sm tracking-wide transition-colors block"
+              >
+                {item.label}
+              </a>
+            )}
           </li>
-        </ul>
-
-        {/* Hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{
-            display: 'none', flexDirection: 'column', gap: 5,
-            cursor: 'pointer', padding: 8, background: 'none', border: 'none',
-            borderRadius: 8, transition: 'background .2s',
-          }}
-          className="nav-hamburger"
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
-        >
-          <span style={{
-            display: 'block', width: 24, height: 2,
-            background: menuOpen ? 'var(--green-hi)' : 'var(--muted)',
-            borderRadius: 1, transition: 'transform .3s, background .2s',
-            transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : '',
-          }} />
-          <span style={{
-            display: 'block', width: 24, height: 2,
-            background: menuOpen ? 'var(--green-hi)' : 'var(--muted)',
-            borderRadius: 1, transition: 'opacity .3s, background .2s',
-            opacity: menuOpen ? 0 : 1,
-          }} />
-          <span style={{
-            display: 'block', width: 24, height: 2,
-            background: menuOpen ? 'var(--green-hi)' : 'var(--muted)',
-            borderRadius: 1, transition: 'transform .3s, background .2s',
-            transform: menuOpen ? 'rotate(-45deg) translate(5px, -5px)' : '',
-          }} />
-        </button>
-      </nav>
-
-      {/* Mobile menu — rendered outside nav to avoid z-index stacking issues */}
-      <div style={{
-        display: menuOpen ? 'flex' : 'none',
-        flexDirection: 'column',
-        position: 'fixed',
-        top: 70, left: 0, right: 0,
-        background: 'rgba(4,16,31,.98)',
-        padding: '28px 24px',
-        gap: 0,
-        borderBottom: '1px solid rgba(43,91,168,.25)',
-        backdropFilter: 'blur(20px)',
-        zIndex: 99,
-      }}>
-        {['Services', 'Why Us', 'Our Approach', 'Compliance'].map((item, i) => (
-          <a
-            key={i}
-            href={`#${item.toLowerCase().replace(/\s+/g, '').replace('whyus', 'why').replace('ourapproach', 'approach')}`}
-            onClick={closeMenu}
-            style={{
-              color: 'var(--muted)', textDecoration: 'none', fontSize: 15,
-              padding: '14px 0',
-              borderBottom: '1px solid rgba(43,91,168,.15)',
-              transition: 'color .2s',
-              display: 'block',
-            }}
-            onMouseEnter={e => e.target.style.color = 'var(--white)'}
-            onMouseLeave={e => e.target.style.color = 'var(--muted)'}
-          >
-            {item}
-          </a>
         ))}
-        <a href="#contact" onClick={closeMenu}
-          style={{
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            marginTop: 20,
-            background: 'var(--green)', color: '#fff',
-            padding: '13px 28px', borderRadius: 50,
-            fontWeight: 500, fontSize: 14, textDecoration: 'none',
-            textAlign: 'center',
-          }}>
-          Get a Quote
-        </a>
-      </div>
-
-      <style>{`
-        @media (max-width: 960px) {
-          .nav-links-desktop { display: none !important; }
-          .nav-hamburger { display: flex !important; }
-          nav { padding: 0 20px !important; }
-        }
-      `}</style>
-    </>
-  )
+        <li className="pt-2 lg:pt-0 w-full lg:w-auto">
+          <a 
+            href="#contact" 
+            onClick={() => setMenuOpen(false)}
+            className="flex items-center justify-center w-full lg:w-auto bg-[#2B5BA8] hover:bg-[#4a7fd4] text-white text-sm font-medium px-6 py-2.5 rounded-full transition-all hover:-translate-y-0.5"
+          >
+            Get a Quote
+          </a>
+        </li>
+      </ul>
+    </nav>
+  );
 }

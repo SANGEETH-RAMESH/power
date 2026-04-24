@@ -16,7 +16,7 @@ const services = [
     ],
     cta: 'Request Installation →',
     green: false,
-    link:'/ev'
+    link:'/contact-us'
   },
   {
     num: '02 / SOLAR POWER',
@@ -32,7 +32,7 @@ const services = [
     ],
     cta: 'Get Solar Quote →',
     green: true,
-    link:"/solar"
+    link:"/contact-us"
   },
 ]
 
@@ -188,7 +188,7 @@ export default function Services() {
               </ul>
 
               <Link
-                // to={s.link}
+                to={s.link}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
