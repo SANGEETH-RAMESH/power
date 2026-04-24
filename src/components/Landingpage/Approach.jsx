@@ -1,4 +1,4 @@
-import { useReveal } from '../hooks/useReveal'
+import { useReveal } from '../../hooks/useReveal'
 
 const steps = [
   { num: '01', title: 'ASSESSMENT', desc: 'We survey your property, review your energy usage, and assess your requirements — residential or commercial.' },

@@ -1,4 +1,4 @@
-import { useReveal } from '../hooks/useReveal'
+import { useReveal } from '../../hooks/useReveal'
 
 const certs = [
   { icon: '🏅', name: 'MCS', desc: 'Microgeneration Certification Scheme for solar' },

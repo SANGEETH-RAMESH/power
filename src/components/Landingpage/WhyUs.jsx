@@ -1,4 +1,4 @@
-import { useReveal } from '../hooks/useReveal'
+import { useReveal } from '../../hooks/useReveal'
 
 const pillars = [
   { icon: '🔍', title: 'NEEDS-BASED DESIGN', desc: 'Systems sized and configured based on your actual energy usage and property, not generic packages.' },
