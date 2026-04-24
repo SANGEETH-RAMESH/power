@@ -1,5 +1,5 @@
 import { useReveal } from '../../hooks/useReveal'
-import { Link } from "react-router-dom"; // ✅ added
+import { Link } from "react-router-dom"; 
 
 const services = [
   {
@@ -46,7 +46,8 @@ export default function Services() {
       style={{ position: 'relative', zIndex: 2, padding: '110px 0 100px' }}
       className="services-section"
     >
-      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }} className="services-container">
+      {/* ✅ UPDATED: Used clamp() so padding shrinks from 52px to 20px on mobile */}
+      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 clamp(20px, 5vw, 52px)' }} className="services-container">
         
         <div className="section-label reveal">What We Do</div>
 
@@ -70,7 +71,15 @@ export default function Services() {
           Professional installation for every stage of your clean energy journey — from charging your car to powering your property from the sun.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 60 }} className="services-grid">
+        {/* ✅ UPDATED: Used auto-fit and minmax to automatically wrap cards on smaller screens */}
+        <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', 
+            gap: 24, 
+            marginTop: 60 
+          }} 
+          className="services-grid"
+        >
           
           {services.map((s, i) => (
             <div
@@ -178,9 +187,8 @@ export default function Services() {
                 ))}
               </ul>
 
-              {/* ✅ UPDATED BUTTON */}
               <Link
-                to={s.link}
+                // to={s.link}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -195,6 +203,8 @@ export default function Services() {
                     : 'rgba(74,127,212,.3)'}`,
                   paddingBottom: 2,
                   transition: 'color .2s, border-color .2s',
+                  position: 'relative',
+                  zIndex: 2 // ensures the link is clickable above the absolute gradient
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.color = 'var(--white)'
