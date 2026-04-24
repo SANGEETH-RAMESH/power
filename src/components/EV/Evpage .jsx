@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
-import logo from '../../assets/logo.png'; 
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from "react-router-dom";
+import logo from '../../assets/logo.png';
 
 const navItems = [
-  { label: 'Solar', link: '/solar' },
-  { label: 'Services', link: '#services' },
-  { label: 'Process', link: '#process' },
-  { label: 'Range', link: '#range' },
-  { label: 'Support', link: '#support' },
+  { label: 'Home', link: '/' },
+  { label: 'EV', link: '/ev-charging' },
+  { label: "Solar", link: "/solar" }
 ];
 
 const installSteps = [
@@ -96,6 +95,7 @@ const whyUs = [
 
 export default function EVPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const els = document.querySelectorAll(".reveal-tw");
@@ -108,14 +108,14 @@ export default function EVPage() {
         }
       });
     }, { threshold: 0.12 });
-    
+
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
 
   return (
     <div className="relative z-10 bg-[#04101f] text-[#f2f7ff] font-['DM_Sans'] font-light leading-relaxed overflow-x-hidden selection:bg-[#2B5BA8] selection:text-white">
-      
+
       {/* ── NAV ── */}
       <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 lg:px-12 h-[70px] bg-[#04101f]/90 backdrop-blur-xl border-b border-[#2b5ba8]/20 transition-colors">
         <a href="/" className="flex items-center gap-3">
@@ -123,7 +123,7 @@ export default function EVPage() {
         </a>
 
         {/* Mobile Menu Button */}
-        <button 
+        <button
           className="flex lg:hidden flex-col gap-[5px] p-2 z-[101]"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
@@ -142,16 +142,19 @@ export default function EVPage() {
         `}>
           {navItems.map((item) => (
             <li key={item.label} className="w-full lg:w-auto border-b lg:border-none border-[#2b5ba8]/10 pb-4 lg:pb-0">
-              <a 
-                href={item.link} 
+              <Link
+                to={item.link}
                 onClick={() => setIsMenuOpen(false)}
-                className="text-[#6a80a8] hover:text-white text-sm tracking-wide transition-colors"
+                className={`text-sm tracking-wide transition-colors ${location.pathname === item.link
+                    ? "text-white font-semibold"  
+                    : "text-[#6a80a8] hover:text-white"
+                  }`}
               >
                 {item.label}
-              </a>
+              </Link>
             </li>
           ))}
-          <li className="pt-2 lg:pt-0">
+          {/* <li className="pt-2 lg:pt-0">
             <a 
               href="#survey" 
               onClick={() => setIsMenuOpen(false)}
@@ -159,7 +162,7 @@ export default function EVPage() {
             >
               Get a Quote
             </a>
-          </li>
+          </li> */}
         </ul>
       </nav>
 
@@ -167,7 +170,7 @@ export default function EVPage() {
       <section className="relative min-h-[88vh] flex flex-col justify-center pt-[120px] px-6 lg:px-12 pb-20 overflow-hidden border-b border-[#2b5ba8]/22">
         {/* Animated background grid */}
         <div className="absolute inset-0 pointer-events-none opacity-50 bg-[size:60px_60px] bg-[linear-gradient(rgba(43,91,168,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(43,91,168,0.15)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_60%_50%,black_30%,transparent_80%)]" />
-        
+
         {/* Glow */}
         <div className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(43,91,168,0.2)_0%,transparent_70%)] pointer-events-none" />
 
@@ -192,7 +195,7 @@ export default function EVPage() {
               <p className="text-[17px] text-[#c8d8f0] font-light leading-relaxed max-w-lg mb-10">
                 Reliable. Compliant. Future-Ready. Power your transition to electric mobility with professionally installed EV charging solutions by Watten Power Ltd.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="#survey" className="inline-flex justify-center items-center gap-2 bg-gradient-to-br from-[#2B5BA8] to-[#4a7fd4] text-white font-medium text-sm uppercase tracking-wide py-3.5 px-8 rounded-full shadow-[0_8px_28px_rgba(43,91,168,0.4)] hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(43,91,168,0.55)] transition-all">
                   Request a Quote →
@@ -320,7 +323,7 @@ export default function EVPage() {
                 Installation is only the first step. Reliable performance depends on proper support and maintenance. We remain your partner for the long term.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {afterSales.map((a, i) => (
                 <div key={i} className={`reveal-tw opacity-0 translate-y-7 transition-all duration-700 bg-[#0b1830]/75 border border-[#2b5ba8]/22 rounded-[14px] p-5 hover:border-[#4a7fd4]/40 hover:-translate-y-1 ${i === 4 ? 'sm:col-span-2' : ''}`} style={{ transitionDelay: `${(i % 2) * 100}ms` }}>
@@ -403,10 +406,10 @@ export default function EVPage() {
         <div className="max-w-[1140px] mx-auto">
           <div className="bg-gradient-to-br from-[#2b5ba8]/20 to-[#5a8c2e]/10 border border-[#2b5ba8]/35 rounded-[24px] p-10 sm:p-14 lg:p-16 text-center relative overflow-hidden reveal-tw opacity-0 translate-y-7 transition-all duration-700">
             <div className="absolute -top-[80px] left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-[radial-gradient(circle,rgba(43,91,168,0.15),transparent_70%)] pointer-events-none" />
-            
+
             <div className="relative z-10">
               <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] text-[#4a7fd4] uppercase mb-5 flex items-center justify-center gap-3">
-                 <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Planning to install an EV charger? <span className="block w-6 h-[1px] bg-[#4a7fd4]" />
+                <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Planning to install an EV charger? <span className="block w-6 h-[1px] bg-[#4a7fd4]" />
               </div>
               <h2 className="font-['Bebas_Neue'] text-[clamp(36px,5vw,64px)] leading-[0.95] tracking-wide mb-4">
                 GET STARTED<br />
@@ -415,7 +418,7 @@ export default function EVPage() {
               <p className="text-[16px] text-[#c8d8f0] max-w-[480px] mx-auto mb-10 leading-relaxed">
                 Speak with our team for a technical assessment and tailored recommendation — at no cost.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="mailto:hello@wattenpower.co.uk" className="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-gradient-to-br from-[#2B5BA8] to-[#4a7fd4] text-white font-medium text-[14px] uppercase tracking-wide py-3.5 px-9 rounded-full shadow-[0_8px_28px_rgba(43,91,168,0.4)] hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(43,91,168,0.55)] transition-all">
                   Request a Quote →

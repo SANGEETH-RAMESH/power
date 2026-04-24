@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import logo from '../../assets/logo.png';
 
 const navItems = [
-  { label: "EV", link: "/ev-charging" },
-  { label: "Solar", link: "/solar" },
-  { label: "Services", link: "#services" },
-  { label: "Why Us", link: "#why" },
-  { label: "Our Approach", link: "#approach" },
-  { label: "Compliance", link: "#compliance" },
+  { label: 'Home', link: '/' },
+  { label: 'EV', link: '/ev-charging' },
+  { label: "Solar", link: "/solar" }
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -22,10 +21,9 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav 
-      className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 lg:px-12 h-[70px] backdrop-blur-xl border-b border-[#2b5ba8]/20 transition-all duration-300 ${
-        scrolled ? 'bg-[#04101f]/95 shadow-lg' : 'bg-[#04101f]/90'
-      }`}
+    <nav
+      className={`fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 lg:px-12 h-[70px] backdrop-blur-xl border-b border-[#2b5ba8]/20 transition-all duration-300 ${scrolled ? 'bg-[#04101f]/95 shadow-lg' : 'bg-[#04101f]/90'
+        }`}
     >
       {/* ── LOGO ── */}
       <Link to="/" className="flex items-center gap-3">
@@ -33,7 +31,7 @@ export default function Navbar() {
       </Link>
 
       {/* ── MOBILE HAMBURGER BUTTON ── */}
-      <button 
+      <button
         className="flex lg:hidden flex-col gap-[5px] p-2 z-[101]"
         onClick={() => setMenuOpen(!menuOpen)}
       >
@@ -53,16 +51,19 @@ export default function Navbar() {
         {navItems.map((item) => (
           <li key={item.label} className="w-full lg:w-auto border-b lg:border-none border-[#2b5ba8]/10 pb-4 lg:pb-0">
             {item.link.startsWith('/') ? (
-              <Link 
-                to={item.link} 
+              <Link
+                to={item.link}
                 onClick={() => setMenuOpen(false)}
-                className="text-[#6a80a8] hover:text-white text-sm tracking-wide transition-colors block"
+                className={`text-sm tracking-wide transition-colors block ${location.pathname === item.link
+                    ? "text-white font-semibold"  
+                    : "text-[#6a80a8] hover:text-white"
+                  }`}
               >
                 {item.label}
               </Link>
             ) : (
-              <a 
-                href={item.link} 
+              <a
+                href={item.link}
                 onClick={() => setMenuOpen(false)}
                 className="text-[#6a80a8] hover:text-white text-sm tracking-wide transition-colors block"
               >
@@ -71,7 +72,7 @@ export default function Navbar() {
             )}
           </li>
         ))}
-        <li className="pt-2 lg:pt-0 w-full lg:w-auto">
+        {/* <li className="pt-2 lg:pt-0 w-full lg:w-auto">
           <a 
             href="#contact" 
             onClick={() => setMenuOpen(false)}
@@ -79,7 +80,7 @@ export default function Navbar() {
           >
             Get a Quote
           </a>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

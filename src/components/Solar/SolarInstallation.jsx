@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from '../../assets/logo.png';
 
 /* ─── Circuit Canvas ─────────────────────────────────────────── */
@@ -84,12 +84,9 @@ function useReveal() {
 
 /* ─── Data ───────────────────────────────────────────────────── */
 const navItems = [
-  // { label: 'Solar', link: '/solar' },
+  { label: 'Home', link: '/' },
   { label: 'EV', link: '/ev-charging' },
-  { label: 'Services', link: '#services' },
-  { label: 'Process', link: '#process' },
-  { label: 'Systems', link: '#range' },
-  { label: 'Support', link: '#support' },
+  { label: "Solar", link: "/solar" }
 ];
 
 const TICKER_ITEMS = ["MCS Certified Installations", "Solar PV Systems", "Residential & Commercial", "G98 / G99 Compliant", "High-Efficiency Panels", "Hybrid & Battery-Ready", "EV Integration Ready", "UK-Wide Installations", "End-to-End Service", "ROI-Focused Design"];
@@ -149,6 +146,7 @@ export default function SolarInstallation() {
   useReveal();
   const tickerItems = [...TICKER_ITEMS, ...TICKER_ITEMS];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <div className="bg-[#04101f] text-[#f2f7ff] font-['DM_Sans'] font-light leading-relaxed overflow-x-hidden selection:bg-[#2B5BA8] selection:text-white">
@@ -188,7 +186,10 @@ export default function SolarInstallation() {
                 <Link
                   to={item.link}
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-[#6a80a8] hover:text-white text-sm tracking-wide transition-colors"
+                  className={`text-sm tracking-wide transition-colors ${location.pathname === item.link
+                      ? "text-white font-semibold"
+                      : "text-[#6a80a8] hover:text-white"
+                    }`}
                 >
                   {item.label}
                 </Link>
@@ -203,7 +204,7 @@ export default function SolarInstallation() {
               )}
             </li>
           ))}
-          <li className="pt-2 lg:pt-0">
+          {/* <li className="pt-2 lg:pt-0">
             <a
               href="#contact"
               onClick={() => setIsMenuOpen(false)}
@@ -211,7 +212,7 @@ export default function SolarInstallation() {
             >
               Get a Quote
             </a>
-          </li>
+          </li> */}
         </ul>
       </nav>
 
