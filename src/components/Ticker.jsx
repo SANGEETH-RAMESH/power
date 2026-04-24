@@ -17,7 +17,7 @@ export default function Ticker() {
       <div className="anim-ticker" style={{ display: 'inline-flex', gap: 0 }}>
         {doubled.map((item, i) => (
           <span key={i} style={{
-            display: 'inline-flex', alignItems: 'center', gap: 12, padding: '0 36px',
+            display: 'inline-flex', alignItems: 'center', gap: 12, padding: '0 24px',
             fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: 2,
             textTransform: 'uppercase', color: 'rgba(255,255,255,.6)',
           }}>
@@ -26,6 +26,12 @@ export default function Ticker() {
           </span>
         ))}
       </div>
+
+      <style>{`
+        @media (max-width: 600px) {
+          .anim-ticker span { font-size: 10px !important; padding: 0 16px !important; letter-spacing: 1px !important; }
+        }
+      `}</style>
     </div>
   )
 }

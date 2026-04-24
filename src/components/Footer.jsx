@@ -5,7 +5,7 @@ export default function Footer() {
       borderTop: '1px solid var(--line)',
       padding: '60px 52px 36px',
       background: 'var(--ink-2)',
-    }}>
+    }} className="footer-root">
       <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: 48, marginBottom: 48 }} className="footer-top">
         {/* Brand */}
         <div>
@@ -56,11 +56,12 @@ export default function Footer() {
 
       <style>{`
         @media (max-width: 960px) {
-          .footer-top { grid-template-columns: 1fr 1fr !important; }
-          footer { padding: 44px 24px 28px !important; }
+          .footer-root { padding: 48px 32px 28px !important; }
+          .footer-top { grid-template-columns: 1fr 1fr !important; gap: 36px !important; }
         }
         @media (max-width: 600px) {
-          .footer-top { grid-template-columns: 1fr !important; }
+          .footer-root { padding: 44px 20px 24px !important; }
+          .footer-top { grid-template-columns: 1fr !important; gap: 32px !important; }
         }
       `}</style>
     </footer>
@@ -70,11 +71,14 @@ export default function Footer() {
 function FooterCol({ title, links }) {
   return (
     <div>
-      <h4 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 14, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 18, color: 'var(--light)', margin: '0 0 18px' }}>{title}</h4>
+      <h4 style={{
+        fontFamily: "'Bebas Neue', sans-serif", fontSize: 14, letterSpacing: 2,
+        textTransform: 'uppercase', color: 'var(--light)', margin: '0 0 18px',
+      }}>{title}</h4>
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
         {links.map((l, i) => (
           <li key={i}>
-            <a href={l.href} style={{ fontSize: 13, color: 'var(--muted)', textDecoration: 'none', transition: 'color .2s' }}
+            <a href={l.href} style={{ fontSize: 13, color: 'var(--muted)', textDecoration: 'none', transition: 'color .2s', wordBreak: 'break-word' }}
               onMouseEnter={e => e.target.style.color = 'var(--white)'}
               onMouseLeave={e => e.target.style.color = 'var(--muted)'}
             >{l.label}</a>

@@ -4,9 +4,9 @@ export default function CTA() {
   const ref = useReveal()
 
   return (
-    <section id="contact" ref={ref} style={{ position: 'relative', zIndex: 2, padding: '100px 0', borderTop: '1px solid var(--line)' }}>
-      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }}>
-        <div className="reveal" style={{
+    <section id="contact" ref={ref} style={{ position: 'relative', zIndex: 2, padding: '100px 0', borderTop: '1px solid var(--line)' }} className="cta-section">
+      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }} className="cta-container">
+        <div className="reveal cta-card" style={{
           background: 'linear-gradient(135deg, rgba(43,91,168,.22) 0%, rgba(90,140,46,.14) 100%)',
           border: '1px solid rgba(43,91,168,.35)',
           borderRadius: 24, padding: '70px 60px',
@@ -31,7 +31,7 @@ export default function CTA() {
             </div>
             <h2 style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: 'clamp(42px,6vw,72px)', letterSpacing: 2, lineHeight: .95, marginBottom: 20,
+              fontSize: 'clamp(38px, 6vw, 72px)', letterSpacing: 2, lineHeight: .95, marginBottom: 20,
             }}>
               GET YOUR<br />
               <span style={{ color: 'var(--green-hi)' }}>FREE QUOTE</span><br />
@@ -40,7 +40,7 @@ export default function CTA() {
             <p style={{ fontSize: 16, color: 'var(--light)', maxWidth: 500, margin: '0 auto 44px', lineHeight: 1.7 }}>
               Whether you need an EV charger, a solar system, or both — our team will assess your property and deliver a tailored proposal at no cost.
             </p>
-            <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div className="cta-buttons" style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
               <a href="mailto:hello@wattenpower.co.uk" style={{
                 display: 'inline-flex', alignItems: 'center', gap: 10,
                 background: 'var(--green)', color: '#fff',
@@ -71,10 +71,24 @@ export default function CTA() {
           </div>
         </div>
       </div>
+
       <style>{`
         @media (max-width: 960px) {
-          section > div > div { padding: 44px 28px !important; }
-          section > div { padding: 0 24px !important; }
+          .cta-section { padding: 70px 0 !important; }
+          .cta-container { padding: 0 32px !important; }
+          .cta-card { padding: 52px 36px !important; }
+        }
+        @media (max-width: 600px) {
+          .cta-container { padding: 0 20px !important; }
+          .cta-card { padding: 44px 24px !important; border-radius: 18px !important; }
+          .cta-buttons {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .cta-buttons a {
+            justify-content: center !important;
+            text-align: center !important;
+          }
         }
       `}</style>
     </section>

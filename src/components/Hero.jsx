@@ -9,7 +9,7 @@ export default function Hero() {
       padding: '0 52px',
       gap: 60,
       overflow: 'hidden',
-    }}>
+    }} className="hero-section">
       {/* Glow orb */}
       <div style={{
         position: 'absolute', width: 600, height: 600,
@@ -18,7 +18,7 @@ export default function Hero() {
       }} />
 
       {/* Content */}
-      <div style={{ position: 'relative', zIndex: 2, paddingTop: 70 }}>
+      <div style={{ position: 'relative', zIndex: 2, paddingTop: 70 }} className="hero-content">
         <div className="anim-fade-up" style={{
           display: 'inline-flex', alignItems: 'center', gap: 10,
           border: '1px solid var(--line-g)', background: 'var(--green-dim)',
@@ -35,7 +35,7 @@ export default function Hero() {
 
         <h1 className="anim-fade-up-1" style={{
           fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: 'clamp(56px, 7vw, 92px)',
+          fontSize: 'clamp(48px, 7vw, 92px)',
           lineHeight: .95, letterSpacing: 2, marginBottom: 10, margin: 0,
         }}>
           <span style={{ color: 'var(--white)', display: 'block' }}>SMART</span>
@@ -44,13 +44,13 @@ export default function Hero() {
         </h1>
 
         <p className="anim-fade-up-2" style={{
-          fontSize: 17, color: 'var(--light)', fontWeight: 300,
+          fontSize: 16, color: 'var(--light)', fontWeight: 300,
           maxWidth: 460, lineHeight: 1.7, margin: '24px 0 44px',
         }}>
           Professional EV charger and solar panel installation for residential and commercial properties across the UK. Safe, compliant, and future-ready.
         </p>
 
-        <div className="anim-fade-up-3" style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+        <div className="anim-fade-up-3 hero-cta" style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
           <a href="#services" style={{
             display: 'inline-flex', alignItems: 'center', gap: 10,
             background: 'linear-gradient(135deg, var(--blue), var(--blue-hi))',
@@ -138,7 +138,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll hint */}
-      <div style={{
+      <div className="hero-scroll-hint" style={{
         position: 'absolute', bottom: 36, left: 52, display: 'flex', alignItems: 'center', gap: 12,
         fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 2,
         color: 'var(--muted)', textTransform: 'uppercase', zIndex: 2,
@@ -148,9 +148,43 @@ export default function Hero() {
       </div>
 
       <style>{`
+        /* Tablet */
         @media (max-width: 960px) {
-          section { grid-template-columns: 1fr !important; padding: 0 24px !important; text-align: center; }
+          .hero-section {
+            grid-template-columns: 1fr !important;
+            padding: 0 32px !important;
+            padding-top: 90px !important;
+            padding-bottom: 60px !important;
+            min-height: auto !important;
+            gap: 0 !important;
+            text-align: center;
+          }
+          .hero-content { padding-top: 0 !important; }
           .hero-visual { display: none !important; }
+          .hero-cta { justify-content: center !important; }
+          .hero-scroll-hint { display: none !important; }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+          .hero-section {
+            padding: 0 20px !important;
+            padding-top: 100px !important;
+            padding-bottom: 60px !important;
+          }
+          .hero-cta {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+          }
+          .hero-cta a:first-child {
+            justify-content: center !important;
+          }
+          .hero-cta a:last-child {
+            justify-content: center !important;
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+          }
         }
       `}</style>
     </section>

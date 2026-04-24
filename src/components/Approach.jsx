@@ -16,12 +16,12 @@ export default function Approach() {
       padding: '100px 0',
       borderTop: '1px solid var(--line)',
       background: 'linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%)',
-    }}>
-      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }}>
+    }} className="approach-section">
+      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }} className="approach-container">
         <div className="section-label reveal">Our Approach</div>
         <h2 className="reveal reveal-delay-1" style={{
           fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: 'clamp(38px,5vw,62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 60,
+          fontSize: 'clamp(34px, 5vw, 62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 60,
         }}>HOW IT WORKS</h2>
 
         <div style={{
@@ -29,7 +29,7 @@ export default function Approach() {
           border: '1px solid var(--line)', borderRadius: 16, overflow: 'hidden',
         }} className="approach-steps">
           {steps.map((s, i) => (
-            <div key={i} className={`reveal reveal-delay-${i + 1}`} style={{
+            <div key={i} className={`reveal reveal-delay-${i + 1} approach-step`} style={{
               padding: '36px 28px',
               borderRight: i < 3 ? '1px solid var(--line)' : 'none',
               position: 'relative', transition: 'background .25s',
@@ -38,7 +38,7 @@ export default function Approach() {
               onMouseLeave={e => e.currentTarget.style.background = ''}
             >
               {i < 3 && (
-                <span style={{ position: 'absolute', right: 20, top: 36, fontSize: 18, color: 'var(--line)' }}>→</span>
+                <span className="approach-arrow" style={{ position: 'absolute', right: 20, top: 36, fontSize: 18, color: 'var(--line)' }}>→</span>
               )}
               <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: 2, color: 'var(--green-hi)', marginBottom: 20 }}>{s.num}</div>
               <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: 1, marginBottom: 12 }}>{s.title}</div>
@@ -47,13 +47,43 @@ export default function Approach() {
           ))}
         </div>
       </div>
+
       <style>{`
         @media (max-width: 960px) {
-          .approach-steps { grid-template-columns: 1fr 1fr !important; }
-          section > div { padding: 0 24px !important; }
+          .approach-section { padding: 70px 0 !important; }
+          .approach-container { padding: 0 32px !important; }
+          .approach-steps {
+            grid-template-columns: 1fr 1fr !important;
+          }
+          /* Reset borders for 2-col layout */
+          .approach-step {
+            border-right: none !important;
+            border-bottom: 1px solid var(--line);
+          }
+          .approach-step:nth-child(1),
+          .approach-step:nth-child(2) {
+            border-bottom: 1px solid var(--line);
+          }
+          .approach-step:nth-child(3),
+          .approach-step:nth-child(4) {
+            border-bottom: none;
+          }
+          .approach-step:nth-child(odd) {
+            border-right: 1px solid var(--line) !important;
+          }
+          .approach-arrow { display: none !important; }
         }
         @media (max-width: 600px) {
+          .approach-container { padding: 0 20px !important; }
           .approach-steps { grid-template-columns: 1fr !important; }
+          .approach-step {
+            border-right: none !important;
+            border-bottom: 1px solid var(--line) !important;
+          }
+          .approach-step:last-child {
+            border-bottom: none !important;
+          }
+          .approach-step { padding: 28px 24px !important; }
         }
       `}</style>
     </section>

@@ -17,14 +17,14 @@ export default function Compliance() {
       position: 'relative', zIndex: 2,
       padding: '80px 0',
       borderTop: '1px solid var(--line)',
-    }}>
-      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }}>
+    }} className="compliance-section">
+      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }} className="compliance-container">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }} className="compliance-inner">
           <div>
             <div className="section-label reveal">Standards & Compliance</div>
             <h2 className="reveal reveal-delay-1" style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: 'clamp(38px,5vw,62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 18,
+              fontSize: 'clamp(34px, 5vw, 62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 18,
             }}>SAFE.<br />CERTIFIED.<br />RELIABLE.</h2>
             <p className="reveal reveal-delay-2" style={{ fontSize: 16, color: 'var(--light)', fontWeight: 300, maxWidth: 520, lineHeight: 1.75 }}>
               Our installations are aligned with UK electrical and safety standards, ensuring long-term performance you can trust.
@@ -41,7 +41,7 @@ export default function Compliance() {
             {certs.map((c, i) => (
               <div key={i} className={`reveal reveal-delay-${(i % 3) + 1}`} style={{
                 background: 'var(--panel)', border: '1px solid var(--line)',
-                borderRadius: 14, padding: '22px 18px', textAlign: 'center',
+                borderRadius: 14, padding: '22px 16px', textAlign: 'center',
                 backdropFilter: 'blur(12px)', transition: 'border-color .25s',
               }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.4)'}
@@ -55,15 +55,22 @@ export default function Compliance() {
           </div>
         </div>
       </div>
+
       <style>{`
         @media (max-width: 960px) {
-          .compliance-inner { grid-template-columns: 1fr !important; }
-          section > div { padding: 0 24px !important; }
+          .compliance-section { padding: 70px 0 !important; }
+          .compliance-container { padding: 0 32px !important; }
+          .compliance-inner { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .cert-badges { grid-template-columns: repeat(3, 1fr) !important; }
         }
         @media (max-width: 600px) {
+          .compliance-container { padding: 0 20px !important; }
+          .cert-badges { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+        }
+        @media (max-width: 380px) {
           .cert-badges { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
   )
-}
+} 

@@ -4,7 +4,6 @@ const services = [
   {
     num: '01 / EV CHARGING',
     icon: '⚡',
-    iconClass: 'blue-bg',
     title: 'EV CHARGER INSTALLATION',
     desc: 'Home and commercial EV charger installation designed around your vehicle, property, and usage. We handle everything from survey to commissioning.',
     features: [
@@ -20,7 +19,6 @@ const services = [
   {
     num: '02 / SOLAR POWER',
     icon: '☀️',
-    iconClass: 'green-bg',
     title: 'SOLAR PANEL INSTALLATION',
     desc: 'Grid-tied, hybrid, and off-grid solar systems installed to MCS standards. Reduce your energy bills and earn from surplus generation via the Smart Export Guarantee.',
     features: [
@@ -39,12 +37,12 @@ export default function Services() {
   const ref = useReveal()
 
   return (
-    <section id="services" ref={ref} style={{ position: 'relative', zIndex: 2, padding: '110px 0 100px' }}>
-      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }}>
+    <section id="services" ref={ref} style={{ position: 'relative', zIndex: 2, padding: '110px 0 100px' }} className="services-section">
+      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }} className="services-container">
         <div className="section-label reveal">What We Do</div>
         <h2 className="reveal reveal-delay-1" style={{
           fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: 'clamp(38px,5vw,62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 18,
+          fontSize: 'clamp(34px, 5vw, 62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 18,
         }}>TWO SERVICES.<br />ONE PARTNER.</h2>
         <p className="reveal reveal-delay-2" style={{ fontSize: 16, color: 'var(--light)', fontWeight: 300, maxWidth: 520, lineHeight: 1.75 }}>
           Professional installation for every stage of your clean energy journey — from charging your car to powering your property from the sun.
@@ -52,7 +50,7 @@ export default function Services() {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 60 }} className="services-grid">
           {services.map((s, i) => (
-            <div key={i} className={`reveal reveal-delay-${i + 1}`} style={{
+            <div key={i} className={`reveal reveal-delay-${i + 1} service-card`} style={{
               background: 'var(--panel)',
               border: `1px solid ${s.green ? 'var(--line-g)' : 'var(--line)'}`,
               borderRadius: 20, padding: '40px 36px',
@@ -82,7 +80,7 @@ export default function Services() {
                 background: s.green ? 'rgba(90,140,46,.2)' : 'rgba(43,91,168,.2)',
                 border: `1px solid ${s.green ? 'rgba(90,140,46,.35)' : 'rgba(43,91,168,.4)'}`,
               }}>{s.icon}</div>
-              <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, letterSpacing: 1.5, marginBottom: 14 }}>{s.title}</div>
+              <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, letterSpacing: 1.5, marginBottom: 14 }}>{s.title}</div>
               <p style={{ fontSize: 14, color: 'var(--light)', lineHeight: 1.75, marginBottom: 28 }}>{s.desc}</p>
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {s.features.map((f, j) => (
@@ -107,11 +105,16 @@ export default function Services() {
           ))}
         </div>
       </div>
+
       <style>{`
         @media (max-width: 960px) {
-          .services-grid { grid-template-columns: 1fr !important; }
-          section { padding: 70px 0 !important; }
-          section > div { padding: 0 24px !important; }
+          .services-section { padding: 70px 0 !important; }
+          .services-container { padding: 0 32px !important; }
+          .services-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+        }
+        @media (max-width: 600px) {
+          .services-container { padding: 0 20px !important; }
+          .service-card { padding: 28px 24px !important; }
         }
       `}</style>
     </section>

@@ -21,15 +21,15 @@ export default function WhyUs() {
       position: 'relative', zIndex: 2,
       padding: '100px 0',
       borderTop: '1px solid var(--line)',
-    }}>
-      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }}>
+    }} className="why-section">
+      <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }} className="why-container">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 80, alignItems: 'center' }} className="why-grid">
           {/* Left */}
           <div>
             <div className="section-label reveal">Why Watten Power</div>
             <h2 className="reveal reveal-delay-1" style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: 'clamp(38px,5vw,62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 18,
+              fontSize: 'clamp(34px, 5vw, 62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 18,
             }}>ENGINEERING-<br />LED.<br />ALWAYS.</h2>
             <p className="reveal reveal-delay-2" style={{ fontSize: 16, color: 'var(--light)', fontWeight: 300, maxWidth: 520, lineHeight: 1.75 }}>
               We don't believe in off-the-shelf solutions. Every installation is designed around your actual usage, capacity, and long-term goals.
@@ -45,14 +45,14 @@ export default function WhyUs() {
               {stats.map((s, i) => (
                 <div key={i} style={{
                   background: i === 0 ? 'rgba(43,91,168,.12)' : 'var(--ink-2)',
-                  padding: '28px 24px', textAlign: 'center',
+                  padding: '24px 16px', textAlign: 'center',
                 }}>
                   <div style={{
-                    fontFamily: "'Bebas Neue', sans-serif", fontSize: 40, letterSpacing: 1,
+                    fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, letterSpacing: 1,
                     background: 'linear-gradient(135deg,var(--blue-hi),var(--green-hi))',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                   }}>{s.num}</div>
-                  <div style={{ fontSize: 11, color: 'var(--muted)', fontFamily: "'Space Mono', monospace", letterSpacing: 1, marginTop: 4 }}>{s.label}</div>
+                  <div style={{ fontSize: 10, color: 'var(--muted)', fontFamily: "'Space Mono', monospace", letterSpacing: 1, marginTop: 4 }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -77,13 +77,16 @@ export default function WhyUs() {
           </div>
         </div>
       </div>
+
       <style>{`
         @media (max-width: 960px) {
-          .why-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .why-section { padding: 70px 0 !important; }
+          .why-container { padding: 0 32px !important; }
+          .why-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
           .why-right { grid-template-columns: 1fr 1fr !important; }
-          section > div { padding: 0 24px !important; }
         }
         @media (max-width: 600px) {
+          .why-container { padding: 0 20px !important; }
           .why-right { grid-template-columns: 1fr !important; }
         }
       `}</style>
