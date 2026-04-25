@@ -5,8 +5,8 @@ import logo from '../../assets/logo.png';
 
 const navItems = [
   { label: 'Home', link: '/' },
-  { label: 'EV', link: '/ev-charging' },
-  { label: "Solar", link: "/solar" }
+  { label: 'EV Charger', link: '/ev-charger' },
+  { label: "Solar Solution", link: "/solar" }
 ];
 
 export default function Navbar() {

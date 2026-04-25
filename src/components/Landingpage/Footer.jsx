@@ -15,8 +15,8 @@ export default function Footer() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
             <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2 }}>
               <Link to="/" className="flex items-center gap-3">
-        <img src={logo} alt="logo" className="h-[40px]" />
-      </Link>
+                <img src={logo} alt="logo" className="h-[40px]" />
+              </Link>
 
             </span>
           </div>
@@ -27,10 +27,9 @@ export default function Footer() {
 
         {/* Services */}
         <FooterCol title="Services" links={[
-          { label: 'EV Charger Installation', href: '#services' },
-          { label: 'Solar Panel Installation', href: '#services' },
-          { label: 'Battery Storage', href: '#services' },
-          { label: 'Solar Estimator', href: '#services' },
+          { label: 'EV Charger Installation', href: '/ev-charger' },
+          { label: 'Solar Panel Installation', href: '/solar' },
+    
         ]} />
 
         {/* Company */}
@@ -38,12 +37,12 @@ export default function Footer() {
           { label: 'About Us', href: '#why' },
           { label: 'Our Approach', href: '#approach' },
           { label: 'Compliance', href: '#compliance' },
-          { label: 'Contact', href: '#contact' },
+          { label: 'Contact', href: '/contact-us' },
         ]} />
 
         {/* Contact */}
         <FooterCol title="Contact" links={[
-          { label: 'hello@wattenpower.co.uk', href: 'mailto:hello@wattenpower.co.uk' },
+          { label: 'info@wattenpower.com', href: 'mailto:info@wattenpower.com' },
           { label: 'United Kingdom', href: '#' },
           { label: 'Privacy Policy', href: '#' },
           { label: 'Terms of Service', href: '#' },

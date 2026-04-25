@@ -1,282 +1,624 @@
-import { useEffect, useState } from 'react'
-import logo from '../../assets/logo.png'; // Ensure this path is correct
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import logo from '../../assets/logo.png'
 
-/* ─── Scroll Reveal Hook ─────────────────────────────────────── */
-function useReveal() {
+const navItems = [
+  { label: "Home", link: "/" },
+  { label: "EV Charger", link: "/ev-charger" },
+  { label: "Solar Solution", link: "/solar" },
+];
+
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
   useEffect(() => {
-    const els = document.querySelectorAll(".reveal-tw");
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.remove("opacity-0", "translate-y-7");
-          e.target.classList.add("opacity-100", "translate-y-0");
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
-}
-
-export default function ContactPage() {
-  useReveal();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    telephone: '',
-    service: '',
-    comments: ''
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message. Our team will be in touch shortly.');
-  };
 
   return (
-    <div className="relative z-10 bg-[#04101f] text-[#f2f7ff] font-['DM_Sans'] font-light leading-relaxed overflow-x-hidden selection:bg-[#2B5BA8] selection:text-white min-h-screen flex flex-col">
-      
-      {/* ── BACKGROUND ── */}
-      <div className="fixed inset-0 pointer-events-none opacity-50 bg-[size:60px_60px] bg-[linear-gradient(rgba(43,91,168,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(43,91,168,0.1)_1px,transparent_1px)] z-0" />
-      <div className="fixed right-[-10%] top-[-10%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(43,91,168,0.15)_0%,transparent_70%)] pointer-events-none z-0" />
-      <div className="fixed left-[-10%] bottom-[-10%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(90,140,46,0.1)_0%,transparent_70%)] pointer-events-none z-0" />
+    <>
+      <style>{`
+        .wp-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 70px; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(43,91,168,.2); transition: background .3s; }
+        .wp-nav.scrolled { background: rgba(4,16,31,.95); box-shadow: 0 4px 24px rgba(0,0,0,.4); }
+        .wp-nav.not-scrolled { background: rgba(4,16,31,.9); }
+        .wp-nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .wp-nav-logo img { height: 40px; display: block; }
+        .wp-hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; background: none; border: none; cursor: pointer; z-index: 101; }
+        .wp-hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: all .3s; border-radius: 2px; }
+        .wp-hamburger span.top.open { transform: translateY(7px) rotate(45deg); }
+        .wp-hamburger span.mid.open { opacity: 0; }
+        .wp-hamburger span.bot.open { transform: translateY(-7px) rotate(-45deg); }
+        .wp-nav-links { display: flex; flex-direction: row; align-items: center; gap: 36px; list-style: none; margin: 0; padding: 0; }
+        .wp-nav-links li { border: none; padding: 0; }
+        .wp-nav-link { font-size: 14px; letter-spacing: .3px; text-decoration: none; transition: color .2s; display: block; color: #6a80a8; }
+        .wp-nav-link:hover { color: #f0f6ff; }
+        .wp-nav-link.active { color: #f0f6ff; font-weight: 500; }
+        @media (max-width: 900px) {
+          .wp-nav { padding: 0 20px; }
+          .wp-hamburger { display: flex; }
+          .wp-nav-links { position: absolute; top: 70px; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 0; background: rgba(4,16,31,.97); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(43,91,168,.2); padding: 0; overflow: hidden; max-height: 0; opacity: 0; pointer-events: none; transition: max-height .3s ease, opacity .3s ease; }
+          .wp-nav-links.open { max-height: 400px; opacity: 1; pointer-events: all; }
+          .wp-nav-links li { width: 100%; border-bottom: 1px solid rgba(43,91,168,.1); }
+          .wp-nav-link { padding: 16px 24px; }
+        }
+      `}</style>
 
-      {/* ── NAV ── */}
-      <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 lg:px-12 h-[70px] bg-[#04101f]/90 backdrop-blur-xl border-b border-[#2b5ba8]/20 transition-colors">
-        <a href="/" className="flex items-center gap-3">
-          <img src={logo} alt="logo" className="h-[40px]" />
-        </a>
+      <nav className={`wp-nav ${scrolled ? "scrolled" : "not-scrolled"}`}>
+        <Link to="/" className="wp-nav-logo">
+          <img src={logo} alt="Watten Power" />
+        </Link>
 
-        {/* Mobile Menu Button */}
-        <button 
-          className="flex lg:hidden flex-col gap-[5px] p-2 z-[101]"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        <button
+          className="wp-hamburger"
+          onClick={() => setMenuOpen((p) => !p)}
+          aria-label="Toggle menu"
         >
-          <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? 'translate-y-[7px] rotate-45' : ''}`}></span>
-          <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-          <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? '-translate-y-[7px] -rotate-45' : ''}`}></span>
+          <span className={`top ${menuOpen ? "open" : ""}`} />
+          <span className={`mid ${menuOpen ? "open" : ""}`} />
+          <span className={`bot ${menuOpen ? "open" : ""}`} />
         </button>
 
-        {/* Links */}
-        <ul className={`
-          absolute lg:static top-[70px] inset-x-0 bg-[#04101f]/95 lg:bg-transparent backdrop-blur-xl lg:backdrop-blur-none
-          border-b lg:border-none border-[#2b5ba8]/20
-          flex-col lg:flex-row p-6 lg:p-0 gap-6 lg:gap-9 items-start lg:items-center
-          transition-all duration-300 ease-in-out lg:transform-none lg:opacity-100 lg:pointer-events-auto lg:flex
-          ${isMenuOpen ? 'translate-y-0 opacity-100 pointer-events-auto flex' : '-translate-y-full opacity-0 pointer-events-none hidden'}
-        `}>
-          {['Solar', 'EV Charging', 'Process', 'Support'].map((item) => (
-            <li key={item} className="w-full lg:w-auto border-b lg:border-none border-[#2b5ba8]/10 pb-4 lg:pb-0">
-              <a 
-                href={`/${item.toLowerCase().replace(' ', '-')}`} 
-                onClick={() => setIsMenuOpen(false)}
-                className="text-[#6a80a8] hover:text-white text-sm tracking-wide transition-colors"
+        <ul className={`wp-nav-links ${menuOpen ? "open" : ""}`}>
+          {navItems.map((item) => (
+            <li key={item.label}>
+              <Link
+                to={item.link}
+                onClick={() => setMenuOpen(false)}
+                className={`wp-nav-link ${location.pathname === item.link ? "active" : ""}`}
               >
-                {item}
-              </a>
+                {item.label}
+              </Link>
             </li>
           ))}
-          <li className="pt-2 lg:pt-0">
-            <a 
-              href="#contact" 
-              onClick={() => setIsMenuOpen(false)}
-              className="bg-[#2B5BA8] hover:bg-[#4a7fd4] text-white text-sm font-medium px-6 py-2.5 rounded-full transition-all hover:-translate-y-0.5 inline-block"
-            >
-              Get a Quote
-            </a>
-          </li>
         </ul>
       </nav>
+    </>
+  );
+}
 
-      {/* ── MAIN CONTENT ── */}
-      <main className="flex-grow pt-[120px] lg:pt-[160px] pb-20 px-6 lg:px-12 relative z-10 flex items-center">
-        <div className="max-w-[1140px] mx-auto w-full">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-20 items-start">
-            
-            {/* Left Side: Minimal Intro */}
-            <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700 lg:sticky lg:top-[160px]">
-              <div className="inline-flex items-center gap-2 mb-6 font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#6a80a8] uppercase">
-                <a href="/" className="hover:text-white transition-colors">Home</a>
-                <span className="text-[#2b5ba8]/50">→</span>
-                <span className="text-[#4a7fd4]">Contact Us</span>
-              </div>
+export default function Contact() {
+  const [formData, setFormData] = useState({ fullName: "", phone: "", email: "", postcode: "", message: "" });
+  const [services, setServices] = useState({ ev: false, solar: false });
+  const [evDetails, setEvDetails] = useState({ property: "", parking: "", chargers: "", phase: "", hasEV: "" });
+  const [solarDetails, setSolarDetails] = useState({ property: "", roof: "", bill: "", battery: "" });
+  const [consented, setConsented] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [refCode, setRefCode] = useState("");
+  const [files, setFiles] = useState([]);
+  const [dragging, setDragging] = useState(false);
 
-              <h1 className="font-['Bebas_Neue'] text-[clamp(48px,6.5vw,88px)] leading-[0.92] tracking-wide mb-6">
-                <span className="text-white block">GET IN</span>
-                <span className="text-[#4a7fd4] block">TOUCH</span>
-              </h1>
-              
-              <p className="text-[16px] text-[#c8d8f0] font-light leading-relaxed max-w-md">
-                Whether you're looking for a new solar installation, an EV charger for your home, or need support with your existing system, our expert team is ready to help.
-              </p>
-            </div>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("vis")),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll(".c-reveal").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
-            {/* Right Side: Contact Form */}
-            <div className="bg-[#0b1830]/75 border border-[#2b5ba8]/22 rounded-[24px] p-8 lg:p-12 backdrop-blur-xl reveal-tw opacity-0 translate-y-7 transition-all duration-700 delay-150 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(43,91,168,0.1)_0%,transparent_70%)] pointer-events-none" />
-              
-              <div className="font-['Bebas_Neue'] text-3xl tracking-wide mb-2">SEND US A MESSAGE</div>
-              <p className="text-[13px] text-[#6a80a8] mb-8">Fill out the form below and we'll get back to you within 24 hours.</p>
-              
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative z-10">
-                
-                {/* Row 1: Name */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="firstName" className="font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#6a80a8] uppercase ml-1">First Name <span className="text-[#4a7fd4]">*</span></label>
-                    <input 
-                      type="text" 
-                      id="firstName"
-                      name="firstName"
-                      required
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      placeholder="John"
-                      className="w-full bg-[#04101f]/50 border border-[#2b5ba8]/30 rounded-xl px-4 py-3.5 text-[14px] text-white placeholder:text-[#6a80a8]/50 focus:outline-none focus:border-[#4a7fd4] focus:ring-1 focus:ring-[#4a7fd4]/50 transition-all"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="lastName" className="font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#6a80a8] uppercase ml-1">Last Name <span className="text-[#4a7fd4]">*</span></label>
-                    <input 
-                      type="text" 
-                      id="lastName"
-                      name="lastName"
-                      required
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      placeholder="Doe"
-                      className="w-full bg-[#04101f]/50 border border-[#2b5ba8]/30 rounded-xl px-4 py-3.5 text-[14px] text-white placeholder:text-[#6a80a8]/50 focus:outline-none focus:border-[#4a7fd4] focus:ring-1 focus:ring-[#4a7fd4]/50 transition-all"
-                    />
-                  </div>
-                </div>
+  const validate = () => {
+    const errs = {};
+    if (!formData.fullName.trim()) errs.fullName = "Please enter your full name";
+    if (formData.phone.trim().length < 7) errs.phone = "Please enter your phone number";
+    if (!formData.email.includes("@")) errs.email = "Please enter a valid email address";
+    if (!formData.postcode.trim()) errs.postcode = "Please enter your address or postcode";
+    if (!services.ev && !services.solar) errs.service = "Please select at least one service";
+    if (!consented) errs.consent = "Please accept the terms to submit";
+    return errs;
+  };
 
-                {/* Row 2: Contact */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="email" className="font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#6a80a8] uppercase ml-1">Email Address <span className="text-[#4a7fd4]">*</span></label>
-                    <input 
-                      type="email" 
-                      id="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="john@example.com"
-                      className="w-full bg-[#04101f]/50 border border-[#2b5ba8]/30 rounded-xl px-4 py-3.5 text-[14px] text-white placeholder:text-[#6a80a8]/50 focus:outline-none focus:border-[#4a7fd4] focus:ring-1 focus:ring-[#4a7fd4]/50 transition-all"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="telephone" className="font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#6a80a8] uppercase ml-1">Telephone</label>
-                    <input 
-                      type="tel" 
-                      id="telephone"
-                      name="telephone"
-                      value={formData.telephone}
-                      onChange={handleChange}
-                      placeholder="07000 000 000"
-                      className="w-full bg-[#04101f]/50 border border-[#2b5ba8]/30 rounded-xl px-4 py-3.5 text-[14px] text-white placeholder:text-[#6a80a8]/50 focus:outline-none focus:border-[#4a7fd4] focus:ring-1 focus:ring-[#4a7fd4]/50 transition-all"
-                    />
-                  </div>
-                </div>
+  const handleSubmit = () => {
+    const errs = validate();
+    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
+    setSubmitting(true);
+    setTimeout(() => {
+      setRefCode("WP-" + Math.floor(100000 + Math.random() * 900000));
+      setSubmitted(true);
+      setSubmitting(false);
+    }, 1800);
+  };
 
-                {/* Row 3: Services Dropdown */}
-                <div className="flex flex-col gap-2 relative">
-                  <label htmlFor="service" className="font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#6a80a8] uppercase ml-1">Service Required <span className="text-[#4a7fd4]">*</span></label>
-                  <div className="relative">
-                    <select 
-                      id="service"
-                      name="service"
-                      required
-                      value={formData.service}
-                      onChange={handleChange}
-                      className="appearance-none w-full bg-[#04101f]/50 border border-[#2b5ba8]/30 rounded-xl px-4 py-3.5 text-[14px] text-white focus:outline-none focus:border-[#4a7fd4] focus:ring-1 focus:ring-[#4a7fd4]/50 transition-all cursor-pointer"
-                      style={{ color: formData.service ? 'white' : 'rgba(106, 128, 168, 0.5)' }}
-                    >
-                      <option value="" disabled hidden>Select a service...</option>
-                      <option value="solar" className="bg-[#0b1830] text-white">Solar panel installation</option>
-                      <option value="ev" className="bg-[#0b1830] text-white">EV charger installation</option>
-                      <option value="consultation" className="bg-[#0b1830] text-white">Energy consultation</option>
-                      <option value="maintenance" className="bg-[#0b1830] text-white">System care and maintenance</option>
-                    </select>
-                    {/* Custom Dropdown Arrow */}
-                    <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#4a7fd4]">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+  const handleReset = () => {
+    setSubmitted(false);
+    setFormData({ fullName: "", phone: "", email: "", postcode: "", message: "" });
+    setServices({ ev: false, solar: false });
+    setConsented(false);
+    setErrors({});
+    setFiles([]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-                {/* Row 4: Comments */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="comments" className="font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#6a80a8] uppercase ml-1">Comments / Questions <span className="text-[#4a7fd4]">*</span></label>
-                  <textarea 
-                    id="comments"
-                    name="comments"
-                    required
-                    value={formData.comments}
-                    onChange={handleChange}
-                    placeholder="Tell us a bit about your property and what you are looking to achieve..."
-                    rows="4"
-                    className="w-full bg-[#04101f]/50 border border-[#2b5ba8]/30 rounded-xl px-4 py-3.5 text-[14px] text-white placeholder:text-[#6a80a8]/50 focus:outline-none focus:border-[#4a7fd4] focus:ring-1 focus:ring-[#4a7fd4]/50 transition-all resize-none"
-                  ></textarea>
-                </div>
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragging(false);
+    const newFiles = Array.from(e.dataTransfer.files);
+    setFiles(prev => [...prev, ...newFiles.filter(f => !prev.find(p => p.name === f.name))]);
+  };
 
-                {/* Submit Button */}
-                <button 
-                  type="submit" 
-                  className="mt-4 w-full inline-flex justify-center items-center gap-2 bg-gradient-to-br from-[#2B5BA8] to-[#4a7fd4] text-white font-medium text-[14px] uppercase tracking-wide py-4 px-8 rounded-xl shadow-[0_8px_28px_rgba(43,91,168,0.4)] hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(43,91,168,0.55)] transition-all"
-                >
-                  Send Enquiry →
-                </button>
-              </form>
-            </div>
-          </div>
+  const handleFileInput = (e) => {
+    const newFiles = Array.from(e.target.files);
+    setFiles(prev => [...prev, ...newFiles.filter(f => !prev.find(p => p.name === f.name))]);
+  };
 
+  const rp = (label) => ({ onClick: () => {} });
+
+  return (
+    <div className="contact-page">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Space+Mono:wght@400;700&display=swap');
+        :root {
+          --blue:#2B5BA8; --blue-hi:#4a7fd4; --blue-dim:rgba(43,91,168,.14);
+          --green:#5A8C2E; --green-hi:#79bc3c; --green-dim:rgba(90,140,46,.13);
+          --ink:#04101f; --ink-2:#071626; --ink-3:#0d1f3c;
+          --panel:rgba(10,22,46,.75); --line:rgba(43,91,168,.2);
+          --line-g:rgba(90,140,46,.3); --muted:#6278a0;
+          --light:#c2d4ee; --white:#f0f6ff;
+          --r:10px; --r2:16px; --r3:22px;
+        }
+        .contact-page { background: var(--ink); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.65; overflow-x: hidden; min-height: 100vh; }
+        .contact-page ::selection { background: var(--green); color: #fff; }
+        .contact-page img { display: block; max-width: 100%; }
+        .c-reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+        .c-reveal.vis { opacity: 1; transform: translateY(0); }
+
+        /* HERO */
+        .c-hero { position: relative; min-height: 100vh; padding-top: 68px; display: flex; flex-direction: column; overflow: hidden; }
+        .c-hero-mosaic { position: absolute; inset: 0; z-index: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; }
+        .hm-cell { overflow: hidden; }
+        .hm-cell img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.22) saturate(.6); }
+        .hm-cell:nth-child(2) img { filter: brightness(.18) saturate(.5); }
+        .c-hero-mosaic::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(4,16,31,.2) 0%, rgba(4,16,31,.5) 40%, rgba(4,16,31,.95) 100%), linear-gradient(to right, rgba(4,16,31,.3), transparent 40%, transparent 60%, rgba(4,16,31,.3)); }
+        .c-hero-body { position: relative; z-index: 3; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 40px 0; }
+        .c-hero-kicker { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); margin-bottom: 22px; display: flex; align-items: center; gap: 14px; animation: fadeUp .7s ease both; }
+        .c-hero-kicker::before, .c-hero-kicker::after { content: ''; display: block; width: 40px; height: 1px; background: var(--green-hi); opacity: .5; }
+        .c-hero-h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px,9vw,120px); line-height: .9; letter-spacing: 3px; margin-bottom: 8px; animation: fadeUp .7s .08s ease both; }
+        .c-hero-h1 .hl1 { display: block; color: var(--white); }
+        .c-hero-h1 .hl2 { display: block; color: var(--green-hi); }
+        .c-hero-sub { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px,3vw,34px); letter-spacing: 4px; color: var(--muted); margin-bottom: 24px; animation: fadeUp .7s .14s ease both; }
+        .c-hero-desc { font-size: 16px; color: var(--light); max-width: 560px; margin: 0 auto 40px; line-height: 1.75; animation: fadeUp .7s .2s ease both; }
+        .c-hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; animation: fadeUp .7s .26s ease both; }
+        .hbtn-primary { display: inline-flex; align-items: center; gap: 9px; background: linear-gradient(135deg,var(--green),var(--green-hi)); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 1.5px; padding: 14px 36px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: all .25s; box-shadow: 0 8px 28px rgba(90,140,46,.4); }
+        .hbtn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(90,140,46,.5); }
+        .hbtn-outline { display: inline-flex; align-items: center; gap: 9px; background: transparent; color: var(--white); font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 1.5px; padding: 13px 32px; border-radius: 50px; border: 1px solid rgba(255,255,255,.2); cursor: pointer; text-decoration: none; transition: all .25s; }
+        .hbtn-outline:hover { border-color: var(--green-hi); color: var(--green-hi); }
+        .c-hero-photo-row { position: relative; z-index: 3; display: grid; grid-template-columns: 1fr 1fr 1fr; margin-top: auto; border-top: 1px solid rgba(43,91,168,.2); }
+        .hpr-cell { padding: 20px 28px; border-right: 1px solid rgba(43,91,168,.2); display: flex; align-items: center; gap: 12px; background: rgba(4,16,31,.6); backdrop-filter: blur(12px); }
+        .hpr-cell:last-child { border-right: none; }
+        .hpr-icon { font-size: 20px; flex-shrink: 0; }
+        .hpr-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+        .hpr-text strong { display: block; font-size: 13px; color: var(--light); margin-bottom: 1px; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+        /* WHAT HAPPENS NEXT */
+        .c-next { position: relative; z-index: 2; padding: 64px 52px; background: linear-gradient(135deg,rgba(43,91,168,.1),rgba(90,140,46,.07)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+        .c-next-inner { max-width: 1100px; margin: 0 auto; }
+        .c-next-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); text-align: center; margin-bottom: 44px; }
+        .c-next-timeline { display: grid; grid-template-columns: repeat(4,1fr); position: relative; gap: 0; }
+        .c-next-timeline::before { content: ''; position: absolute; top: 24px; left: 12.5%; right: 12.5%; height: 1px; background: linear-gradient(to right,var(--blue),var(--green)); z-index: 0; }
+        .nt-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+        .nt-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--ink-2); border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 18px; transition: border-color .3s; flex-shrink: 0; }
+        .nt-item:hover .nt-dot { border-color: var(--green-hi); }
+        .nt-title { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; margin-bottom: 8px; }
+        .nt-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+        /* FORM WRAP */
+        .form-wrap { max-width: 900px; margin: 0 auto; padding: 60px 52px; display: flex; flex-direction: column; gap: 48px; }
+        .fsec { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r3); padding: 40px 36px; backdrop-filter: blur(14px); }
+        .fsec-deco-num { position: absolute; top: -20px; right: 36px; font-family: 'Bebas Neue', sans-serif; font-size: 80px; line-height: 1; color: rgba(43,91,168,.08); pointer-events: none; user-select: none; }
+        .fsec-head { display: flex; align-items: center; gap: 18px; margin-bottom: 32px; }
+        .fsec-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+        .blue-ic { background: var(--blue-dim); border: 1px solid var(--line); }
+        .green-ic { background: var(--green-dim); border: 1px solid var(--line-g); }
+        .gold-ic { background: rgba(255,180,0,.1); border: 1px solid rgba(255,180,0,.25); }
+        .fsec-kicker { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+        .fsec-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1.5px; }
+        .fg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .fg1 { margin-bottom: 20px; }
+        .fgroup { display: flex; flex-direction: column; gap: 8px; }
+        .flabel { font-size: 13px; color: var(--light); font-weight: 400; letter-spacing: .3px; }
+        .req { color: var(--green-hi); }
+        .finput { background: rgba(4,16,31,.6); border: 1px solid var(--line); border-radius: var(--r); padding: 13px 16px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 300; transition: border-color .2s, box-shadow .2s; outline: none; }
+        .finput:focus { border-color: var(--blue-hi); box-shadow: 0 0 0 3px rgba(43,91,168,.12); }
+        .finput.err { border-color: #e05050; }
+        .ftextarea { background: rgba(4,16,31,.6); border: 1px solid var(--line); border-radius: var(--r2); padding: 16px 18px; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 300; outline: none; resize: vertical; min-height: 120px; width: 100%; transition: border-color .2s; }
+        .ftextarea:focus { border-color: var(--blue-hi); }
+        .ferr { font-size: 12px; color: #e05050; display: none; margin-top: 2px; }
+        .ferr.show { display: block; }
+        .svc-ferr { font-size: 12px; color: #e05050; display: none; margin-top: 12px; }
+        .svc-ferr.show { display: block; }
+
+        /* SERVICE SELECTION */
+        .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+        .svc-box { background: rgba(4,16,31,.5); border: 2px solid var(--line); border-radius: var(--r2); padding: 26px 22px; cursor: pointer; transition: all .25s; position: relative; }
+        .svc-box:hover { border-color: rgba(43,91,168,.5); }
+        .svc-box.selected { border-color: var(--green-hi); background: var(--green-dim); }
+        .svc-big-icon { font-size: 36px; margin-bottom: 12px; }
+        .svc-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; margin-bottom: 6px; }
+        .svc-info { font-size: 13px; color: var(--muted); line-height: 1.5; }
+        .svc-check-ic { position: absolute; top: 14px; right: 14px; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all .25s; }
+        .svc-box.selected .svc-check-ic { background: var(--green); border-color: var(--green); }
+
+        /* CONDITIONAL */
+        .cond-block { overflow: hidden; max-height: 0; transition: max-height .4s ease; }
+        .cond-block.open { max-height: 600px; }
+        .cond-inner { background: rgba(4,16,31,.4); border: 1px solid var(--line); border-radius: var(--r2); padding: 28px; margin-top: 20px; }
+        .cond-banner { display: flex; align-items: center; gap: 10px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--green-hi); margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid var(--line-g); }
+
+        /* RADIO PILLS */
+        .rpills { display: flex; gap: 8px; flex-wrap: wrap; }
+        .rp-btn { padding: 9px 16px; background: rgba(4,16,31,.5); border: 1px solid var(--line); border-radius: 50px; font-size: 13px; color: var(--muted); cursor: pointer; transition: all .2s; white-space: nowrap; }
+        .rp-btn:hover { border-color: rgba(43,91,168,.5); color: var(--light); }
+        .rp-btn.selected { border-color: var(--green-hi); color: var(--green-hi); background: var(--green-dim); }
+
+        /* UPLOAD */
+        .upload-area { border: 2px dashed var(--line); border-radius: var(--r2); padding: 40px 28px; text-align: center; cursor: pointer; transition: all .25s; position: relative; }
+        .upload-area:hover, .upload-area.drag { border-color: var(--green-hi); background: var(--green-dim); }
+        .upload-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+        .ua-icon { font-size: 40px; margin-bottom: 12px; }
+        .ua-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 8px; }
+        .ua-sub { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+        .ua-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+        .ua-tag { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--green-hi); background: var(--green-dim); border: 1px solid var(--line-g); border-radius: 50px; padding: 4px 12px; }
+        .file-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+        .file-row { display: flex; justify-content: space-between; align-items: center; background: rgba(4,16,31,.5); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 14px; font-size: 13px; color: var(--light); }
+        .file-rm { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 14px; padding: 0 4px; transition: color .2s; }
+        .file-rm:hover { color: #e05050; }
+        .upload-tip { display: flex; gap: 12px; align-items: flex-start; margin-top: 16px; background: rgba(43,91,168,.08); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+        /* CONSENT */
+        .consent-row { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; padding: 2px; }
+        .consent-cb { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--line); background: rgba(4,16,31,.6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; margin-top: 1px; cursor: pointer; font-size: 13px; color: #fff; }
+        .consent-cb.on { background: var(--green); border-color: var(--green); }
+        .consent-txt { font-size: 13px; color: var(--muted); line-height: 1.65; }
+        .consent-txt a { color: var(--blue-hi); text-decoration: none; }
+
+        /* CTA BAND */
+        .c-cta-band { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; border-top: 1px solid var(--line); }
+        .cta-photos { position: relative; overflow: hidden; min-height: 420px; display: grid; grid-template-columns: 1fr 1fr; }
+        .cta-photos img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.5) saturate(.7); }
+        .cta-content { background: linear-gradient(135deg,rgba(43,91,168,.1),rgba(90,140,46,.07)); display: flex; flex-direction: column; justify-content: center; padding: 60px 52px; gap: 40px; }
+        .cta-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px,4vw,52px); line-height: .95; letter-spacing: 2px; margin-bottom: 16px; }
+        .cta-content h2 .ac { color: var(--green-hi); }
+        .cta-content p { font-size: 15px; color: var(--light); line-height: 1.75; }
+        .btn-submit { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg,var(--green),var(--green-hi)); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; padding: 16px 38px; border-radius: 50px; border: none; cursor: pointer; transition: all .25s; box-shadow: 0 8px 28px rgba(90,140,46,.4); width: 100%; justify-content: center; margin-bottom: 14px; }
+        .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(90,140,46,.5); }
+        .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+        .submit-note { text-align: center; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted); margin-bottom: 28px; }
+        .contact-direct { background: rgba(4,16,31,.5); border: 1px solid var(--line); border-radius: var(--r2); padding: 20px 22px; }
+        .cd-title { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+        .cd-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .cd-item:last-child { margin-bottom: 0; }
+        .cd-ic { font-size: 18px; }
+        .cd-val a { color: var(--light); text-decoration: none; font-size: 15px; transition: color .2s; }
+        .cd-val a:hover { color: var(--green-hi); }
+        .spin { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; display: none; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* SUCCESS */
+        .success-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(4,16,31,.97); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .4s; }
+        .success-overlay.show { opacity: 1; pointer-events: all; }
+        .success-box { max-width: 520px; text-align: center; padding: 60px 40px; background: var(--panel); border: 1px solid var(--line-g); border-radius: var(--r3); }
+        .success-icon { font-size: 60px; margin-bottom: 24px; }
+        .success-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 2px; color: var(--green-hi); margin-bottom: 14px; }
+        .success-desc { font-size: 15px; color: var(--light); line-height: 1.75; margin-bottom: 8px; }
+        .success-ref { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--muted); margin-bottom: 36px; }
+
+        /* FOOTER */
+        .c-footer { display: flex; justify-content: space-between; align-items: center; padding: 24px 52px; border-top: 1px solid var(--line); background: var(--ink-2); font-size: 12px; color: var(--muted); }
+
+        @media (max-width: 900px) {
+          .form-wrap { padding: 32px 20px; }
+          .fg2 { grid-template-columns: 1fr; }
+          .svc-grid { grid-template-columns: 1fr; }
+          .c-cta-band { grid-template-columns: 1fr; }
+          .cta-photos { display: none; }
+          .c-hero-photo-row { grid-template-columns: 1fr; }
+          .c-next { padding: 40px 24px; }
+          .c-next-timeline { grid-template-columns: 1fr 1fr; }
+          .c-next-timeline::before { display: none; }
+        }
+      `}</style>
+
+      <Navbar />
+
+      {/* HERO */}
+      <section className="c-hero">
+        <div className="c-hero-mosaic">
+          {["https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=600&q=80","https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&q=80","https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"].map((src, i) => (
+            <div key={i} className="hm-cell"><img src={src} alt="" /></div>
+          ))}
         </div>
-      </main>
-
-      {/* ── FOOTER ── */}
-      <footer className="relative z-10 border-t border-[#2b5ba8]/22 pt-16 lg:pt-20 px-6 lg:px-12 pb-10 max-w-[1140px] mx-auto w-full mt-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr] gap-10 mb-16">
-          <div>
-            <div className="font-['Bebas_Neue'] text-2xl tracking-[2px] mb-4">
-              <img src={logo} alt="logo" className="h-[40px]" />
-            </div>
-            <p className="text-[13px] text-[#6a80a8] leading-relaxed max-w-[280px]">Watten Power Ltd is a UK-based clean energy solutions provider specialising in EV charging and solar installations for residential and commercial properties.</p>
+        <div className="c-hero-body">
+          <div className="c-hero-kicker">Watten Power Ltd</div>
+          <h1 className="c-hero-h1">
+            <span className="hl1">GET IN TOUCH</span>
+            <span className="hl2">& GET A QUOTE</span>
+          </h1>
+          <p className="c-hero-sub">FREE · NO OBLIGATION · 24HR RESPONSE</p>
+          <p className="c-hero-desc">Whether you are interested in an EV charger or a solar system, our team is here to help you choose the right solution. Complete the form below and we will get back to you with a tailored recommendation.</p>
+          <div className="c-hero-btns">
+            <a href="#form-start" className="hbtn-primary">Complete the Form ↓</a>
+            <a href="tel:07404378787" className="hbtn-outline">📞 07404 378787</a>
           </div>
-          
-          {[
-            { title: "Services", links: [{n:"Solar Installation",h:"/solar"},{n:"EV Charging",h:"/ev"},{n:"Maintenance",h:"#"},{n:"Consultation",h:"#"}] },
-            { title: "Company", links: [{n:"About Us",h:"#"},{n:"Compliance",h:"#"},{n:"Case Studies",h:"#"},{n:"Careers",h:"#"}] },
-            { title: "Contact", links: [{n:"hello@wattenpower.co.uk",h:"mailto:hello@wattenpower.co.uk"},{n:"0800 123 4567",h:"tel:08001234567"},{n:"Privacy Policy",h:"#"},{n:"Terms of Service",h:"#"}] }
-          ].map((col, idx) => (
-            <div key={idx}>
-              <h4 className="font-['Space_Mono'] font-mono text-xs font-medium tracking-widest uppercase text-[#c8d8f0] mb-5">{col.title}</h4>
-              <ul className="flex flex-col gap-3">
-                {col.links.map((l, i) => (
-                  <li key={i}><a href={l.h} className="text-[13px] text-[#6a80a8] hover:text-white transition-colors">{l.n}</a></li>
-                ))}
-              </ul>
+        </div>
+        <div className="c-hero-photo-row">
+          {[["⚡","EV Charger Installation","Home & commercial solutions"],["☀️","Solar System Installation","Residential & commercial PV"],["🕐","24-Hour Response","Free, no-obligation consultation"]].map(([icon,strong,text]) => (
+            <div key={strong} className="hpr-cell">
+              <div className="hpr-icon">{icon}</div>
+              <div className="hpr-text"><strong>{strong}</strong>{text}</div>
             </div>
           ))}
         </div>
-        <div className="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-[#2b5ba8]/22 text-xs text-[#6a80a8] font-['Space_Mono'] font-mono gap-4 text-center sm:text-left">
-          <span>© 2025 Watten Power Ltd. All rights reserved.</span>
-          <span>Registered in England & Wales</span>
+      </section>
+
+      {/* WHAT HAPPENS NEXT */}
+      <div className="c-next">
+        <div className="c-next-inner">
+          <div className="c-next-label">What Happens After You Submit</div>
+          <div className="c-next-timeline">
+            {[["🔍","We Review Your Enquiry","Our team carefully assesses your requirements and the details you have submitted"],["📞","We May Contact You","For any clarification needed to prepare the most accurate recommendation"],["🏠","Site Survey If Required","A site visit may be scheduled to assess your property and infrastructure"],["✅","Tailored Quote Delivered","You receive a personalised recommendation and detailed quote"]].map(([icon,title,desc]) => (
+              <div key={title} className="nt-item">
+                <div className="nt-dot">{icon}</div>
+                <div className="nt-title">{title}</div>
+                <div className="nt-desc">{desc}</div>
+              </div>
+            ))}
+          </div>
         </div>
+      </div>
+
+      {/* FORM */}
+      <div className="form-wrap" id="form-start">
+
+        {/* Step 1: Basic Details */}
+        <div className="fsec c-reveal">
+          <div className="fsec-deco-num">01</div>
+          <div className="fsec-head">
+            <div className="fsec-icon blue-ic">👤</div>
+            <div className="fsec-meta">
+              <div className="fsec-kicker">Step 01</div>
+              <div className="fsec-title">BASIC DETAILS</div>
+            </div>
+          </div>
+          <div className="fg2">
+            <div className="fgroup">
+              <div className="flabel">Full Name <span className="req">*</span></div>
+              <input className={`finput${errors.fullName ? " err" : ""}`} type="text" placeholder="e.g. James Mitchell" value={formData.fullName} onChange={e => { setFormData(p => ({...p, fullName: e.target.value})); setErrors(p => ({...p, fullName: ""})); }} />
+              {errors.fullName && <div className="ferr show">{errors.fullName}</div>}
+            </div>
+            <div className="fgroup">
+              <div className="flabel">Phone Number <span className="req">*</span></div>
+              <input className={`finput${errors.phone ? " err" : ""}`} type="tel" placeholder="e.g. 07404 378787" value={formData.phone} onChange={e => { setFormData(p => ({...p, phone: e.target.value})); setErrors(p => ({...p, phone: ""})); }} />
+              {errors.phone && <div className="ferr show">{errors.phone}</div>}
+            </div>
+          </div>
+          <div className="fg2">
+            <div className="fgroup">
+              <div className="flabel">Email Address <span className="req">*</span></div>
+              <input className={`finput${errors.email ? " err" : ""}`} type="email" placeholder="e.g. james@example.com" value={formData.email} onChange={e => { setFormData(p => ({...p, email: e.target.value})); setErrors(p => ({...p, email: ""})); }} />
+              {errors.email && <div className="ferr show">{errors.email}</div>}
+            </div>
+            <div className="fgroup">
+              <div className="flabel">Property Address / Postcode <span className="req">*</span></div>
+              <input className={`finput${errors.postcode ? " err" : ""}`} type="text" placeholder="e.g. 12 Oak Road, SW1A 1AA" value={formData.postcode} onChange={e => { setFormData(p => ({...p, postcode: e.target.value})); setErrors(p => ({...p, postcode: ""})); }} />
+              {errors.postcode && <div className="ferr show">{errors.postcode}</div>}
+            </div>
+          </div>
+        </div>
+
+        {/* Step 2: Service Required */}
+        <div className="fsec c-reveal">
+          <div className="fsec-deco-num">02</div>
+          <div className="fsec-head">
+            <div className="fsec-icon green-ic">⚡</div>
+            <div className="fsec-meta">
+              <div className="fsec-kicker">Step 02</div>
+              <div className="fsec-title">SERVICE REQUIRED</div>
+            </div>
+          </div>
+          <div className="flabel" style={{ marginBottom: 14 }}>Select one or both services <span className="req">*</span></div>
+          <div className="svc-grid">
+            {[["ev","⚡","EV CHARGER INSTALLATION","Home or commercial EV charging point — 7 kW to 22 kW systems"],["solar","☀️","SOLAR SYSTEM INSTALLATION","Residential or commercial solar PV system — with optional battery storage"]].map(([key,icon,name,info]) => (
+              <div key={key} className={`svc-box${services[key] ? " selected" : ""}`} onClick={() => { setServices(p => ({...p, [key]: !p[key]})); setErrors(p => ({...p, service: ""})); }}>
+                <div className="svc-big-icon">{icon}</div>
+                <div className="svc-name">{name}</div>
+                <div className="svc-info">{info}</div>
+                <div className="svc-check-ic">{services[key] ? "✓" : ""}</div>
+              </div>
+            ))}
+          </div>
+          {errors.service && <div className="svc-ferr show">{errors.service}</div>}
+
+          {/* EV Details */}
+          <div className={`cond-block${services.ev ? " open" : ""}`}>
+            <div className="cond-inner">
+              <div className="cond-banner"><span>⚡</span> EV Charger Installation Details</div>
+              <div className="fg2" style={{ marginBottom: 18 }}>
+                <div className="fgroup">
+                  <div className="flabel">Property Type</div>
+                  <div className="rpills">
+                    {["🏠 House","🏢 Flat","🏭 Commercial"].map(v => <span key={v} className={`rp-btn${evDetails.property===v?" selected":""}`} onClick={()=>setEvDetails(p=>({...p,property:v}))}>{v}</span>)}
+                  </div>
+                </div>
+                <div className="fgroup">
+                  <div className="flabel">Parking Type</div>
+                  <div className="rpills">
+                    {["🏡 Driveway","🚪 Garage","🚗 Street"].map(v => <span key={v} className={`rp-btn${evDetails.parking===v?" selected":""}`} onClick={()=>setEvDetails(p=>({...p,parking:v}))}>{v}</span>)}
+                  </div>
+                </div>
+              </div>
+              <div className="fg2" style={{ marginBottom: 18 }}>
+                <div className="fgroup">
+                  <div className="flabel">Number of Chargers Required</div>
+                  <div className="rpills">
+                    {["1","2","3+"].map(v => <span key={v} className={`rp-btn${evDetails.chargers===v?" selected":""}`} onClick={()=>setEvDetails(p=>({...p,chargers:v}))}>{v}</span>)}
+                  </div>
+                </div>
+                <div className="fgroup">
+                  <div className="flabel">Electrical Supply</div>
+                  <div className="rpills">
+                    {["Single Phase","Three Phase","Not Sure"].map(v => <span key={v} className={`rp-btn${evDetails.phase===v?" selected":""}`} onClick={()=>setEvDetails(p=>({...p,phase:v}))}>{v}</span>)}
+                  </div>
+                </div>
+              </div>
+              <div className="fgroup">
+                <div className="flabel">Do you already have an EV?</div>
+                <div className="rpills">
+                  {["✅ Yes","⏳ No"].map(v => <span key={v} className={`rp-btn${evDetails.hasEV===v?" selected":""}`} onClick={()=>setEvDetails(p=>({...p,hasEV:v}))}>{v}</span>)}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Solar Details */}
+          <div className={`cond-block${services.solar ? " open" : ""}`}>
+            <div className="cond-inner">
+              <div className="cond-banner"><span>☀️</span> Solar System Installation Details</div>
+              <div className="fg2" style={{ marginBottom: 18 }}>
+                <div className="fgroup">
+                  <div className="flabel">Property Type</div>
+                  <div className="rpills">
+                    {["🏠 House","🏢 Commercial"].map(v => <span key={v} className={`rp-btn${solarDetails.property===v?" selected":""}`} onClick={()=>setSolarDetails(p=>({...p,property:v}))}>{v}</span>)}
+                  </div>
+                </div>
+                <div className="fgroup">
+                  <div className="flabel">Roof Type</div>
+                  <div className="rpills">
+                    {["📐 Pitched","▬ Flat","❓ Not Sure"].map(v => <span key={v} className={`rp-btn${solarDetails.roof===v?" selected":""}`} onClick={()=>setSolarDetails(p=>({...p,roof:v}))}>{v}</span>)}
+                  </div>
+                </div>
+              </div>
+              <div className="fg2">
+                <div className="fgroup">
+                  <div className="flabel">Monthly Electricity Bill (Optional)</div>
+                  <div className="rpills">
+                    {["£50–£100","£100–£200","£200+"].map(v => <span key={v} className={`rp-btn${solarDetails.bill===v?" selected":""}`} onClick={()=>setSolarDetails(p=>({...p,bill:v}))}>{v}</span>)}
+                  </div>
+                </div>
+                <div className="fgroup">
+                  <div className="flabel">Battery Storage?</div>
+                  <div className="rpills">
+                    {["✅ Yes","❌ No","❓ Not Sure"].map(v => <span key={v} className={`rp-btn${solarDetails.battery===v?" selected":""}`} onClick={()=>setSolarDetails(p=>({...p,battery:v}))}>{v}</span>)}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Step 3: Additional Info */}
+        <div className="fsec c-reveal">
+          <div className="fsec-deco-num">03</div>
+          <div className="fsec-head">
+            <div className="fsec-icon blue-ic">💬</div>
+            <div className="fsec-meta">
+              <div className="fsec-kicker">Step 03</div>
+              <div className="fsec-title">ADDITIONAL INFORMATION</div>
+            </div>
+          </div>
+          <div className="fg1">
+            <div className="fgroup">
+              <div className="flabel">Message / Requirements</div>
+              <textarea className="ftextarea" placeholder="Any specific requirements, questions, access details, or anything else our team should know before preparing your recommendation..." value={formData.message} onChange={e => setFormData(p => ({...p, message: e.target.value}))} />
+            </div>
+          </div>
+        </div>
+
+        {/* Step 4: File Upload */}
+        <div className="fsec c-reveal">
+          <div className="fsec-deco-num">04</div>
+          <div className="fsec-head">
+            <div className="fsec-icon gold-ic">📎</div>
+            <div className="fsec-meta">
+              <div className="fsec-kicker">Step 04 — Optional but Recommended</div>
+              <div className="fsec-title">UPLOAD PHOTOS</div>
+            </div>
+          </div>
+          <div className={`upload-area${dragging ? " drag" : ""}`} onDragOver={e => { e.preventDefault(); setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={handleDrop}>
+            <input type="file" multiple accept="image/*,.pdf" onChange={handleFileInput} />
+            <div className="ua-icon">📷</div>
+            <div className="ua-title">DRAG & DROP OR CLICK TO UPLOAD</div>
+            <div className="ua-sub">Upload photos to help us prepare a more accurate quote for your property</div>
+            <div className="ua-tags">
+              {["Fuse Board","Parking Area (EV)","Roof (Solar)","Property Exterior"].map(t => <span key={t} className="ua-tag">{t}</span>)}
+            </div>
+          </div>
+          {files.length > 0 && (
+            <div className="file-list">
+              {files.map((f, i) => (
+                <div key={f.name} className="file-row">
+                  <span>📄 {f.name} <span style={{ color: "var(--muted)", fontSize: 11 }}>({(f.size/1024).toFixed(1)} KB)</span></span>
+                  <button className="file-rm" onClick={() => setFiles(prev => prev.filter((_,j) => j !== i))}>✕</button>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="upload-tip">
+            <span>💡</span>
+            <span><strong>This significantly improves quote accuracy.</strong> Photos of your fuse board, parking area (for EV), and roof (for solar) help our engineers prepare a much more precise recommendation before visiting your property.</span>
+          </div>
+        </div>
+
+        {/* Consent */}
+        <div>
+          <div className="consent-row" onClick={() => { setConsented(p => !p); setErrors(e => ({...e, consent: ""})); }}>
+            <div className={`consent-cb${consented ? " on" : ""}`}>{consented ? "✓" : ""}</div>
+            <div className="consent-txt">
+              I agree to Watten Power Ltd contacting me regarding this enquiry. My information will be handled in accordance with the <a href="#" onClick={e => e.stopPropagation()}>Privacy Policy</a> and will not be shared with third parties. <span style={{ color: "var(--green-hi)" }}>*</span>
+            </div>
+          </div>
+          {errors.consent && <div className="ferr show" style={{ paddingLeft: 34, marginTop: 6 }}>{errors.consent}</div>}
+        </div>
+      </div>
+
+      {/* CTA BAND */}
+      <div className="c-cta-band">
+        <div className="cta-photos">
+          <img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=700&q=80" alt="Solar install" />
+          <img src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?w=700&q=80" alt="EV charger" />
+        </div>
+        <div className="cta-content">
+          <div>
+            <h2>READY TO<br /><span className="ac">MOVE FORWARD?</span></h2>
+            <p>Submit your enquiry and our team will get back to you shortly with a tailored recommendation for your property and energy needs. No obligation, no cost.</p>
+          </div>
+          <div>
+            <button className="btn-submit" onClick={handleSubmit} disabled={submitting}>
+              {submitting && <div className="spin" style={{ display: "block" }} />}
+              {submitting ? "Sending..." : "Submit My Enquiry →"}
+            </button>
+            <div className="submit-note">Free &nbsp;·&nbsp; No Obligation &nbsp;·&nbsp; 24hr Response</div>
+            <div className="contact-direct">
+              <div className="cd-title">PREFER TO SPEAK DIRECTLY?</div>
+              <div className="cd-item"><div className="cd-ic">📞</div><div className="cd-val"><a href="tel:07404378787">07404 378787</a></div></div>
+              <div className="cd-item"><div className="cd-ic">✉️</div><div className="cd-val"><a href="mailto:info@wattenpower.com">info@wattenpower.com</a></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* FOOTER */}
+      <footer className="c-footer">
+        <span>© 2026 Watten Power Ltd. All rights reserved.</span>
+        <span>Registered in England & Wales</span>
       </footer>
+
+      {/* SUCCESS OVERLAY */}
+      <div className={`success-overlay${submitted ? " show" : ""}`}>
+        <div className="success-box">
+          <div className="success-icon">✅</div>
+          <div className="success-title">ENQUIRY SENT!</div>
+          <p className="success-desc">Thank you for your enquiry. Our team will review your details and get back to you within 24 hours with a tailored recommendation.</p>
+          <p className="success-ref">{refCode}</p>
+          <button className="btn-submit" onClick={handleReset} style={{ marginTop: 8 }}>Submit Another Enquiry</button>
+        </div>
+      </div>
     </div>
-  )
+  );
 }

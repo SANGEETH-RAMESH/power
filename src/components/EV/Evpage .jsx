@@ -1,335 +1,647 @@
-import { useEffect, useState } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import logo from '../../assets/logo.png';
+import { Link } from "react-router-dom";
 
-const navItems = [
-  { label: 'Home', link: '/' },
-  { label: 'EV', link: '/ev-charging' },
-  { label: "Solar", link: "/solar" }
-];
+function EVFooterCol({ title, links }) {
+  return (
+    <div>
+      <h4 style={{
+        fontFamily: "'Bebas Neue', sans-serif", fontSize: 14, letterSpacing: 2,
+        textTransform: 'uppercase', color: 'var(--light)', margin: '0 0 18px',
+      }}>{title}</h4>
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {links.map((l, i) => (
+          <li key={i}>
+            <a href={l.href}
+              style={{ fontSize: 13, color: 'var(--muted)', textDecoration: 'none', transition: 'color .2s', wordBreak: 'break-word' }}
+              onMouseEnter={e => e.target.style.color = 'var(--white)'}
+              onMouseLeave={e => e.target.style.color = 'var(--muted)'}
+            >{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-const installSteps = [
-  { num: '01', title: 'SITE SURVEY', desc: 'We assess your electrical capacity, parking layout, and installation feasibility.' },
-  { num: '02', title: 'SYSTEM DESIGN', desc: 'We recommend the right charger type, power rating, and protection systems.' },
-  { num: '03', title: 'DNO NOTIFICATION', desc: 'We handle Distribution Network Operator notifications for higher load installations.' },
-  { num: '04', title: 'INSTALLATION', desc: 'Certified engineers complete installation including cabling, mounting, and connections.' },
-  { num: '05', title: 'TESTING & CERT', desc: 'Full electrical testing is carried out and certification is issued.' },
-  { num: '06', title: 'HANDOVER', desc: 'We guide you through charger usage, app setup, and safety procedures.' },
-]
-
-const chargerRanges = [
-  {
-    label: 'ENTRY',
-    title: 'Simple & Reliable',
-    sub: 'Cost-effective daily charging',
-    features: ['Ideal for daily residential use', '7.4 kW single-phase systems', 'Basic smart functionality', 'Compact and practical design'],
-    color: 'text-[#6a80a8]',
-    bgAccent: 'bg-[#c8d8f0]/10',
-    borderColor: 'border-[#c8d8f0]/20',
-    hoverBorder: 'hover:border-[#c8d8f0]/40',
-  },
-  {
-    label: 'SMART',
-    title: 'Enhanced Control',
-    sub: 'Performance meets intelligence',
-    features: ['App-enabled charging control', 'Scheduling & off-peak optimisation', 'Energy usage monitoring', 'Suitable for homes & small businesses'],
-    color: 'text-[#4a7fd4]',
-    bgAccent: 'bg-[#2b5ba8]/15',
-    borderColor: 'border-[#2b5ba8]/35',
-    hoverBorder: 'hover:border-[#4a7fd4]/60',
-  },
-  {
-    label: 'PREMIUM',
-    title: 'Advanced Performance',
-    sub: 'For a refined experience',
-    features: ['Advanced smart features', 'Faster charging capability', 'Sleek modern design', 'Enhanced user interface & control'],
-    color: 'text-[#79bc3c]',
-    bgAccent: 'bg-[#2b5ba8]/15',
-    borderColor: 'border-[#2b5ba8]/35',
-    hoverBorder: 'hover:border-[#79bc3c]/60',
-  },
-  {
-    label: 'COMMERCIAL',
-    title: 'Built for Scale',
-    sub: 'Workplace & fleet infrastructure',
-    features: ['Multiple charger installations', 'Load balancing across units', 'User access control', 'Usage tracking and reporting'],
-    color: 'text-[#4a7fd4]',
-    bgAccent: 'bg-[#2b5ba8]/10',
-    borderColor: 'border-[#2b5ba8]/25',
-    hoverBorder: 'hover:border-[#4a7fd4]/50',
-  },
-  {
-    label: 'FUTURE-READY',
-    title: 'Integrated Energy',
-    sub: 'Designed for smart ecosystems',
-    features: ['Solar-compatible systems', 'Battery-ready integration', 'Smart energy ecosystem support', 'Ideal for long-term optimisation'],
-    color: 'text-[#79bc3c]',
-    bgAccent: 'bg-[#2b5ba8]/15',
-    borderColor: 'border-[#2b5ba8]/35',
-    hoverBorder: 'hover:border-[#79bc3c]/60',
-  },
-]
-
-const afterSales = [
-  { icon: '🛡️', title: 'WARRANTY SUPPORT', desc: 'We support manufacturer warranties and assist in resolving early-stage issues.' },
-  { icon: '📞', title: 'TECHNICAL SUPPORT', desc: 'Remote and on-call assistance for charger faults, connectivity issues, and charging interruptions.' },
-  { icon: '🔧', title: 'MAINTENANCE', desc: 'Periodic inspection, electrical safety checks, and cable & connection inspection.' },
-  { icon: '⚡', title: 'TROUBLESHOOTING', desc: 'Fast response support for system faults and performance issues.' },
-  { icon: '📈', title: 'SYSTEM UPGRADES', desc: 'Additional chargers, load balancing upgrades, and solar & battery integration.' },
-]
-
-const compliance = [
-  { code: 'BS 7671', desc: 'IET Wiring Regulations' },
-  { code: 'BS EN 61851', desc: 'EV Charging Systems' },
-  { code: 'UK SCPR', desc: 'Smart Charge Point Regulations' },
-  { code: 'G98/G99', desc: 'Grid Connection Compliance' },
-  { code: 'OCPP 1.6J', desc: 'Open Charge Point Protocol' },
-]
-
-const whyUs = [
-  { icon: '⚙️', title: 'ENGINEERING-LED', desc: 'Systems designed on actual load requirements, not generic templates.' },
-  { icon: '✅', title: 'FULLY COMPLIANT', desc: 'Every installation meets UK electrical and safety regulations.' },
-  { icon: '📐', title: 'SCALABLE', desc: 'Installations designed to support future solar and battery integration.' },
-  { icon: '💬', title: 'TRANSPARENT', desc: 'Clear scope, clear pricing, no unnecessary upselling.' },
-]
-
-export default function EVPage() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
+export default function EV() {
+  const [navOpen, setNavOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const els = document.querySelectorAll(".reveal-tw");
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.remove("opacity-0", "translate-y-7");
-          e.target.classList.add("opacity-100", "translate-y-0");
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("vis")),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    const handleScroll = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
-    <div className="relative z-10 bg-[#04101f] text-[#f2f7ff] font-['DM_Sans'] font-light leading-relaxed overflow-x-hidden selection:bg-[#2B5BA8] selection:text-white">
+    <div className="ev-page">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap');
+        :root {
+          --blue: #2B5BA8; --blue-2: #1e4282; --blue-hi: #4a7fd4; --blue-pale: rgba(43,91,168,.15);
+          --green: #5A8C2E; --green-hi: #79bc3c; --green-dim: rgba(90,140,46,.13);
+          --ink: #04101f; --ink-2: #071626; --panel: rgba(10,22,46,.78); --panel-2: rgba(14,28,58,.6);
+          --line: rgba(43,91,168,.22); --line-g: rgba(90,140,46,.28);
+          --muted: #6278a0; --light: #c2d4ee; --white: #f0f6ff;
+          --r: 14px; --r2: 20px;
+        }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        html{scroll-behavior:smooth;}
+        .ev-page { background: var(--ink); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.65; overflow-x: hidden; min-height: 100vh; position:relative; }
+        .ev-page::after{content:'';position:fixed;inset:0;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;opacity:.5;}
+        .ev-page ::selection { background: var(--blue); color: #fff; }
+        .ev-page img { display: block; max-width: 100%; }
+        ::-webkit-scrollbar{width:4px;}
+        ::-webkit-scrollbar-track{background:var(--ink-2);}
+        ::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px;}
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.vis { opacity: 1; transform: translateY(0); }
+        .rd1{transition-delay:.1s} .rd2{transition-delay:.2s} .rd3{transition-delay:.3s} .rd4{transition-delay:.4s} .rd5{transition-delay:.5s}
+        .e-container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+        .sec-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+        .sec-label::before { content: ''; display: block; width: 22px; height: 1px; background: var(--green-hi); }
+        .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(38px,5vw,60px); line-height: .95; letter-spacing: 2px; margin-bottom: 16px; }
+        .sec-desc { font-size: 16px; color: var(--light); font-weight: 300; max-width: 560px; line-height: 1.75; }
+        .btn-main { display: inline-flex; align-items: center; gap: 9px; background: linear-gradient(135deg,var(--blue),var(--blue-hi)); color: #fff; font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; padding: 14px 34px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: all .25s; box-shadow: 0 8px 28px rgba(43,91,168,.4); }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(43,91,168,.5); }
+        .btn-green { background: linear-gradient(135deg,var(--green),var(--green-hi)); box-shadow: 0 8px 28px rgba(90,140,46,.35); }
+        .btn-green:hover { box-shadow: 0 14px 40px rgba(90,140,46,.45); }
+        .btn-outline { display: inline-flex; align-items: center; gap: 9px; background: transparent; color: var(--white); font-weight: 400; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; padding: 13px 30px; border-radius: 50px; border: 1px solid rgba(255,255,255,.18); cursor: pointer; text-decoration: none; transition: all .25s; }
+        .btn-outline:hover { border-color: var(--green-hi); color: var(--green-hi); }
+        section{position:relative;z-index:2;}
 
-      {/* ── NAV ── */}
-      <nav className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 lg:px-12 h-[70px] bg-[#04101f]/90 backdrop-blur-xl border-b border-[#2b5ba8]/20 transition-colors">
-        <a href="/" className="flex items-center gap-3">
-          <img src={logo} alt="logo" className="h-[40px]" />
-        </a>
+        /* NAV */
+        .e-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 52px; background: rgba(4,16,31,.9); backdrop-filter: blur(22px); border-bottom: 1px solid var(--line); transition: background .3s; }
+        .e-nav.scrolled { background: rgba(4,16,31,.97); }
+        .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+        .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+        .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 400; letter-spacing: .3px; transition: color .2s; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a.active { color: var(--green-hi); }
+        .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+        .nav-burger span { display: block; width: 22px; height: 2px; background: var(--muted); border-radius: 1px; }
+        .nav-mobile { display: none; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: rgba(4,16,31,.97); padding: 24px; gap: 20px; border-bottom: 1px solid rgba(43,91,168,.25); backdrop-filter: blur(20px); z-index: 199; list-style: none; }
+        .nav-mobile.open { display: flex; }
+        .nav-mobile a { color: var(--muted); text-decoration: none; font-size: 14px; }
+        .nav-mobile a.active { color: var(--green-hi); }
 
-        {/* Mobile Menu Button */}
-        <button
-          className="flex lg:hidden flex-col gap-[5px] p-2 z-[101]"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? 'translate-y-[7px] rotate-45' : ''}`}></span>
-          <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-          <span className={`w-6 h-[2px] bg-white transition-all duration-300 ${isMenuOpen ? '-translate-y-[7px] -rotate-45' : ''}`}></span>
-        </button>
+        /* HERO */
+        .e-hero { position: relative; min-height: 88vh; display: flex; align-items: flex-end; overflow: hidden; }
+        .e-hero-bg { position: absolute; inset: 0; z-index: 0; }
+        .e-hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.28) saturate(.8); }
+        .e-hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right,rgba(4,16,31,.92) 42%,rgba(4,16,31,.35) 100%),linear-gradient(to top,rgba(4,16,31,.9) 0%,transparent 50%); }
+        .e-hero-bg::before { content: ''; position: absolute; inset: 0; z-index: 2; background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(43,91,168,.02) 3px,transparent 4px); animation: scan 8s linear infinite; }
+        @keyframes scan { from{background-position:0 0} to{background-position:0 100px} }
+        .e-hero-content { position: relative; z-index: 3; padding: 140px 52px 80px; max-width: 700px; }
+        .e-hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+        .e-hero-breadcrumb a { color: var(--muted); text-decoration: none; transition: color .2s; }
+        .e-hero-breadcrumb a:hover { color: var(--white); }
+        .e-hero-breadcrumb .cur { color: var(--green-hi); }
+        .e-hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--line-g); background: var(--green-dim); border-radius: 50px; padding: 6px 16px 6px 10px; margin-bottom: 24px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--green-hi); animation: fadeUp .8s ease both; }
+        .e-hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-hi); animation: blink 2s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+        .e-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px,7.5vw,100px); line-height: .93; letter-spacing: 2px; margin-bottom: 10px; animation: fadeUp .8s .1s ease both; }
+        .e-hero-title .ht-b { color: var(--blue-hi); display: block; }
+        .e-hero-title .ht-g { color: var(--green-hi); display: block; }
+        .e-hero-tagline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px,2.5vw,28px); letter-spacing: 3px; color: var(--muted); margin-bottom: 24px; animation: fadeUp .8s .15s ease both; }
+        .e-hero-desc { font-size: 17px; color: var(--light); max-width: 520px; line-height: 1.75; margin-bottom: 40px; animation: fadeUp .8s .2s ease both; }
+        .e-hero-btns { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp .8s .25s ease both; }
+        .e-hero-stats { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 44px; animation: fadeUp .8s .35s ease both; }
+        .hs-pill { display: flex; align-items: center; gap: 10px; background: rgba(4,16,31,.6); border: 1px solid var(--line); border-radius: 50px; padding: 9px 18px; backdrop-filter: blur(10px); }
+        .hs-val { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--white); }
+        .hs-label { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; letter-spacing: .5px; }
+        .e-hero-img-accent { position: absolute; right: 0; top: 68px; bottom: 0; width: 44%; z-index: 2; overflow: hidden; }
+        .e-hero-img-accent img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.55) saturate(.7); }
+        .e-hero-img-accent::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to right,rgba(4,16,31,1) 0%,transparent 40%),linear-gradient(to top,rgba(4,16,31,.8) 0%,transparent 60%); z-index: 1; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
-        {/* Links */}
-        <ul className={`
-          absolute lg:static top-[70px] inset-x-0 bg-[#04101f]/95 lg:bg-transparent backdrop-blur-xl lg:backdrop-blur-none
-          border-b lg:border-none border-[#2b5ba8]/20
-          flex-col lg:flex-row p-6 lg:p-0 gap-6 lg:gap-9 items-start lg:items-center
-          transition-all duration-300 ease-in-out lg:transform-none lg:opacity-100 lg:pointer-events-auto lg:flex
-          ${isMenuOpen ? 'translate-y-0 opacity-100 pointer-events-auto flex' : '-translate-y-full opacity-0 pointer-events-none hidden'}
-        `}>
-          {navItems.map((item) => (
-            <li key={item.label} className="w-full lg:w-auto border-b lg:border-none border-[#2b5ba8]/10 pb-4 lg:pb-0">
-              <Link
-                to={item.link}
-                onClick={() => setIsMenuOpen(false)}
-                className={`text-sm tracking-wide transition-colors ${location.pathname === item.link
-                    ? "text-white font-semibold"  
-                    : "text-[#6a80a8] hover:text-white"
-                  }`}
-              >
-                {item.label}
-              </Link>
-            </li>
+        /* INTRO */
+        .e-intro { padding: 100px 0; }
+        .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .intro-img { border-radius: var(--r2); overflow: hidden; position: relative; }
+        .intro-img img { width: 100%; height: 420px; object-fit: cover; filter: brightness(.8) saturate(.85); }
+        .intro-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(43,91,168,.15),transparent 60%); }
+        .intro-img-badge { position: absolute; bottom: 24px; left: 24px; background: rgba(4,16,31,.8); border: 1px solid var(--line-g); border-radius: 12px; padding: 14px 18px; backdrop-filter: blur(12px); z-index: 1; }
+        .iib-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+        .iib-val { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; color: var(--green-hi); }
+
+        /* INSTALL */
+        .e-install { padding: 90px 0; border-top: 1px solid var(--line); }
+        .install-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 52px; }
+        .install-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r2); overflow: hidden; transition: transform .3s, border-color .3s; }
+        .install-card:hover { transform: translateY(-4px); border-color: rgba(43,91,168,.5); }
+        .ic-img { height: 200px; overflow: hidden; position: relative; }
+        .ic-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.65) saturate(.75); transition: transform .5s ease, filter .4s; }
+        .install-card:hover .ic-img img { transform: scale(1.04); filter: brightness(.8) saturate(.9); }
+        .ic-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top,rgba(10,22,46,.95) 0%,transparent 55%); }
+        .ic-tag { position: absolute; top: 14px; left: 14px; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--green-hi); background: rgba(4,16,31,.7); border: 1px solid var(--line-g); border-radius: 50px; padding: 4px 12px; backdrop-filter: blur(8px); }
+        .ic-body { padding: 26px 24px; }
+        .ic-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1.5px; margin-bottom: 10px; }
+        .ic-desc { font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
+        .ic-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .ic-features li { font-size: 15px; color: var(--light); display: flex; align-items: flex-start; gap: 8px; }
+        .ic-features li::before { content: '→'; color: var(--green-hi); font-family: 'Space Mono', monospace; flex-shrink: 0; font-size: 10px; margin-top: 2px; }
+
+        /* PROCESS */
+        .e-process { padding: 90px 0; border-top: 1px solid var(--line); background: linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%); }
+        .process-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-bottom: 60px; }
+        .process-steps { display: grid; gap: 0; border: 1px solid var(--line); border-radius: var(--r2); overflow: hidden; }
+        .ps { display: grid; grid-template-columns: 80px 1fr auto; align-items: center; gap: 0; border-bottom: 1px solid var(--line); transition: background .25s; cursor: default; }
+        .ps:last-child { border-bottom: none; }
+        .ps:hover { background: rgba(43,91,168,.06); }
+        .ps-num { padding: 28px 24px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 1px; color: var(--blue-pale); border-right: 1px solid var(--line); text-align: center; line-height: 1; }
+        .ps:hover .ps-num { color: var(--blue-hi); }
+        .ps-body { padding: 28px; }
+        .ps-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 6px; }
+        .ps-desc { font-size: 16px; color: var(--muted); line-height: 1.65; max-width: 480px; }
+        .ps-icon { padding: 28px; font-size: 22px; color: var(--muted); }
+        .process-visual { position: relative; }
+        .process-visual img { width: 100%; height: 480px; object-fit: cover; border-radius: var(--r2); filter: brightness(.7) saturate(.8); }
+        .process-visual::after { content: ''; position: absolute; inset: 0; border-radius: var(--r2); background: linear-gradient(135deg,rgba(43,91,168,.1),transparent 60%); }
+        .pv-stat { position: absolute; background: var(--panel); border: 1px solid var(--line-g); border-radius: 14px; padding: 16px 20px; backdrop-filter: blur(14px); }
+        .pv-stat-1 { top: 28px; right: 28px; }
+        .pv-stat-2 { bottom: 28px; left: 28px; }
+        .pvs-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+        .pvs-val { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; color: var(--green-hi); }
+        .pvs-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+        /* RANGE */
+        .e-range { padding: 90px 0; border-top: 1px solid var(--line); }
+        .range-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 52px; }
+        .range-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 14px; }
+        .rc { background: var(--panel); border: 2px solid var(--line); border-radius: var(--r2); padding: 28px 22px; transition: all .28s; cursor: default; }
+        .rc:hover { border-color: rgba(43,91,168,.55); transform: translateY(-4px); background: rgba(14,28,58,.85); }
+        .rc.featured { border-color: var(--green); background: linear-gradient(135deg,rgba(90,140,46,.12),rgba(43,91,168,.08)); }
+        .rc-badge { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; color: var(--muted); }
+        .rc.featured .rc-badge { color: var(--green-hi); }
+        .rc-icon { font-size: 32px; margin-bottom: 14px; }
+        .rc-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; margin-bottom: 6px; }
+        .rc-tagline { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+        .rc-feats { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+        .rc-feats li { font-size: 14px; color: var(--light); display: flex; align-items: flex-start; gap: 7px; }
+        .rc-feats li::before { content: '·'; color: var(--green-hi); flex-shrink: 0; font-size: 14px; line-height: 1.1; }
+        .range-cta-band { margin-top: 40px; background: linear-gradient(135deg,rgba(43,91,168,.15),rgba(90,140,46,.1)); border: 1px solid var(--line); border-radius: var(--r2); padding: 32px 36px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .rcb-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; margin-bottom: 4px; }
+        .rcb-sub { font-size: 16px; color: var(--muted); }
+        .rcb-btns { display: flex; gap: 12px; flex-shrink: 0; }
+
+        /* BRANDS */
+        .e-brands { padding: 70px 0; border-top: 1px solid var(--line); background: var(--ink-2); }
+        .brands-header { text-align: center; margin-bottom: 44px; }
+        .brands-header .sec-label { justify-content: center; }
+        .brands-header .sec-label::before { display: none; }
+        .brands-track { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+        .brand-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r2); padding: 22px 28px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: all .28s; min-width: 120px; }
+        .brand-card:hover { border-color: rgba(43,91,168,.5); transform: translateY(-3px); }
+        .brand-logo { color: var(--light); height: 40px; display: flex; align-items: center; }
+        .brand-logo svg { max-height: 40px; }
+        .brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: var(--light); }
+        .brand-tag { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+        .brands-brochure { margin-top: 44px; text-align: center; }
+        .brands-brochure p { font-size: 13px; color: var(--muted); margin-bottom: 18px; font-family: 'Space Mono', monospace; letter-spacing: 1px; text-transform: uppercase; }
+        .brochure-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 50px; padding: 14px 28px; color: var(--light); text-decoration: none; font-size: 14px; font-weight: 500; transition: all .25s; }
+        .brochure-btn:hover { border-color: rgba(43,91,168,.5); color: var(--white); }
+        .brochure-btn-icon { color: var(--green-hi); display: flex; }
+        .brochure-btn-arrow { color: var(--green-hi); font-family: 'Space Mono', monospace; }
+
+        /* AFTER SALES */
+        .e-aftersales { padding: 100px 0; border-top: 1px solid var(--line); }
+        .aftersales-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+        .as-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--line); border-radius: var(--r2); overflow: hidden; }
+        .asl-item { display: grid; grid-template-columns: 56px 1fr; gap: 0; border-bottom: 1px solid var(--line); padding: 22px 24px; align-items: flex-start; transition: background .25s; }
+        .asl-item:last-child { border-bottom: none; }
+        .asl-item:hover { background: rgba(43,91,168,.06); }
+        .asl-num { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; color: var(--blue-pale); line-height: 1; padding-top: 2px; }
+        .asl-item:hover .asl-num { color: var(--blue-hi); }
+        .asl-title { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; margin-bottom: 5px; }
+        .asl-desc { font-size: 15px; color: var(--muted); line-height: 1.65; }
+        .aftersales-visual { display: flex; flex-direction: column; gap: 20px; }
+        .av-img { border-radius: var(--r2); overflow: hidden; }
+        .av-img img { width: 100%; height: 260px; object-fit: cover; filter: brightness(.7) saturate(.8); }
+        .av-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .av-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 20px 18px; transition: border-color .25s; }
+        .av-card:hover { border-color: rgba(43,91,168,.4); }
+        .av-card-icon { font-size: 22px; margin-bottom: 10px; }
+        .av-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; margin-bottom: 6px; }
+        .av-card-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+        /* COMPLIANCE */
+        .e-compliance { padding: 80px 0; border-top: 1px solid var(--line); background: var(--ink-2); }
+        .compliance-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+        .compliance-note { font-size: 13px; color: var(--muted); max-width: 340px; line-height: 1.75; padding-left: 16px; border-left: 2px solid var(--line-g); margin-top: 20px; }
+        .standards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; align-self: start; }
+        .std-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r2); padding: 24px 18px; text-align: center; transition: all .28s; }
+        .std-card:hover { border-color: rgba(43,91,168,.45); transform: translateY(-3px); }
+        .std-icon { font-size: 28px; margin-bottom: 12px; }
+        .std-name { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; color: var(--blue-hi); margin-bottom: 5px; }
+        .std-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+        /* WHY */
+        .e-why { padding: 100px 0; border-top: 1px solid var(--line); }
+        .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: var(--r2); overflow: hidden; margin-top: 52px; }
+        .why-card { display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: flex-start; padding: 36px 32px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); transition: background .28s; position: relative; }
+        .why-card:nth-child(2n) { border-right: none; }
+        .why-card:nth-child(3), .why-card:nth-child(4) { border-bottom: none; }
+        .why-card:hover { background: rgba(43,91,168,.06); }
+        .why-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--blue-hi),transparent); opacity: 0; transition: opacity .3s; }
+        .why-card:hover::after { opacity: 1; }
+        .wc-icon { font-size: 26px; padding-top: 2px; }
+        .wc-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 10px; }
+        .wc-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+        /* FUTURE */
+        .e-future { padding: 100px 0; border-top: 1px solid var(--line); background: linear-gradient(180deg,var(--ink-2) 0%,var(--ink) 100%); }
+        .future-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .future-img { border-radius: var(--r2); overflow: hidden; }
+        .future-img img { width: 100%; height: 420px; object-fit: cover; filter: brightness(.7) saturate(.8); }
+        .future-ecosystem { display: flex; flex-direction: column; gap: 18px; }
+        .fe-item { display: flex; align-items: flex-start; gap: 16px; }
+        .fe-icon { font-size: 24px; flex-shrink: 0; }
+        .fe-text { font-size: 16px; color: var(--light); line-height: 1.65; }
+        .fe-text strong { color: var(--white); font-weight: 500; }
+
+        /* CTA */
+        .e-cta { padding: 100px 0; border-top: 1px solid var(--line); background: linear-gradient(135deg,rgba(43,91,168,.08),rgba(90,140,46,.06)); text-align: center; }
+        .cta-inner { max-width: 680px; margin: 0 auto; }
+        .cta-eyebrow { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); margin-bottom: 20px; }
+        .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(42px,6vw,72px); line-height: .93; letter-spacing: 2px; margin-bottom: 20px; }
+        .cta-title .ac { color: var(--green-hi); }
+        .cta-sub { font-size: 17px; color: var(--light); line-height: 1.75; margin-bottom: 40px; }
+        .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+        @media (max-width: 1024px) {
+          .range-grid { grid-template-columns: repeat(3,1fr); }
+        }
+        @media (max-width: 900px) {
+          .e-container { padding: 0 24px; }
+          .e-nav { padding: 0 24px; }
+          .e-hero-content { padding: 120px 24px 60px; }
+          .intro-grid, .process-header, .range-intro, .aftersales-grid, .compliance-inner, .future-inner { grid-template-columns: 1fr; }
+          .install-grid { grid-template-columns: 1fr; }
+          .range-grid { grid-template-columns: 1fr 1fr; }
+          .why-grid { grid-template-columns: 1fr; }
+          .why-card { border-right: none; }
+          .why-card:nth-child(3) { border-bottom: 1px solid var(--line); }
+          .standards-grid { grid-template-columns: repeat(2,1fr); }
+          .e-hero-img-accent { display: none; }
+          .nav-links { display: none; }
+          .nav-burger { display: flex; }
+        }
+        @media (max-width: 600px) {
+          .range-grid { grid-template-columns: 1fr; }
+          .av-cards { grid-template-columns: 1fr; }
+          .standards-grid { grid-template-columns: 1fr 1fr; }
+          .e-hero-stats { gap: 10px; }
+          .range-cta-band { flex-direction: column; }
+          .rcb-btns { flex-wrap: wrap; }
+        }
+      `}</style>
+
+      {/* NAV */}
+      <nav className={`e-nav${scrolled ? " scrolled" : ""}`}>
+        <Link to="/" className="nav-logo">
+          <img src={logo} alt="Watten Power" style={{ height: 40 }} />
+        </Link>
+        <ul className="nav-links">
+          {[["Home", "/", ""], ["EV Charger", "/ev-charger", "active"], ["Solar Solution", "/solar", ""]].map(([label, href, cls]) => (
+            <li key={label}><Link to={href} className={cls}>{label}</Link></li>
           ))}
-          {/* <li className="pt-2 lg:pt-0">
-            <a 
-              href="#survey" 
-              onClick={() => setIsMenuOpen(false)}
-              className="bg-[#2B5BA8] hover:bg-[#4a7fd4] text-white text-sm font-medium px-6 py-2.5 rounded-full transition-all hover:-translate-y-0.5 inline-block"
-            >
-              Get a Quote
-            </a>
-          </li> */}
         </ul>
+        <button className="nav-burger" onClick={() => setNavOpen(!navOpen)} aria-label="Menu">
+          <span /><span /><span />
+        </button>
       </nav>
+      <ul className={`nav-mobile${navOpen ? " open" : ""}`}>
+        {[["Home", "/", ""], ["EV Charger", "/ev-charger", "active"], ["Solar Solution", "/solar", ""], ["Contact", "/contact-us", ""]].map(([label, href, cls]) => (
+          <li key={label}><Link to={href} className={cls} onClick={() => setNavOpen(false)}>{label}</Link></li>
+        ))}
+      </ul>
 
-      {/* ── HERO ── */}
-      <section className="relative min-h-[88vh] flex flex-col justify-center pt-[120px] px-6 lg:px-12 pb-20 overflow-hidden border-b border-[#2b5ba8]/22">
-        {/* Animated background grid */}
-        <div className="absolute inset-0 pointer-events-none opacity-50 bg-[size:60px_60px] bg-[linear-gradient(rgba(43,91,168,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(43,91,168,0.15)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_60%_50%,black_30%,transparent_80%)]" />
-
-        {/* Glow */}
-        <div className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(43,91,168,0.2)_0%,transparent_70%)] pointer-events-none" />
-
-        <div className="max-w-[1140px] mx-auto w-full relative z-10">
-          {/* Breadcrumb */}
-          <div className="inline-flex items-center gap-2 mb-8 font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#6a80a8] uppercase">
-            <a href="/" className="hover:text-white transition-colors">Home</a>
-            <span className="text-[#2b5ba8]/50">→</span>
-            <span className="text-[#4a7fd4]">EV Charger Installation</span>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-              <div className="inline-flex items-center gap-2.5 border border-[#2b5ba8]/40 bg-[#2b5ba8]/10 rounded-full py-1.5 px-4 pl-2.5 mb-7 font-['Space_Mono'] font-mono text-[10px] tracking-widest uppercase text-[#4a7fd4]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#4a7fd4] inline-block animate-pulse" />
-                Residential · Commercial · Fleet
-              </div>
-              <h1 className="font-['Bebas_Neue'] text-[clamp(48px,6.5vw,88px)] leading-[0.92] tracking-wide mb-6">
-                <span className="text-white block">EV CHARGER</span>
-                <span className="text-[#4a7fd4] block">INSTALLATION</span>
-              </h1>
-              <p className="text-[17px] text-[#c8d8f0] font-light leading-relaxed max-w-lg mb-10">
-                Reliable. Compliant. Future-Ready. Power your transition to electric mobility with professionally installed EV charging solutions by Watten Power Ltd.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="#survey" className="inline-flex justify-center items-center gap-2 bg-gradient-to-br from-[#2B5BA8] to-[#4a7fd4] text-white font-medium text-sm uppercase tracking-wide py-3.5 px-8 rounded-full shadow-[0_8px_28px_rgba(43,91,168,0.4)] hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(43,91,168,0.55)] transition-all">
-                  Request a Quote →
-                </a>
-                <a href="#services" className="inline-flex justify-center items-center gap-2 text-[#c8d8f0] text-sm uppercase tracking-wide py-3.5 px-8 rounded-full border border-white/15 hover:border-[#4a7fd4] hover:text-[#4a7fd4] transition-all">
-                  Book Site Survey ↗
-                </a>
-              </div>
-            </div>
-          </div>
+      {/* HERO */}
+      <section className="e-hero">
+        <div className="e-hero-bg">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80" alt="EV charger" />
         </div>
-      </section>
-
-      {/* ── WHAT WE INSTALL ── */}
-      <section id="services" className="py-20 lg:py-24 px-6 lg:px-12 border-b border-[#2b5ba8]/22">
-        <div className="max-w-[1140px] mx-auto">
-          <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-            <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
-              <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> What We Install
-            </div>
-            <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,58px)] leading-[0.95] tracking-wide mb-12 lg:mb-14">
-              CHARGING SOLUTIONS<br /><span className="text-[#4a7fd4]">FOR EVERY NEED</span>
-            </h2>
+        <div className="e-hero-img-accent">
+          <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=900&q=80" alt="EV charging" />
+        </div>
+        <div className="e-hero-content">
+          <div className="e-hero-breadcrumb">
+            <Link to="/">Home</Link><span style={{ color: "var(--line)" }}>›</span><span className="cur">EV Charger Installation</span>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { icon: '🏠', label: 'RESIDENTIAL', title: 'Home EV Charging', items: ['Smart home chargers (7.4 kW single-phase)', 'App-controlled charging systems', 'Off-peak tariff integration', 'OZEV grant eligible installs'], bg: 'bg-[#2b5ba8]/15', border: 'border-[#2b5ba8]/30', hover: 'hover:border-[#4a7fd4]/60' },
-              { icon: '🏢', label: 'COMMERCIAL', title: 'Workplace & Fleet', items: ['7 kW to 22 kW systems', 'Multi-point installations', 'Load balancing for multiple vehicles', 'Fleet charging infrastructure'], bg: 'bg-[#2b5ba8]/15', border: 'border-[#2b5ba8]/30', hover: 'hover:border-[#4a7fd4]/60' },
-              { icon: '🧠', label: 'SMART', title: 'Smart Charging', items: ['OCPP-enabled systems', 'Remote monitoring & control', 'Energy usage tracking', 'Solar & battery integration ready'], bg: 'bg-[#2b5ba8]/10', border: 'border-[#2b5ba8]/20', hover: 'hover:border-[#4a7fd4]/50' },
-            ].map((item, i) => (
-              <div key={i} className={`reveal-tw opacity-0 translate-y-7 transition-all duration-700 ${item.bg} border ${item.border} ${item.hover} rounded-[18px] p-8 hover:-translate-y-1`} style={{ transitionDelay: `${i * 100}ms` }}>
-                <div className="text-[32px] mb-4">{item.icon}</div>
-                <div className="font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#4a7fd4] mb-2">{item.label}</div>
-                <div className="font-['Bebas_Neue'] text-[22px] tracking-wide mb-5">{item.title}</div>
-                <ul className="flex flex-col gap-2.5">
-                  {item.items.map((f, j) => (
-                    <li key={j} className="flex gap-2.5 text-[13px] text-[#6a80a8] items-start">
-                      <span className="text-[#4a7fd4] shrink-0 font-['Space_Mono'] font-mono">→</span>{f}
-                    </li>
-                  ))}
-                </ul>
+          <div className="e-hero-eyebrow"><span className="dot" />Residential & Commercial</div>
+          <h1 className="e-hero-title">
+            <span className="ht-b">EV CHARGER</span>
+            <span className="ht-g">INSTALLATION</span>
+          </h1>
+          <p className="e-hero-tagline">Reliable. Compliant. Future-Ready.</p>
+          <p className="e-hero-desc">Power your transition to electric mobility with professionally installed EV charging solutions by Watten Power Ltd.</p>
+          <div className="e-hero-btns">
+            <Link to="/contact-us" className="btn-main btn-green">Get a Free Quote →</Link>
+            <a href="#process" className="btn-outline">How It Works</a>
+          </div>
+          <div className="e-hero-stats">
+            {[["7–22 kW", "Charge Rate"], ["~50 mi", "Per Hour (7kW)"], ["Smart", "Charge Ready"], ["BS7671", "Certified Install"]].map(([val, label]) => (
+              <div key={label} className="hs-pill">
+                <div><div className="hs-val">{val}</div><div className="hs-label">{label}</div></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── INSTALLATION PROCESS ── */}
-      <section id="process" className="py-20 lg:py-24 px-6 lg:px-12 bg-gradient-to-b from-[#081828] to-[#04101f] border-b border-[#2b5ba8]/22">
-        <div className="max-w-[1140px] mx-auto">
-          <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-            <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
-              <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Our Process
-            </div>
-            <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,58px)] leading-[0.95] tracking-wide mb-12 lg:mb-14">
-              ENGINEERING-LED<br /><span className="text-[#4a7fd4]">INSTALLATION</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2px] bg-[#2b5ba8]/22 border border-[#2b5ba8]/22 rounded-[18px] overflow-hidden reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-            {installSteps.map((s, i) => (
-              <div key={i} className="bg-[#0b1830]/90 hover:bg-[#2b5ba8]/10 p-8 lg:p-7 transition-colors">
-                <div className="font-['Space_Mono'] font-mono text-[10px] tracking-widest text-[#4a7fd4] mb-4">{s.num}</div>
-                <div className="font-['Bebas_Neue'] text-xl tracking-wide mb-2.5">{s.title}</div>
-                <div className="text-[13px] text-[#6a80a8] leading-relaxed">{s.desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CHARGER RANGES ── */}
-      <section id="range" className="py-20 lg:py-24 px-6 lg:px-12 border-b border-[#2b5ba8]/22">
-        <div className="max-w-[1140px] mx-auto">
-          <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-            <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
-              <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Our Range
-            </div>
-            <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,58px)] leading-[0.95] tracking-wide mb-3">
-              CHARGER RANGE
-            </h2>
-            <p className="text-[15px] text-[#6a80a8] max-w-xl leading-relaxed mb-12 lg:mb-14">
-              We take a consultative approach — recommending the most suitable charger based on your property, vehicle usage, and future energy plans.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-5">
-            {chargerRanges.slice(0, 3).map((r, i) => <RangeCard key={i} r={r} i={i} />)}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:w-2/3 lg:mx-auto">
-            {chargerRanges.slice(3).map((r, i) => <RangeCard key={i + 3} r={r} i={i + 3} />)}
-          </div>
-
-          {/* CTA strip */}
-          <div className="mt-10 p-7 lg:p-9 bg-[#2b5ba8]/10 border border-[#2b5ba8]/25 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 reveal-tw opacity-0 translate-y-7 transition-all duration-700">
+      {/* INTRO */}
+      <section className="e-intro">
+        <div className="e-container">
+          <div className="intro-grid">
             <div>
-              <div className="font-['Bebas_Neue'] text-[22px] tracking-wide mb-1">NOT SURE WHICH OPTION IS RIGHT?</div>
-              <div className="text-[13px] text-[#6a80a8]">Our team will assess your site and recommend the most suitable solution.</div>
+              <div className="sec-label reveal">EV Charger Installation Services</div>
+              <h2 className="sec-title reveal rd1">EV CHARGER<br />INSTALLATION SERVICES</h2>
+              <p className="sec-desc reveal rd2" style={{ marginBottom: 24 }}>We provide end-to-end EV charger installation services for residential, commercial, and fleet environments. Every installation is engineered for safety, efficiency, and long-term scalability.</p>
+              <p className="sec-desc reveal rd3">Whether you are installing your first charger at home or deploying multiple units across a commercial site, our team ensures a seamless and compliant setup.</p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-              <a href="#survey" className="inline-flex justify-center items-center gap-2 bg-[#2B5BA8] hover:bg-[#4a7fd4] text-white text-[13px] font-medium uppercase tracking-wide py-3 px-7 rounded-full transition-colors">
-                Request a Quote →
-              </a>
-              <a href="#services" className="inline-flex justify-center items-center gap-2 border border-white/15 text-[#c8d8f0] hover:border-[#4a7fd4] hover:text-[#4a7fd4] text-[13px] uppercase tracking-wide py-3 px-7 rounded-full transition-colors">
-                Book Site Survey
-              </a>
+            <div className="intro-img reveal rd2">
+              <img src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?w=800&q=80" alt="EV charger at home" />
+              <div className="intro-img-badge">
+                <div className="iib-label">Typical Install Time</div>
+                <div className="iib-val">Half Day</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── AFTER SALES ── */}
-      <section id="support" className="py-20 lg:py-24 px-6 lg:px-12 bg-gradient-to-b from-[#04101f] to-[#081828] border-b border-[#2b5ba8]/22">
-        <div className="max-w-[1140px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16 items-start">
-            <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-              <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
-                <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> After Sales
+      {/* WHAT WE INSTALL */}
+      <section className="e-install">
+        <div className="e-container">
+          <div className="sec-label reveal">What We Install</div>
+          <h2 className="sec-title reveal rd1">THREE ENVIRONMENTS.<br />ONE SPECIALIST.</h2>
+          <div className="install-grid">
+            {[
+              ["Residential", "RESIDENTIAL INSTALLATIONS", "Smart home EV charger installations designed for standard daily residential use with safe, reliable performance.", ["Smart home EV chargers (7.4 kW single-phase)", "App-controlled charging systems", "Integration with off-peak tariffs (e.g. time-of-use charging)", "Time-of-use optimisation"], "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=700&q=80"],
+              ["Commercial", "COMMERCIAL & WORKPLACE CHARGING", "Commercial and workplace charging systems for offices, car parks, fleets, and multi-user environments.", ["7 kW to 22 kW charging systems", "Multi-point charger installations", "Load balancing for multiple vehicles", "Fleet charging infrastructure"], "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=700&q=80"],
+              ["Smart Systems", "SMART CHARGING", "Smart charging capabilities with remote monitoring, usage tracking, and future solar or battery integration.", ["OCPP-enabled systems", "Remote monitoring and control", "Energy usage tracking", "Solar and battery integration ready"], "https://images.unsplash.com/photo-1609429019995-8c40f49535a5?w=700&q=80"],
+            ].map(([tag, title, desc, feats, img], i) => (
+              <div key={title} className={`install-card reveal rd${i + 1}`}>
+                <div className="ic-img">
+                  <img src={img} alt={title} />
+                  <div className="ic-img-overlay" />
+                  <div className="ic-tag">{tag}</div>
+                </div>
+                <div className="ic-body">
+                  <div className="ic-title">{title}</div>
+                  <div className="ic-desc">{desc}</div>
+                  <ul className="ic-features">{feats.map(f => <li key={f}>{f}</li>)}</ul>
+                </div>
               </div>
-              <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,54px)] leading-[0.95] tracking-wide mb-4">
-                ONGOING<br />SUPPORT
-              </h2>
-              <p className="text-[15px] text-[#c8d8f0] leading-relaxed">
-                Installation is only the first step. Reliable performance depends on proper support and maintenance. We remain your partner for the long term.
-              </p>
-            </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {afterSales.map((a, i) => (
-                <div key={i} className={`reveal-tw opacity-0 translate-y-7 transition-all duration-700 bg-[#0b1830]/75 border border-[#2b5ba8]/22 rounded-[14px] p-5 hover:border-[#4a7fd4]/40 hover:-translate-y-1 ${i === 4 ? 'sm:col-span-2' : ''}`} style={{ transitionDelay: `${(i % 2) * 100}ms` }}>
-                  <div className="text-[24px] mb-2.5">{a.icon}</div>
-                  <div className="font-['Bebas_Neue'] text-[16px] tracking-wide mb-1.5">{a.title}</div>
-                  <div className="text-[12px] text-[#6a80a8] leading-relaxed">{a.desc}</div>
+      {/* PROCESS */}
+      <section className="e-process" id="process">
+        <div className="e-container">
+          <div className="process-header">
+            <div>
+              <div className="sec-label reveal">Installation Process</div>
+              <h2 className="sec-title reveal rd1">HOW IT<br />WORKS</h2>
+              <p className="sec-desc reveal rd2">We follow a structured engineering-led process to ensure safety, compliance, and performance.</p>
+            </div>
+            <div className="process-visual reveal rd2">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="EV charger installation engineer" />
+              <div className="pv-stat pv-stat-1">
+                <div className="pvs-label">Certification Issued</div>
+                <div className="pvs-val">Same Day</div>
+              </div>
+              <div className="pv-stat pv-stat-2">
+                <div className="pvs-label">Average Install</div>
+                <div className="pvs-val">4–6 hrs</div>
+                <div className="pvs-sub">Residential single unit</div>
+              </div>
+            </div>
+          </div>
+          <div className="process-steps reveal">
+            {[
+              ["01", "SITE SURVEY", "We assess your electrical capacity, parking layout, and installation feasibility.", "🔍"],
+              ["02", "SYSTEM DESIGN", "We recommend the right charger type, power rating, and protection systems.", "📐"],
+              ["03", "DNO NOTIFICATION", "We handle Distribution Network Operator notifications for higher load installations.", "📋"],
+              ["04", "INSTALLATION", "Our certified engineers complete installation including cabling, mounting, and connections.", "🔧"],
+              ["05", "TESTING & CERTIFICATION", "Full electrical testing is carried out and certification is issued.", "✅"],
+              ["06", "HANDOVER", "We guide you through charger usage, app setup, and safety procedures.", "🤝"],
+            ].map(([num, title, desc, icon], i, arr) => (
+              <div key={num} className="ps" style={i === arr.length - 1 ? { borderBottom: "none" } : {}}>
+                <div className="ps-num">{num}</div>
+                <div className="ps-body">
+                  <div className="ps-title">{title}</div>
+                  <div className="ps-desc">{desc}</div>
+                </div>
+                <div className="ps-icon">{icon}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CHARGER RANGE */}
+      <section className="e-range">
+        <div className="e-container">
+          <div className="range-intro">
+            <div>
+              <div className="sec-label reveal">Our Charger Range</div>
+              <h2 className="sec-title reveal rd1">OUR EV<br />CHARGER RANGE</h2>
+            </div>
+            <div className="reveal rd2">
+              <p className="sec-desc">We offer a carefully selected range of EV chargers designed to suit different properties, usage patterns, and budgets. Rather than promoting a single product, we take a consultative approach. We assess your requirements and recommend the most suitable charger based on your electrical capacity, vehicle usage, and future energy plans.</p>
+            </div>
+          </div>
+          <div className="range-grid">
+            {[
+              ["01 / ENTRY", "🔌", "ENTRY RANGE", "Simple, reliable and cost-effective", ["Ideal for daily residential use", "7.4 kW single-phase", "Basic smart functionality", "Compact and practical"], false],
+              ["02 / SMART", "📱", "SMART RANGE", "Enhanced control and efficiency", ["App-enabled control", "Off-peak scheduling", "Energy monitoring", "Suitable for most homes and small businesses"], false],
+              ["03 / PREMIUM ★", "⚡", "PREMIUM RANGE", "Advanced performance and design", ["Advanced smart features", "Faster charging capability (subject to supply)", "Sleek modern design", "Enhanced user interface"], true],
+              ["04 / COMMERCIAL", "🏢", "COMMERCIAL", "Built for scale and reliability", ["Multiple charger installations", "Load balancing", "User access control", "Usage reporting"], false],
+              ["05 / FUTURE", "🔋", "FUTURE-READY", "Designed for integrated energy", ["Solar-compatible", "Battery-ready integration", "Smart energy ecosystem", "Ideal for long-term energy optimisation"], false],
+            ].map(([badge, icon, name, tagline, feats, featured], i) => (
+              <div key={name} className={`rc reveal rd${i + 1}${featured ? " featured" : ""}`}>
+                <div className="rc-badge">{badge}</div>
+                <div className="rc-icon">{icon}</div>
+                <div className="rc-name">{name}</div>
+                <div className="rc-tagline">{tagline}</div>
+                <ul className="rc-feats">{feats.map(f => <li key={f}>{f}</li>)}</ul>
+              </div>
+            ))}
+          </div>
+          <div className="range-cta-band reveal">
+            <div>
+              <div className="rcb-title">Not sure which option is right for you?</div>
+              <div className="rcb-sub">Our team will assess your site and recommend the most suitable solution.</div>
+            </div>
+            <div className="rcb-btns">
+              <Link to="/contact-us" className="btn-main btn-green">Request a Quote →</Link>
+              <Link to="/contact-us" className="btn-outline">Book a Survey</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BRANDS */}
+      <section className="e-brands">
+        <div className="e-container">
+          <div className="brands-header">
+            <div className="sec-label reveal">Charger Brands</div>
+            <h2 className="sec-title reveal rd1" style={{ textAlign: "center" }}>BRANDS WE INSTALL</h2>
+            <p className="reveal rd2" style={{ fontSize: 14, color: "var(--muted)", marginTop: 10 }}>We work with a carefully selected range of trusted manufacturers — recommending the right brand for your specific needs, property, and budget.</p>
+          </div>
+          <div className="brands-track">
+            <div className="brand-card reveal rd1">
+              <div className="brand-logo">
+                <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40">
+                  <text x="0" y="32" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="34" letterSpacing="-1">zappi</text>
+                </svg>
+              </div>
+              <div className="brand-name">ZAPPI</div>
+              <div className="brand-tag">Eco Smart</div>
+            </div>
+            <div className="brand-card reveal rd2">
+              <div className="brand-logo">
+                <svg viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40">
+                  <polygon points="18,2 6,22 14,22 2,38 22,16 13,16" />
+                  <text x="28" y="30" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="22" letterSpacing="0">hypervolt</text>
+                </svg>
+              </div>
+              <div className="brand-name">HYPERVOLT</div>
+              <div className="brand-tag">Home &amp; Pro</div>
+            </div>
+            <div className="brand-card reveal rd3">
+              <div className="brand-logo">
+                <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40">
+                  <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" strokeWidth="4" />
+                  <text x="40" y="28" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="26" letterSpacing="1">ohme</text>
+                </svg>
+              </div>
+              <div className="brand-name">OHME</div>
+              <div className="brand-tag">Smart Tariff</div>
+            </div>
+            <div className="brand-card reveal rd4">
+              <div className="brand-logo">
+                <svg viewBox="0 0 100 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40">
+                  <path d="M50 6 C30 6 14 10 4 16 L8 20 C12 14 28 10 50 10 C72 10 88 14 92 20 L96 16 C86 10 70 6 50 6Z" />
+                  <path d="M50 10 L50 48 L46 48 L46 14 C38 15 32 18 28 22 L24 18 C32 12 40 10 50 10Z M50 10 L50 48 L54 48 L54 14 C62 15 68 18 72 22 L76 18 C68 12 60 10 50 10Z" opacity=".7" />
+                </svg>
+              </div>
+              <div className="brand-name">TESLA</div>
+              <div className="brand-tag">Wall Connector</div>
+            </div>
+            <div className="brand-card reveal rd5">
+              <div className="brand-logo">
+                <svg viewBox="0 0 130 40" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40">
+                  <rect x="0" y="8" width="24" height="24" rx="5" fill="none" stroke="currentColor" strokeWidth="3" />
+                  <rect x="5" y="13" width="14" height="3" rx="1.5" />
+                  <rect x="5" y="19" width="10" height="3" rx="1.5" />
+                  <rect x="5" y="25" width="14" height="3" rx="1.5" />
+                  <text x="32" y="29" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="22" letterSpacing="0">easee one</text>
+                </svg>
+              </div>
+              <div className="brand-name">EASEE ONE</div>
+              <div className="brand-tag">Compact</div>
+            </div>
+          </div>
+          <div className="brands-brochure reveal">
+            <p>Want to know more about the chargers we install?</p>
+            <a href="#" className="brochure-btn" onClick={(e) => { e.preventDefault(); alert('Brochure coming soon — contact us at info@wattenpower.com for product details.'); }}>
+              <span className="brochure-btn-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="12" y1="18" x2="12" y2="12" /><line x1="9" y1="15" x2="15" y2="15" /></svg>
+              </span>
+              View EV Charger Brochure
+              <span className="brochure-btn-arrow">↓</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* AFTER SALES */}
+      <section className="e-aftersales">
+        <div className="e-container">
+          <div className="aftersales-grid">
+            <div>
+              <div className="sec-label reveal">After Sales Support</div>
+              <h2 className="sec-title reveal rd1">BEYOND<br />INSTALLATION</h2>
+              <p className="sec-desc reveal rd2" style={{ marginBottom: 36 }}>Installation is only the first step. Reliable performance depends on proper support and maintenance. At Watten Power Ltd, we provide structured after-sales support to ensure your system continues to operate safely and efficiently.</p>
+              <div className="as-list reveal rd3">
+                {[
+                  ["01", "INSTALLATION WARRANTY SUPPORT", "We support manufacturer warranties and assist in resolving any early-stage issues."],
+                  ["02", "TECHNICAL SUPPORT", "Remote and on-call assistance for charger faults, connectivity issues, app configuration, and charging interruptions."],
+                  ["03", "MAINTENANCE & HEALTH CHECKS", "Periodic inspection recommended for commercial setups, including electrical safety checks, cable inspection, and connection inspection."],
+                  ["04", "TROUBLESHOOTING & REPAIRS", "Fast response support for system faults and performance issues to minimise downtime."],
+                  ["05", "UPGRADES & EXPANSION", "As your needs grow, we support additional charger installations, load balancing upgrades, and integration with solar and battery systems."],
+                ].map(([num, title, desc]) => (
+                  <div key={num} className="asl-item">
+                    <div className="asl-num">{num}</div>
+                    <div>
+                      <div className="asl-title">{title}</div>
+                      <div className="asl-desc">{desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="aftersales-visual">
+              <div className="av-img reveal rd1">
+                <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=700&q=80" alt="EV support technician" />
+              </div>
+              <div className="av-cards reveal rd2">
+                {[
+                  ["📞", "Remote Support", "On-call technical assistance without needing a site visit for most issues."],
+                  ["🔧", "On-Site Repairs", "Fast dispatch for faults requiring physical inspection or component replacement."],
+                  ["📊", "Usage Reports", "Energy and session data for commercial clients to track costs and usage."],
+                  ["🔒", "Safety Checks", "Periodic electrical safety inspections aligned with BS 7671 recommendations."],
+                ].map(([icon, title, desc]) => (
+                  <div key={title} className="av-card">
+                    <div className="av-card-icon">{icon}</div>
+                    <div className="av-card-title">{title}</div>
+                    <div className="av-card-desc">{desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* COMPLIANCE */}
+      <section className="e-compliance" id="compliance">
+        <div className="e-container">
+          <div className="compliance-inner">
+            <div>
+              <div className="sec-label reveal">Standards</div>
+              <h2 className="sec-title reveal rd1">SAFE.<br />CERTIFIED.<br />COMPLIANT.</h2>
+              <p className="sec-desc reveal rd2" style={{ marginBottom: 24 }}>All installations are carried out in accordance with UK regulations and industry standards:</p>
+              <p className="compliance-note reveal rd3">Every installation is completed with safety, compliance, and long-term performance in mind.</p>
+            </div>
+            <div className="standards-grid">
+              {[
+                ["⚡", "BS 7671", "IET Wiring Regulations"],
+                ["🔌", "BS EN 61851", "EV Charging Systems"],
+                ["📱", "Smart CP Regs", "UK Smart Charge Point Regulations"],
+                ["🌐", "G98 / G99", "Grid Connection Compliance"],
+                ["🔋", "OCPP 1.6J", "Compatibility where applicable"],
+              ].map(([icon, name, desc]) => (
+                <div key={name} className="std-card reveal">
+                  <div className="std-icon">{icon}</div>
+                  <div className="std-name">{name}</div>
+                  <div className="std-desc">{desc}</div>
                 </div>
               ))}
             </div>
@@ -337,123 +649,125 @@ export default function EVPage() {
         </div>
       </section>
 
-      {/* ── COMPLIANCE ── */}
-      <section className="py-16 lg:py-20 px-6 lg:px-12 border-b border-[#2b5ba8]/22">
-        <div className="max-w-[1140px] mx-auto">
-          <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-            <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
-              <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Standards
-            </div>
-            <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,58px)] leading-[0.95] tracking-wide mb-10">
-              COMPLIANCE &<br /><span className="text-[#4a7fd4]">CERTIFICATIONS</span>
-            </h2>
-          </div>
-
-          <div className="flex flex-wrap gap-4 reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-            {compliance.map((c, i) => (
-              <div key={i} className="bg-[#0b1830]/75 border border-[#2b5ba8]/22 rounded-xl p-5 min-w-[160px] flex-1 hover:border-[#4a7fd4]/50 hover:-translate-y-0.5 transition-all">
-                <div className="font-['Space_Mono'] font-mono text-[12px] text-[#4a7fd4] tracking-wide mb-1.5">{c.code}</div>
-                <div className="text-[12px] text-[#6a80a8]">{c.desc}</div>
+      {/* WHY */}
+      <section className="e-why">
+        <div className="e-container">
+          <div className="sec-label reveal">Why Watten Power</div>
+          <h2 className="sec-title reveal rd1">WHY CHOOSE<br />WATTEN POWER?</h2>
+          <div className="why-grid">
+            {[
+              ["🔍", "ENGINEERING-LED INSTALLATIONS", "We design systems based on actual load requirements, not generic templates."],
+              ["✅", "FULLY COMPLIANT & CERTIFIED", "Every installation meets UK electrical and safety regulations."],
+              ["📈", "SCALABLE INFRASTRUCTURE", "Our installations are designed to support future expansion including solar and battery integration."],
+              ["💬", "TRANSPARENT APPROACH", "Clear scope, clear pricing, no unnecessary upselling."],
+            ].map(([icon, title, desc]) => (
+              <div key={title} className="why-card">
+                <div className="wc-icon">{icon}</div>
+                <div>
+                  <div className="wc-title">{title}</div>
+                  <div className="wc-desc">{desc}</div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── WHY CHOOSE US ── */}
-      <section className="py-20 lg:py-24 px-6 lg:px-12 border-b border-[#2b5ba8]/22">
-        <div className="max-w-[1140px] mx-auto">
-          <div className="reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-            <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] uppercase text-[#4a7fd4] mb-4 flex items-center gap-3">
-              <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Why Watten Power
+      {/* FUTURE READY */}
+      <section className="e-future">
+        <div className="e-container">
+          <div className="future-inner">
+            <div className="future-img reveal">
+              <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80" alt="Solar and EV integration" />
             </div>
-            <h2 className="font-['Bebas_Neue'] text-[clamp(34px,5vw,58px)] leading-[0.95] tracking-wide mb-12">
-              THE WATTEN<br /><span className="text-[#4a7fd4]">DIFFERENCE</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {whyUs.map((w, i) => (
-              <div key={i} className="reveal-tw opacity-0 translate-y-7 transition-all duration-700 bg-[#0b1830]/75 border border-[#2b5ba8]/22 rounded-2xl p-7 hover:border-[#4a7fd4]/40 hover:-translate-y-1" style={{ transitionDelay: `${i * 100}ms` }}>
-                <div className="text-[28px] mb-3.5">{w.icon}</div>
-                <div className="font-['Bebas_Neue'] text-[17px] tracking-wide mb-2">{w.title}</div>
-                <div className="text-[12px] text-[#6a80a8] leading-relaxed">{w.desc}</div>
+            <div>
+              <div className="sec-label reveal">Future-Ready</div>
+              <h2 className="sec-title reveal rd1">FUTURE-READY<br />ENERGY INTEGRATION</h2>
+              <p className="sec-desc reveal rd2" style={{ marginBottom: 28 }}>Your EV charger is not just a charging point. It is part of a wider energy ecosystem. Our systems are designed to integrate with solar PV systems, battery storage solutions, and smart energy management platforms.</p>
+              <div className="future-ecosystem reveal rd3">
+                {[
+                  ["☀️", "Solar PV systems", "integrate EV charging with renewable energy generation"],
+                  ["🔋", "Battery storage", "support battery storage solutions as part of your wider energy system"],
+                  ["📊", "Smart energy platforms", "connect with smart energy management platforms for long-term flexibility"],
+                ].map(([icon, bold, text]) => (
+                  <div key={bold} className="fe-item">
+                    <div className="fe-icon">{icon}</div>
+                    <div className="fe-text"><strong>{bold}</strong> — {text}</div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-
-          {/* Future-ready strip */}
-          <div className="mt-10 p-8 lg:p-9 bg-gradient-to-br from-[#2b5ba8]/15 to-[#5a8c2e]/10 border border-[#2b5ba8]/30 rounded-2xl reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-            <div className="font-['Bebas_Neue'] text-[24px] tracking-wide mb-2">
-              FUTURE-READY ENERGY INTEGRATION
             </div>
-            <p className="text-[14px] text-[#6a80a8] leading-relaxed mb-5 max-w-2xl">
-              Your EV charger is part of a wider energy ecosystem. Our systems are designed to integrate with solar PV, battery storage, and smart energy management platforms.
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="e-cta" id="contact">
+        <div className="e-container">
+          <div className="cta-inner reveal">
+            <div className="cta-eyebrow">Get Started</div>
+            <h2 className="cta-title">PLANNING TO INSTALL<br /><span className="ac">AN EV CHARGER?</span></h2>
+            <p className="cta-sub">Speak with our team for a technical assessment and tailored recommendation.</p>
+            <div className="cta-btns">
+              <Link to="/contact-us" className="btn-main btn-green">Request a Quote →</Link>
+              <Link to="/contact-us" className="btn-outline">Book a Site Survey</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer style={{
+        position: 'relative', zIndex: 2,
+        borderTop: '1px solid var(--line)',
+        padding: '60px 52px 36px',
+        background: 'var(--ink-2)',
+      }} className="ev-footer-root">
+        <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: 48, marginBottom: 48 }} className="ev-footer-top">
+          <div>
+            <div style={{ marginBottom: 16 }}>
+              <Link to="/"><img src={logo} alt="Watten Power" style={{ height: 40, display: 'block' }} /></Link>
+            </div>
+            <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
+              Watten Power Ltd is a UK-based clean energy solutions provider specialising in EV charging and solar installations for residential and commercial properties.
             </p>
-            <div className="flex flex-wrap gap-4">
-              {['☀️ Solar PV Systems', '🔋 Battery Storage', '⚡ Smart Energy Management'].map((t, i) => (
-                <span key={i} className="font-['Space_Mono'] font-mono text-[11px] tracking-wide py-1.5 px-3.5 rounded-full bg-[#2b5ba8]/20 border border-[#2b5ba8]/30 text-[#4a7fd4]">
-                  {t}
-                </span>
-              ))}
-            </div>
           </div>
+          <EVFooterCol title="Services" links={[
+            { label: 'EV Charger Installation', href: '/ev-charger' },
+            { label: 'Solar Panel Installation', href: '/solar' },
+          ]} />
+          <EVFooterCol title="Company" links={[
+            { label: 'About Us', href: '#why' },
+            { label: 'Our Approach', href: '#process' },
+            { label: 'Compliance', href: '#compliance' },
+            { label: 'Contact', href: '/contact-us' },
+          ]} />
+          <EVFooterCol title="Contact" links={[
+            { label: 'info@wattenpower.com', href: 'mailto:info@wattenpower.com' },
+            { label: 'United Kingdom', href: '#' },
+            { label: 'Privacy Policy', href: '#' },
+            { label: 'Terms of Service', href: '#' },
+          ]} />
         </div>
-      </section>
-
-      {/* ── FINAL CTA ── */}
-      <section id="survey" className="py-20 lg:py-24 px-6 lg:px-12">
-        <div className="max-w-[1140px] mx-auto">
-          <div className="bg-gradient-to-br from-[#2b5ba8]/20 to-[#5a8c2e]/10 border border-[#2b5ba8]/35 rounded-[24px] p-10 sm:p-14 lg:p-16 text-center relative overflow-hidden reveal-tw opacity-0 translate-y-7 transition-all duration-700">
-            <div className="absolute -top-[80px] left-1/2 -translate-x-1/2 w-[400px] h-[300px] bg-[radial-gradient(circle,rgba(43,91,168,0.15),transparent_70%)] pointer-events-none" />
-
-            <div className="relative z-10">
-              <div className="font-['Space_Mono'] font-mono text-[10px] tracking-[3px] text-[#4a7fd4] uppercase mb-5 flex items-center justify-center gap-3">
-                <span className="block w-6 h-[1px] bg-[#4a7fd4]" /> Planning to install an EV charger? <span className="block w-6 h-[1px] bg-[#4a7fd4]" />
-              </div>
-              <h2 className="font-['Bebas_Neue'] text-[clamp(36px,5vw,64px)] leading-[0.95] tracking-wide mb-4">
-                GET STARTED<br />
-                <span className="text-[#4a7fd4]">TODAY</span>
-              </h2>
-              <p className="text-[16px] text-[#c8d8f0] max-w-[480px] mx-auto mb-10 leading-relaxed">
-                Speak with our team for a technical assessment and tailored recommendation — at no cost.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="mailto:hello@wattenpower.co.uk" className="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-gradient-to-br from-[#2B5BA8] to-[#4a7fd4] text-white font-medium text-[14px] uppercase tracking-wide py-3.5 px-9 rounded-full shadow-[0_8px_28px_rgba(43,91,168,0.4)] hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(43,91,168,0.55)] transition-all">
-                  Request a Quote →
-                </a>
-                <a href="mailto:hello@wattenpower.co.uk" className="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-transparent text-white text-[14px] uppercase tracking-wide py-3.5 px-9 rounded-full border border-white/20 hover:border-[#4a7fd4] hover:text-[#4a7fd4] transition-all">
-                  Book Site Survey ↗
-                </a>
-              </div>
-            </div>
-          </div>
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          paddingTop: 28, borderTop: '1px solid var(--line)',
+          fontSize: 12, color: 'var(--muted)', flexWrap: 'wrap', gap: 12,
+        }}>
+          <span>© 2026 Watten Power Ltd. All rights reserved.</span>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>Registered in England &amp; Wales</span>
         </div>
-      </section>
-
+        <style>{`
+          @media (max-width: 960px) {
+            .ev-footer-root { padding: 48px 32px 28px !important; }
+            .ev-footer-top { grid-template-columns: 1fr 1fr !important; gap: 36px !important; }
+          }
+          @media (max-width: 600px) {
+            .ev-footer-root { padding: 44px 20px 24px !important; }
+            .ev-footer-top { grid-template-columns: 1fr !important; gap: 32px !important; }
+          }
+        `}</style>
+      </footer>
     </div>
-  )
-}
-
-function RangeCard({ r, i }) {
-  return (
-    <div className={`reveal-tw opacity-0 translate-y-7 transition-all duration-700 ${r.bgAccent} border ${r.borderColor} ${r.hoverBorder} rounded-2xl p-7 relative hover:-translate-y-1`} style={{ transitionDelay: `${(i % 3) * 100}ms` }}>
-      {r.featured && (
-        <div className="absolute top-4 right-4 font-['Space_Mono'] font-mono text-[9px] tracking-widest py-1 px-2.5 rounded-full bg-[#2b5ba8]/30 text-[#4a7fd4] border border-[#2b5ba8]/40 uppercase">
-          Popular
-        </div>
-      )}
-      <div className={`font-['Space_Mono'] font-mono text-[10px] tracking-widest mb-2.5 ${r.color}`}>{r.label}</div>
-      <div className="font-['Bebas_Neue'] text-[22px] tracking-wide mb-1">{r.title}</div>
-      <div className="text-[12px] text-[#6a80a8] mb-5">{r.sub}</div>
-      <ul className="flex flex-col gap-2">
-        {r.features.map((f, j) => (
-          <li key={j} className="flex gap-2 text-[12px] text-[#6a80a8] items-start">
-            <span className={`${r.color} shrink-0 font-['Space_Mono'] font-mono`}>→</span>{f}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
+  );
 }

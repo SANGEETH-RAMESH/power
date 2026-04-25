@@ -10,7 +10,7 @@ export default function WattenRoute() {
         <>
             <Routes>
                 <Route path="/" element={<Landing/>} />
-                <Route path="ev-charging" element={<EVPage/>}/>
+                <Route path="ev-charger" element={<EVPage/>}/>
                 <Route path="solar" element={<SolarInstallation/>}/>
                 <Route path="contact-us" element={<ContactPage/>}/>
             </Routes>
