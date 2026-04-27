@@ -837,63 +837,64 @@ export default function Solar() {
           <div className="est-preview" ref={estimatorRef}>
 
             {!showEstimator ? (
-              /* ── MOCK PREVIEW (default) ── */
               <>
-                <div className="est-mock-card reveal rd2">
+                {/* ── ESTIMATOR STARTER CARD ── */}
+                <div className="est-mock-card reveal rd2" style={{ marginBottom: 16 }}>
                   <div className="emc-header">
-                    <div className="emc-title">⚡ Your Estimated System</div>
-                    <div className="emc-badge">Sample Output</div>
+                    <div className="emc-title">☀️ Solar Cost Estimator</div>
+                    <div className="emc-badge">Free · Instant</div>
                   </div>
-                  <div className="emc-result-row">
-                    <div className="emc-result-item">
-                      <div className="emc-result-label">System Size</div>
-                      <div className="emc-result-val">4.0 kWp</div>
-                      <div className="emc-result-sub">10 panels × 400 Wp</div>
-                    </div>
-                    <div className="emc-result-item">
-                      <div className="emc-result-label">Est. Total Cost</div>
-                      <div className="emc-result-val">£5.4–7k</div>
-                      <div className="emc-result-sub">After 0% VAT</div>
-                    </div>
-                    <div className="emc-result-item">
-                      <div className="emc-result-label">Monthly Saving</div>
-                      <div className="emc-result-val">£68</div>
-                      <div className="emc-result-sub">£816 per year</div>
-                    </div>
-                    <div className="emc-result-item">
-                      <div className="emc-result-label">Payback Period</div>
-                      <div className="emc-result-val">7.8 yrs</div>
-                      <div className="emc-result-sub">25-year panel life</div>
-                    </div>
+
+                  <p style={{ fontSize: 15, color: 'var(--light)', fontWeight: 500, margin: '0 0 6px' }}>
+                    Get your personalised estimate
+                  </p>
+                  <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, margin: '0 0 22px' }}>
+                    Tell us about your property and we'll instantly calculate your ideal system size, projected savings, and payback period.
+                  </p>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 22 }}>
+                    {[
+                      ['🏠', 'Property type', 'Home or commercial'],
+                      ['💷', 'Monthly bill', 'Your energy spend'],
+                      ['📐', 'Roof area', 'Available space (m²)'],
+                      ['📍', 'UK location', 'Sun hours by region'],
+                    ].map(([icon, label, sub]) => (
+                      <div key={label} style={{
+                        background: 'rgba(255,255,255,0.04)',
+                        border: '1px solid var(--line)',
+                        borderRadius: 'var(--r)',
+                        padding: '11px 14px',
+                        display: 'flex', alignItems: 'center', gap: 10,
+                      }}>
+                        <span style={{ fontSize: 16 }}>{icon}</span>
+                        <div>
+                          <div style={{ fontSize: 11, color: 'var(--muted)' }}>{label}</div>
+                          <div style={{ fontSize: 12, fontWeight: 500, color: 'var(--light)' }}>{sub}</div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="emc-bar-row">
-                    <div className="emc-bar-label">
-                      <span>Payback Progress</span>
-                      <span style={{ color: 'var(--green-hi)' }}>7.8 / 25 years</span>
-                    </div>
-                    <div className="emc-bar-track">
-                      <div className="emc-bar-fill" style={{ '--w': '31%' }} />
-                    </div>
+
+                  <div style={{ borderTop: '1px solid var(--line)', paddingTop: 14, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <span style={{ color: 'var(--green-hi)', fontSize: 14, flexShrink: 0, marginTop: 1 }}>⚡</span>
+                    <p style={{ fontSize: 12, color: 'var(--muted)', margin: 0, lineHeight: 1.65 }}>
+                      Answer 7 quick questions to get your system size, cost range, monthly savings, and estimated payback period.
+                    </p>
                   </div>
                 </div>
 
-                <div className="est-mini-cards reveal rd3">
-                  {[
-                    ["Annual Generation", "3,285 kWh", "South England estimate"],
-                    ["CO₂ Saved (25 yrs)", "19.1 T", "≈ 880 trees planted"],
-                    ["SEG Export Earnings", "~£246", "Per year @ 15p/kWh"],
-                    ["VAT Saving", "0% VAT", "Residential installs"],
-                  ].map(([label, val, sub]) => (
-                    <div key={label} className="emc2">
-                      <div className="emc2-label">{label}</div>
-                      <div className="emc2-val">{val}</div>
-                      <div className="emc2-sub">{sub}</div>
+                {/* ── 3 stat pills ── */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10, marginBottom: 16 }}>
+                  {[['0%', 'VAT on residential'], ['25 yr', 'Panel warranty'], ['MCS', 'Certified engineers']].map(([val, lbl]) => (
+                    <div key={lbl} className="emc2" style={{ textAlign: 'center' }}>
+                      <div className="emc2-val" style={{ fontSize: 22 }}>{val}</div>
+                      <div className="emc2-sub">{lbl}</div>
                     </div>
                   ))}
                 </div>
 
-                <p className="reveal rd4" style={{ fontSize: 11, color: 'var(--muted)', marginTop: 20, fontFamily: "'Space Mono',monospace", letterSpacing: '.5px', lineHeight: 1.8 }}>
-                  * Sample figures only. Your estimate will be calculated based on your actual inputs across 7 quick questions.
+                <p className="reveal rd4" style={{ fontSize: 11, color: 'var(--muted)', textAlign: 'center', fontFamily: "'Space Mono',monospace", letterSpacing: '.5px', lineHeight: 1.8, margin: 0 }}>
+                  Click "Estimate Your System" on the left to begin
                 </p>
               </>
             ) : (

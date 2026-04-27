@@ -140,7 +140,11 @@ function SliderStep({ question, hint, value, min, max, step, unit, prefix, label
                 <input
                     type="range" min={min} max={max} step={step} value={val}
                     onChange={handleChange}
-                    style={{ width: "100%", height: 6, borderRadius: 3, outline: "none", appearance: "none", WebkitAppearance: "none", background: "rgba(43,91,168,0.2)", cursor: "pointer" }}
+                    style={{
+                        width: "100%", height: 6, borderRadius: 3, outline: "none",
+                        appearance: "none", WebkitAppearance: "none", cursor: "pointer",
+                        background: `linear-gradient(to right, #5A8C2E ${((val - min) / (max - min)) * 100}%, rgba(43,91,168,0.2) ${((val - min) / (max - min)) * 100}%)`
+                    }}
                 />
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "#8999bb", marginTop: 10 }}>
                     {labels.map((l, i) => <span key={i}>{l}</span>)}
@@ -602,22 +606,31 @@ function SolarEstimator({ startFromStep, onBack, embedded } = {}) {
                 }
                 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
                 input[type=range]::-webkit-slider-thumb {
-                    -webkit-appearance: none;
-                    width: 24px; height: 24px;
-                    border-radius: 50%;
-                    background: linear-gradient(135deg, #2B5BA8, #5A8C2E);
-                    cursor: pointer;
-                    box-shadow: 0 0 0 5px rgba(43,91,168,0.2);
-                    transition: box-shadow 0.2s;
-                }
-                input[type=range]::-webkit-slider-thumb:hover {
-                    box-shadow: 0 0 0 10px rgba(43,91,168,0.15);
-                }
-                input[type=range]::-webkit-slider-runnable-track {
-                    background: rgba(43,91,168,0.2);
-                    border-radius: 3px;
-                    height: 6px;
-                }
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #5A8C2E;
+    border: 2px solid #fff;
+    cursor: pointer;
+    margin-top: -6px;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    border-radius: 3px;
+    height: 6px;
+    background: transparent;
+}
+input[type=range]::-moz-range-thumb {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #5A8C2E;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+input[type=range]::-moz-range-track {
+    height: 6px;
+    border-radius: 3px;
+    background: transparent;
+}
                 @media (max-width: 500px) {
                     .se-grid-3 { grid-template-columns: 1fr !important; }
                     .se-grid-2 { grid-template-columns: 1fr !important; }
