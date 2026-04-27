@@ -1,5 +1,5 @@
 const items = [
-  'EV Charger Installation', 'Solar Panel Installation', 'MCS Certified',
+  'EV Charger Installation', 'Solar System Installation', 'MCS Certified',
   'OZEV Grant Compliant', '0% VAT on Residential Solar', 'NAPIT Approved',
   'Smart Export Guarantee', 'UK Standards Compliant',
 ]

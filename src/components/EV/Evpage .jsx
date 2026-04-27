@@ -734,19 +734,24 @@ export default function EV() {
           </div>
           <EVFooterCol title="Services" links={[
             { label: 'EV Charger Installation', href: '/ev-charger' },
-            { label: 'Solar Panel Installation', href: '/solar' },
+            { label: 'Solar System Installation', href: '/solar' },
+            { label: 'Battery Storage', href: '/battery-storage' },
+            { label: 'Solar Estimator', href: '/solar-estimator' },
           ]} />
-          <EVFooterCol title="Company" links={[
-            { label: 'About Us', href: '#why' },
-            { label: 'Our Approach', href: '#process' },
-            { label: 'Compliance', href: '#compliance' },
-            { label: 'Contact', href: '/contact-us' },
-          ]} />
-          <EVFooterCol title="Contact" links={[
+
+          <EVFooterCol title="Contact Us" links={[
+            { label: '0208 001 1100', href: 'tel:02080011100' },
             { label: 'info@wattenpower.com', href: 'mailto:info@wattenpower.com' },
-            { label: 'United Kingdom', href: '#' },
-            { label: 'Privacy Policy', href: '#' },
-            { label: 'Terms of Service', href: '#' },
+            { label: 'Office 2, 60 Gold Street, Northampton, NN1 1RS', href: '#' },
+          ]} />
+
+          <EVFooterCol title="Legal" links={[
+            { label: 'Terms & Conditions', href: '/terms-and-conditions' },
+            { label: 'Privacy Policy', href: '/privacy-policy' },
+            { label: 'Cookie Policy', href: '/cookie-policy' },
+            { label: 'Terms of Sale', href: '/terms-of-sale' },
+            { label: 'Return Policy', href: '/return-policy' },
+            { label: 'Modern Slavery Statement', href: '/modern-slavery-statement' },
           ]} />
         </div>
         <div style={{

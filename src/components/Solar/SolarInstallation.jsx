@@ -2,6 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import logo from '../../assets/logo.png';
 import { Link } from "react-router-dom";
 
+// ─── Import your Solar Estimator wizard ───────────────────────────────────
+// This component must accept a prop: startFromStep (we pass 1 = "Property Type")
+// and optionally onBack so users can go back to the preview.
+import { SolarEstimatorWizard } from './SolarEstimator';
+// NOTE: Create SolarEstimatorWizard.jsx that exports only the wizard portion
+// (no header/footer/intro) and accepts { startFromStep, onBack } props.
+// ─────────────────────────────────────────────────────────────────────────
+
 function SolFooterCol({ title, links }) {
   return (
     <div>
@@ -25,9 +33,11 @@ function SolFooterCol({ title, links }) {
 }
 
 export default function Solar() {
-  const revealRef = useRef([]);
   const [scrolled, setScrolled] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  // Controls whether the right panel shows the mock preview or the live wizard
+  const [showEstimator, setShowEstimator] = useState(false);
+  const estimatorRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,6 +54,14 @@ export default function Solar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  function handleEstimateClick() {
+    setShowEstimator(true);
+    // Give the DOM a tick, then scroll the right panel into view
+    setTimeout(() => {
+      estimatorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 80);
+  }
 
   return (
     <div className="solar-page">
@@ -203,6 +221,234 @@ export default function Solar() {
         .rcb-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; margin-bottom: 4px; }
         .rcb-sub { font-size: 16px; color: var(--muted); }
 
+        /* ══ ESTIMATION SECTION ══════════════════════════════════════ */
+        .estimation-section {
+  padding: 0;
+  border-top: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+        .estimation-inner {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  min-height: 600px;
+  align-items: stretch;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+        /* Left — dark content side */
+        .est-content {
+          background: var(--ink-2);
+          padding: 80px 64px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          position: relative;
+          z-index: 2;
+        }
+        .est-content::after {
+          content: '';
+          position: absolute;
+          top: 0; right: -1px; bottom: 0;
+          width: 1px;
+          background: linear-gradient(to bottom, transparent, var(--green), transparent);
+        }
+        .est-intro {
+          font-size: 15px;
+          color: var(--muted);
+          line-height: 1.75;
+          margin-bottom: 36px;
+          max-width: 460px;
+        }
+
+        /* Input factors grid */
+        .est-factors {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          margin-bottom: 40px;
+        }
+        .ef-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          background: rgba(255,255,255,.04);
+          border: 1px solid var(--line);
+          border-radius: var(--r);
+          padding: 14px 16px;
+          transition: border-color .25s;
+        }
+        .ef-item:hover { border-color: rgba(90,140,46,.4); }
+        .ef-icon {
+          width: 36px; height: 36px;
+          border-radius: 10px;
+          background: var(--green-dim);
+          border: 1px solid var(--line-g);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 16px; flex-shrink: 0;
+        }
+        .ef-label { font-size: 12px; color: var(--muted); line-height: 1.4; }
+        .ef-label strong { display: block; font-size: 13px; color: var(--light); font-weight: 500; margin-bottom: 1px; }
+
+        /* Big CTA button */
+        .est-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          background: linear-gradient(135deg, var(--green), var(--green-hi));
+          color: #fff;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 22px;
+          letter-spacing: 2px;
+          padding: 20px 44px;
+          border-radius: 50px;
+          border: none;
+          cursor: pointer;
+          text-decoration: none;
+          transition: all .3s ease;
+          box-shadow: 0 10px 40px rgba(90,140,46,.4);
+          align-self: flex-start;
+          position: relative;
+          overflow: hidden;
+        }
+        .est-btn::before {
+          content: '';
+          position: absolute; inset: 0;
+          background: linear-gradient(135deg, rgba(255,255,255,.12), transparent);
+          opacity: 0; transition: opacity .3s;
+        }
+        .est-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 56px rgba(90,140,46,.5); }
+        .est-btn:hover::before { opacity: 1; }
+        .est-btn-icon {
+          width: 42px; height: 42px;
+          background: rgba(255,255,255,.2);
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 20px;
+          transition: transform .3s;
+          flex-shrink: 0;
+        }
+        .est-btn:hover .est-btn-icon { transform: scale(1.15) rotate(10deg); }
+        .est-note {
+          font-size: 12px;
+          color: var(--muted);
+          margin-top: 16px;
+          font-family: 'Space Mono', monospace;
+          letter-spacing: .5px;
+        }
+
+        /* Right — preview / estimator panel */
+        .est-preview {
+  background: linear-gradient(135deg, rgba(90,140,46,.12) 0%, rgba(43,91,168,.15) 100%);
+  padding: 80px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  align-self: stretch;
+  min-width: 0;
+}
+        .est-preview::before {
+          content: '';
+          position: absolute;
+          top: -100px; right: -100px;
+          width: 400px; height: 400px;
+          background: radial-gradient(circle, rgba(90,140,46,.12), transparent 70%);
+          pointer-events: none;
+          animation: pulse-glow 4s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+          0%,100% { transform: scale(1); opacity: .7; }
+          50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Mock result card (shown before estimator launches) */
+        .est-mock-card {
+          background: rgba(4,16,31,.7);
+          border: 1px solid rgba(90,140,46,.35);
+          border-radius: var(--r2);
+          padding: 32px 28px;
+          backdrop-filter: blur(20px);
+          margin-bottom: 16px;
+        }
+        .emc-header {
+          display: flex; align-items: center; justify-content: space-between;
+          margin-bottom: 24px;
+          padding-bottom: 16px;
+          border-bottom: 1px solid var(--line);
+        }
+        .emc-title { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--green-hi); }
+        .emc-badge { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1px; color: var(--muted); background: rgba(43,91,168,.2); border: 1px solid var(--line); border-radius: 50px; padding: 3px 10px; }
+        .emc-result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .emc-result-label { font-size: 10px; color: var(--muted); font-family: 'Space Mono', monospace; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+        .emc-result-val { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 1px; background: linear-gradient(135deg, var(--blue-hi), var(--green-hi)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .emc-result-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+        .emc-bar-row { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
+        .emc-bar-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); font-family: 'Space Mono', monospace; letter-spacing: .5px; margin-bottom: 8px; }
+        .emc-bar-track { height: 6px; background: rgba(255,255,255,.07); border-radius: 3px; overflow: hidden; }
+        .emc-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--blue-hi), var(--green-hi)); animation: grow-bar 2s 1s ease both; }
+        @keyframes grow-bar { from{width:0%} to{width:var(--w)} }
+        .est-mini-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .emc2 { background: rgba(4,16,31,.6); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 16px; backdrop-filter: blur(12px); }
+        .emc2-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+        .emc2-val { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; color: var(--green-hi); }
+        .emc2-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+        /* Live estimator wrapper inside right panel */
+       .est-live-wrap {
+  position: relative;
+  z-index: 2;
+  animation: fadeUp .45s ease both;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+
+/* Force the embedded estimator to fit the panel */
+.est-live-wrap > div {
+  min-height: unset !important;
+  background: transparent !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Hide fixed bg blobs, dot grid, header */
+.est-live-wrap > div > div:not(main) {
+  display: none !important;
+}
+
+/* Reset main container padding/width */
+.est-live-wrap main {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+        .est-live-back {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: transparent;
+          border: 1px solid rgba(255,255,255,.12);
+          color: var(--muted);
+          font-size: 12px;
+          font-family: 'Space Mono', monospace;
+          letter-spacing: .5px;
+          padding: 8px 18px;
+          border-radius: 50px;
+          cursor: pointer;
+          margin-bottom: 24px;
+          transition: all .2s;
+        }
+        .est-live-back:hover { border-color: var(--muted); color: var(--white); }
+
         /* SAVINGS */
         .s-savings { padding: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
         .s-savings::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(90,140,46,.08),rgba(43,91,168,.06)); }
@@ -230,14 +476,18 @@ export default function Solar() {
 
         /* COMPLIANCE */
         .s-compliance { padding: 80px 0; border-top: 1px solid var(--line); background: var(--ink-2); }
-        .compliance-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 48px; flex-wrap: wrap; }
-        .compliance-note { font-size: 13px; color: var(--muted); max-width: 340px; line-height: 1.75; padding-left: 16px; border-left: 2px solid var(--line-g); }
+        .compliance-top { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-bottom: 56px; }
+        .compliance-note { font-size: 14px; color: var(--muted); line-height: 1.75; padding-left: 16px; border-left: 2px solid var(--line-g); align-self: end; }
         .standards-row { display: grid; grid-template-columns: repeat(6,1fr); gap: 12px; }
-        .std-pill { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r2); padding: 24px 18px; text-align: center; transition: all .28s; }
+        .std-pill { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r2); padding: 28px 18px 20px; text-align: center; transition: all .28s; display: flex; flex-direction: column; align-items: center; }
         .std-pill:hover { border-color: rgba(90,140,46,.45); transform: translateY(-3px); }
-        .std-pill-icon { font-size: 28px; margin-bottom: 12px; }
-        .std-pill-name { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; color: var(--green-hi); margin-bottom: 5px; }
-        .std-pill-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+        .std-pill-icon { font-size: 32px; margin-bottom: 14px; }
+        .std-pill-name { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 1px; color: var(--green-hi); margin-bottom: 8px; }
+        .std-pill-desc { font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; flex: 1; }
+        .std-status { display: inline-flex; align-items: center; gap: 5px; border-radius: 50px; padding: 5px 13px; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; }
+        .std-status.in-progress { background: rgba(180,90,0,.2); border: 1px solid rgba(220,120,0,.5); color: #e07b20; }
+        .std-status.compliant { background: rgba(90,140,46,.18); border: 1px solid rgba(90,140,46,.5); color: var(--green-hi); }
+        .std-status.confirmed { background: rgba(90,140,46,.18); border: 1px solid rgba(90,140,46,.5); color: var(--green-hi); }
 
         /* WHY */
         .s-why { padding: 100px 0; border-top: 1px solid var(--line); }
@@ -259,11 +509,22 @@ export default function Solar() {
         .s-cta .sec-desc { margin: 0 auto 40px; text-align: center; }
         .s-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; padding: 0 16px; }
 
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
           .s-container { padding: 0 32px; }
           .comp-strip { grid-template-columns: repeat(3,1fr); }
           .standards-row { grid-template-columns: repeat(3,1fr); }
         }
+       @media (max-width: 960px) {
+  .estimation-inner { grid-template-columns: 1fr; }
+  .est-content {
+  min-width: 0;
+}
+  .est-content, .est-preview { padding: 52px 28px; }
+  .est-content::after { display: none; }
+  .est-preview { overflow-y: visible; align-self: auto; }
+  .est-live-wrap { width: 100%; }
+}
         @media (max-width: 900px) {
           .s-container { padding: 0 24px; }
           .s-nav { padding: 0 24px; }
@@ -317,6 +578,10 @@ export default function Solar() {
           .range-cta-band { flex-direction: column; align-items: flex-start; padding: 24px; }
           .s-intro-text { padding: 36px 20px; }
           .ir-body { padding: 24px 20px; }
+          .est-content { padding: 40px 20px; }
+          .est-preview { padding: 40px 20px; }
+          .est-btn { font-size: 18px; padding: 16px 28px; }
+          .est-factors { grid-template-columns: 1fr; }
         }
       `}</style>
 
@@ -533,6 +798,118 @@ export default function Solar() {
         </div>
       </section>
 
+      {/* ══ ESTIMATE YOUR SOLAR SYSTEM ══════════════════════════════════ */}
+      <section className="estimation-section" id="estimator">
+        <div className="estimation-inner">
+
+          {/* ── LEFT: Static content ────────────────────────────────── */}
+          <div className="est-content">
+            <div className="sec-label reveal">Solar Cost Estimator</div>
+            <h2 className="sec-title reveal rd1">ESTIMATE YOUR<br />SOLAR SYSTEM</h2>
+            <p className="est-intro reveal rd2">
+              Not sure how much a solar installation will cost? Our free estimator gives you an instant, personalised estimate — including recommended system size, projected savings, and estimated payback period — based on your property and energy usage.
+            </p>
+
+            <div className="est-factors reveal rd3">
+              {[
+                ["🏠", "Property Type", "Home, commercial or agricultural"],
+                ["💷", "Monthly Bill", "We estimate your kWh usage"],
+                ["📐", "Roof Area", "Available m² for panels"],
+                ["☀️", "UK Location", "Peak sun hours by region"],
+                ["⚡", "System Type", "Grid-tied, hybrid or off-grid"],
+                ["🎯", "Your Priority", "Savings, performance or cost"],
+              ].map(([icon, strong, sub]) => (
+                <div key={strong} className="ef-item">
+                  <div className="ef-icon">{icon}</div>
+                  <div className="ef-label"><strong>{strong}</strong>{sub}</div>
+                </div>
+              ))}
+            </div>
+
+            <button className="est-btn reveal rd4" onClick={handleEstimateClick}>
+              <div className="est-btn-icon">☀️</div>
+              Estimate Your System
+            </button>
+            <div className="est-note reveal rd5">Free · Instant · No obligation</div>
+          </div>
+
+          {/* ── RIGHT: Mock preview → live estimator on click ────────── */}
+          <div className="est-preview" ref={estimatorRef}>
+
+            {!showEstimator ? (
+              /* ── MOCK PREVIEW (default) ── */
+              <>
+                <div className="est-mock-card reveal rd2">
+                  <div className="emc-header">
+                    <div className="emc-title">⚡ Your Estimated System</div>
+                    <div className="emc-badge">Sample Output</div>
+                  </div>
+                  <div className="emc-result-row">
+                    <div className="emc-result-item">
+                      <div className="emc-result-label">System Size</div>
+                      <div className="emc-result-val">4.0 kWp</div>
+                      <div className="emc-result-sub">10 panels × 400 Wp</div>
+                    </div>
+                    <div className="emc-result-item">
+                      <div className="emc-result-label">Est. Total Cost</div>
+                      <div className="emc-result-val">£5.4–7k</div>
+                      <div className="emc-result-sub">After 0% VAT</div>
+                    </div>
+                    <div className="emc-result-item">
+                      <div className="emc-result-label">Monthly Saving</div>
+                      <div className="emc-result-val">£68</div>
+                      <div className="emc-result-sub">£816 per year</div>
+                    </div>
+                    <div className="emc-result-item">
+                      <div className="emc-result-label">Payback Period</div>
+                      <div className="emc-result-val">7.8 yrs</div>
+                      <div className="emc-result-sub">25-year panel life</div>
+                    </div>
+                  </div>
+                  <div className="emc-bar-row">
+                    <div className="emc-bar-label">
+                      <span>Payback Progress</span>
+                      <span style={{ color: 'var(--green-hi)' }}>7.8 / 25 years</span>
+                    </div>
+                    <div className="emc-bar-track">
+                      <div className="emc-bar-fill" style={{ '--w': '31%' }} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="est-mini-cards reveal rd3">
+                  {[
+                    ["Annual Generation", "3,285 kWh", "South England estimate"],
+                    ["CO₂ Saved (25 yrs)", "19.1 T", "≈ 880 trees planted"],
+                    ["SEG Export Earnings", "~£246", "Per year @ 15p/kWh"],
+                    ["VAT Saving", "0% VAT", "Residential installs"],
+                  ].map(([label, val, sub]) => (
+                    <div key={label} className="emc2">
+                      <div className="emc2-label">{label}</div>
+                      <div className="emc2-val">{val}</div>
+                      <div className="emc2-sub">{sub}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="reveal rd4" style={{ fontSize: 11, color: 'var(--muted)', marginTop: 20, fontFamily: "'Space Mono',monospace", letterSpacing: '.5px', lineHeight: 1.8 }}>
+                  * Sample figures only. Your estimate will be calculated based on your actual inputs across 7 quick questions.
+                </p>
+              </>
+            ) : (
+              <div className="est-live-wrap">
+                <SolarEstimatorWizard
+                  startFromStep={1}
+                  onBack={() => setShowEstimator(false)}
+                  embedded={true}
+                />
+              </div>
+            )}
+
+          </div>
+        </div>
+      </section>
+
       {/* SAVINGS */}
       <section className="s-savings">
         <div className="savings-inner">
@@ -583,17 +960,27 @@ export default function Solar() {
         <div className="s-container">
           <div className="compliance-top">
             <div>
-              <div className="sec-label reveal">Compliance & Standards</div>
-              <h2 className="sec-title reveal rd1">FULLY CERTIFIED &<br />COMPLIANT</h2>
+              <div className="sec-label reveal">Standards</div>
+              <h2 className="sec-title reveal rd1">BUILT TO<br />UK STANDARDS.<br />ALWAYS.</h2>
             </div>
-            <p className="compliance-note reveal">All installations are carried out to the highest industry standards — fully compliant with UK regulations and certified by recognised authorities.</p>
+            <p className="compliance-note reveal">
+              Our MCS registration is currently in progress. All installations comply with applicable UK electrical and solar standards and regulations from day one.
+            </p>
           </div>
           <div className="standards-row">
-            {[["🏅", "MCS", "Microgeneration Certification Scheme"], ["⚡", "G98/G99", "Grid Connection Standards"], ["🔌", "BS7671", "Wiring Regulations"], ["📋", "NAPIT", "Registered Installer"], ["☀️", "PAS 2030", "Energy Efficiency Standard"], ["🏢", "OZEV", "EV Charger Approved"]].map(([icon, name, desc]) => (
+            {[
+              ["🏅", "MCS", "Microgeneration Certification Scheme", "in-progress", "+ IN PROGRESS"],
+              ["⚡", "BS 7671", "IET Wiring Regulations 18th Edition", "compliant", "✓ COMPLIANT"],
+              ["🌟", "IEC 61215", "Solar panel performance standard", "compliant", "✓ COMPLIANT"],
+              ["🛡️", "IEC 61730", "Solar module safety qualification", "compliant", "✓ COMPLIANT"],
+              ["🔌", "G98 / G99", "Grid connection compliance", "compliant", "✓ COMPLIANT"],
+              ["🇬🇧", "0% VAT", "Qualifying residential installs", "confirmed", "✓ CONFIRMED"],
+            ].map(([icon, name, desc, statusClass, statusLabel]) => (
               <div key={name} className="std-pill reveal">
                 <div className="std-pill-icon">{icon}</div>
                 <div className="std-pill-name">{name}</div>
                 <div className="std-pill-desc">{desc}</div>
+                <span className={`std-status ${statusClass}`}>{statusLabel}</span>
               </div>
             ))}
           </div>
@@ -653,19 +1040,22 @@ export default function Solar() {
           </div>
           <SolFooterCol title="Services" links={[
             { label: 'EV Charger Installation', href: '/ev-charger' },
-            { label: 'Solar Panel Installation', href: '/solar' },
+            { label: 'Solar System Installation', href: '/solar' },
+            { label: 'Battery Storage', href: '/battery-storage' },
+            { label: 'Solar Estimator', href: '/solar-estimator' },
           ]} />
-          <SolFooterCol title="Company" links={[
-            { label: 'About Us', href: '#why' },
-            { label: 'Our Approach', href: '#process' },
-            { label: 'Compliance', href: '#compliance' },
-            { label: 'Contact', href: '/contact-us' },
-          ]} />
-          <SolFooterCol title="Contact" links={[
+          <SolFooterCol title="Contact Us" links={[
+            { label: '0208 001 1100', href: 'tel:02080011100' },
             { label: 'info@wattenpower.com', href: 'mailto:info@wattenpower.com' },
-            { label: 'United Kingdom', href: '#' },
-            { label: 'Privacy Policy', href: '#' },
-            { label: 'Terms of Service', href: '#' },
+            { label: 'Office 2, 60 Gold Street, Northampton, NN1 1RS', href: '#' },
+          ]} />
+          <SolFooterCol title="Legal" links={[
+            { label: 'Terms & Conditions', href: '/terms-and-conditions' },
+            { label: 'Privacy Policy', href: '/privacy-policy' },
+            { label: 'Cookie Policy', href: '/cookie-policy' },
+            { label: 'Terms of Sale', href: '/terms-of-sale' },
+            { label: 'Return Policy', href: '/return-policy' },
+            { label: 'Modern Slavery Statement', href: '/modern-slavery-statement' },
           ]} />
         </div>
         <div style={{

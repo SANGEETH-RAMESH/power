@@ -47,7 +47,7 @@ export default function Hero() {
           fontSize: 16, color: 'var(--light)', fontWeight: 300,
           maxWidth: 460, lineHeight: 1.7, margin: '24px 0 44px',
         }}>
-          Professional EV charger and solar panel installation for residential and commercial properties across the UK. Safe, compliant, and future-ready.
+          Professional EV charger and solar system installation for residential and commercial properties across the UK. Safe, compliant, and future-ready.
         </p>
 
         <div className="anim-fade-up-3 hero-cta" style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>

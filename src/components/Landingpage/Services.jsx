@@ -21,7 +21,7 @@ const services = [
   {
     num: '02 / SOLAR POWER',
     icon: '☀️',
-    title: 'SOLAR PANEL INSTALLATION',
+    title: 'SOLAR SYSTEM INSTALLATION',
     desc: 'Grid-tied, hybrid, and off-grid solar systems installed to MCS standards. Reduce your energy bills and earn from surplus generation via the Smart Export Guarantee.',
     features: [
       'Residential 1–6 kWp systems',

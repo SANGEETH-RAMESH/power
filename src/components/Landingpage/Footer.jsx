@@ -13,39 +13,39 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-            <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2 }}>
-              <Link to="/" className="flex items-center gap-3">
-                <img src={logo} alt="logo" className="h-[40px]" />
-              </Link>
-
-            </span>
+            <Link to="/" className="flex items-center gap-3">
+              <img src={logo} alt="logo" className="h-[40px]" />
+            </Link>
           </div>
           <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
-            Watten Power Ltd is a UK-based clean energy solutions provider specialising in EV charging and solar installations for residential and commercial properties.
+            Watten Power Ltd is a UK-based clean energy solutions provider specialising in EV
+            charging and solar installations for residential and commercial properties.
           </p>
         </div>
 
         {/* Services */}
         <FooterCol title="Services" links={[
           { label: 'EV Charger Installation', href: '/ev-charger' },
-          { label: 'Solar Panel Installation', href: '/solar' },
-    
+          { label: 'Solar System Installation', href: '/solar' },
+          { label: 'Battery Storage', href: '/battery-storage' },
+          { label: 'Solar Estimator', href: '/solar-estimator' },
         ]} />
 
-        {/* Company */}
-        <FooterCol title="Company" links={[
-          { label: 'About Us', href: '#why' },
-          { label: 'Our Approach', href: '#approach' },
-          { label: 'Compliance', href: '#compliance' },
-          { label: 'Contact', href: '/contact-us' },
-        ]} />
-
-        {/* Contact */}
-        <FooterCol title="Contact" links={[
+        {/* Contact Us */}
+        <FooterCol title="Contact Us" links={[
+          { label: '0208 001 1100', href: 'tel:02080011100' },
           { label: 'info@wattenpower.com', href: 'mailto:info@wattenpower.com' },
-          { label: 'United Kingdom', href: '#' },
-          { label: 'Privacy Policy', href: '#' },
-          { label: 'Terms of Service', href: '#' },
+          { label: 'Office 2, 60 Gold Street, Northampton, NN1 1RS', href: '#' },
+        ]} />
+
+        {/* Legal */}
+        <FooterCol title="Legal" links={[
+          { label: 'Terms & Conditions', href: '/terms-and-conditions' },
+          { label: 'Privacy Policy', href: '/privacy-policy' },
+          { label: 'Cookie Policy', href: '/cookie-policy' },
+          { label: 'Terms of Sale', href: '/terms-of-sale' },
+          { label: 'Return Policy', href: '/return-policy' },
+          { label: 'Modern Slavery Statement', href: '/modern-slavery-statement' },
         ]} />
       </div>
 

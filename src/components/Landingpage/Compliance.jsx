@@ -1,13 +1,40 @@
 import { useReveal } from '../../hooks/useReveal'
 
 const certs = [
-  { icon: '🏅', name: 'MCS', desc: 'Microgeneration Certification Scheme for solar' },
-  { icon: '🔌', name: 'NAPIT', desc: 'Approved Electrical Certification body' },
-  { icon: '🚗', name: 'OZEV', desc: 'EV Chargepoint Grant compliance' },
-  { icon: '⚡', name: 'BS 7671', desc: 'UK Wiring Regulations 18th Edition' },
-  { icon: '☀️', name: 'G98/G99', desc: 'DNO grid connection compliance' },
-  { icon: '🇬🇧', name: '0% VAT', desc: 'Residential solar & qualifying installs' },
+  { icon: '🏅', name: 'MCS', desc: 'Microgeneration Certification Scheme for solar', status: 'in-progress' },
+  { icon: '🔌', name: 'NAPIT', desc: 'Approved Electrical Certification body', status: 'in-progress' },
+  { icon: '🚗', name: 'OZEV', desc: 'EV Chargepoint Grant compliance', status: 'in-progress' },
+  { icon: '⚡', name: 'BS 7671', desc: 'UK Wiring Regulations 18th Edition', status: 'compliant' },
+  { icon: '☀️', name: 'G98/G99', desc: 'DNO grid connection compliance', status: 'compliant' },
+  { icon: '🇬🇧', name: '0% VAT', desc: 'Residential solar & qualifying installs', status: 'confirmed' },
 ]
+
+const statusConfig = {
+  'in-progress': {
+  label: '+ IN PROGRESS',
+  style: {
+    background: 'rgba(255,140,0,0.15)',
+    color: '#FFA500',
+    border: '1px solid rgba(255,140,0,0.35)',
+  },
+},
+  compliant: {
+    label: '✓ COMPLIANT',
+    style: {
+      background: 'rgba(90,140,46,0.15)',
+      color: 'var(--green-hi)',
+      border: '1px solid rgba(90,140,46,0.35)',
+    },
+  },
+  confirmed: {
+    label: '✓ CONFIRMED',
+    style: {
+      background: 'rgba(90,140,46,0.15)',
+      color: 'var(--green-hi)',
+      border: '1px solid rgba(90,140,46,0.35)',
+    },
+  },
+}
 
 export default function Compliance() {
   const ref = useReveal()
@@ -38,20 +65,37 @@ export default function Compliance() {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 14 }} className="cert-badges">
-            {certs.map((c, i) => (
-              <div key={i} className={`reveal reveal-delay-${(i % 3) + 1}`} style={{
-                background: 'var(--panel)', border: '1px solid var(--line)',
-                borderRadius: 14, padding: '22px 16px', textAlign: 'center',
-                backdropFilter: 'blur(12px)', transition: 'border-color .25s',
-              }}
-                onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.4)'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--line)'}
-              >
-                <div style={{ fontSize: 28, marginBottom: 10 }}>{c.icon}</div>
-                <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1.5, color: 'var(--green-hi)', textTransform: 'uppercase', marginBottom: 4 }}>{c.name}</div>
-                <div style={{ fontSize: 11, color: 'var(--muted)', lineHeight: 1.5 }}>{c.desc}</div>
-              </div>
-            ))}
+            {certs.map((c, i) => {
+              const status = statusConfig[c.status]
+              return (
+                <div key={i} className={`reveal reveal-delay-${(i % 3) + 1}`} style={{
+                  background: 'var(--panel)', border: '1px solid var(--line)',
+                  borderRadius: 14, padding: '22px 16px', textAlign: 'center',
+                  backdropFilter: 'blur(12px)', transition: 'border-color .25s',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0,
+                }}
+                  onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.4)'}
+                  onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--line)'}
+                >
+                  <div style={{ fontSize: 28, marginBottom: 10 }}>{c.icon}</div>
+                  <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1.5, color: 'var(--green-hi)', textTransform: 'uppercase', marginBottom: 4 }}>{c.name}</div>
+                  <div style={{ fontSize: 11, color: 'var(--muted)', lineHeight: 1.5, marginBottom: 14, flexGrow: 1 }}>{c.desc}</div>
+                  <div style={{
+                    ...status.style,
+                    borderRadius: 999,
+                    padding: '4px 10px',
+                    fontSize: 9,
+                    fontFamily: "'Space Mono', monospace",
+                    letterSpacing: 1.2,
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    whiteSpace: 'nowrap',
+                  }}>
+                    {status.label}
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -73,4 +117,4 @@ export default function Compliance() {
       `}</style>
     </section>
   )
-} 
+}
