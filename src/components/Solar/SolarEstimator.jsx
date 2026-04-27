@@ -178,7 +178,7 @@ const nextBtnStyle = {
     borderRadius: 50,
     cursor: "pointer",
     transition: "all 0.2s",
-    boxShadow: "0 6px 24px rgba(43,91,168,0.35)",
+    // boxShadow: "0 6px 24px rgba(43,91,168,0.35)",
 };
 
 function NavButtons({ onBack, onNext, nextDisabled, nextLabel = "Next →" }) {
