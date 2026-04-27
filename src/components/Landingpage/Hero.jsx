@@ -17,8 +17,8 @@ export default function Hero() {
         top: '50%', left: 0, transform: 'translateY(-50%)', pointerEvents: 'none'
       }} />
 
-      {/* Content */}
-      <div style={{ position: 'relative', zIndex: 2, paddingTop: 70 }} className="hero-content">
+      {/* Content — shifted more to the right */}
+      <div style={{ position: 'relative', zIndex: 2, paddingTop: 70, paddingLeft: 120 }} className="hero-content">
         <div className="anim-fade-up" style={{
           display: 'inline-flex', alignItems: 'center', gap: 10,
           border: '1px solid var(--line-g)', background: 'var(--green-dim)',
@@ -78,16 +78,37 @@ export default function Hero() {
             Get a Free Quote <span>↗</span>
           </a>
         </div>
+
+        {/* Scroll hint */}
+        <div className="hero-scroll-hint" style={{
+          display: 'flex', alignItems: 'center', gap: 12, marginTop: 52,
+          fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 2,
+          color: 'var(--muted)', textTransform: 'uppercase',
+        }}>
+          <div style={{ width: 40, height: 1, background: 'var(--muted)' }} />
+          Scroll to explore
+        </div>
       </div>
 
-      {/* Visual cards */}
+      {/* Visual cards — shifted left via paddingRight and reduced card width */}
       <div className="anim-fade-up-v hero-visual" style={{ position: 'relative', zIndex: 2, paddingTop: 70 }}>
-        <div style={{ position: 'relative' }}>
+        <div 
+          className="w-5/6"
+        style={{ position: 'relative' }}>
           {/* Main card */}
-          <div style={{
-            background: 'var(--panel)', border: '1px solid var(--line)',
-            borderRadius: 20, backdropFilter: 'blur(20px)', padding: 28,
+          <div 
+          style={{
+            background: 'var(--panel)',
+            border: '1px solid var(--line)',
+            borderRadius: 20,
+            backdropFilter: 'blur(20px)',
+            padding: 28,
             transition: 'transform .4s ease',
+            
+
+            transform: 'scale(0.96)',   // 👈 slight shrink (perfect match)
+            transformOrigin: 'top left'
+
           }}
             onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
             onMouseLeave={e => e.currentTarget.style.transform = ''}
@@ -137,16 +158,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll hint */}
-      <div className="hero-scroll-hint" style={{
-        position: 'absolute', bottom: 36, left: 52, display: 'flex', alignItems: 'center', gap: 12,
-        fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 2,
-        color: 'var(--muted)', textTransform: 'uppercase', zIndex: 2,
-      }}>
-        <div style={{ width: 40, height: 1, background: 'var(--muted)' }} />
-        Scroll to explore
-      </div>
-
       <style>{`
         /* Tablet */
         @media (max-width: 960px) {
@@ -159,10 +170,10 @@ export default function Hero() {
             gap: 0 !important;
             text-align: center;
           }
-          .hero-content { padding-top: 0 !important; }
+          .hero-content { padding-top: 0 !important; padding-left: 0 !important; }
           .hero-visual { display: none !important; }
           .hero-cta { justify-content: center !important; }
-          .hero-scroll-hint { display: none !important; }
+          .hero-scroll-hint { justify-content: center !important; }
         }
 
         /* Mobile */
