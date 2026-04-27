@@ -65,7 +65,7 @@ export default function Hero() {
           >
             Explore Services <span>→</span>
           </a>
-          <a href="#contact" style={{
+          <a href="/contact-us" style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             color: 'var(--light)', fontSize: 14, fontWeight: 400,
             textDecoration: 'none', letterSpacing: .5,
