@@ -11,7 +11,7 @@ import { SolarEstimatorWizard } from './SolarEstimator';
 // ─────────────────────────────────────────────────────────────────────────
 
 import img1 from '../../assets/images/solar/man-worker-firld-by-solar-panels.jpg'
-import img2 from '../../assets/images/solar/house-with-solar-panels-garden.jpg'
+import img2 from '../../assets/images/solar/residental_2.jpeg'
 import img3 from '../../assets/images/solar/medium-shot-men-shaking-hands.jpg'
 import img4 from '../../assets/images/solar/modern-city-skyline-with-solar-panels-sustainable-future.jpeg'
 import img6 from '../../assets/images/solar/young-man-with-arms-outstretched-standing-street.png'
@@ -92,7 +92,7 @@ export default function Solar() {
         .rd1 { transition-delay: .1s } .rd2 { transition-delay: .2s } .rd3 { transition-delay: .3s } .rd4 { transition-delay: .4s } .rd5 { transition-delay: .5s }
         .s-container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
         .sec-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
-        .sec-label::before { content: ''; display: block; width: 22px; height: 1px; background: var(--green-hi); }
+        // .sec-label::before { content: ''; display: block; width: 22px; height: 1px; background: var(--green-hi); }
         .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(38px,5vw,60px); line-height: .95; letter-spacing: 2px; margin-bottom: 16px; }
         .sec-desc { font-size: 16px; color: var(--light); font-weight: 300; max-width: 560px; line-height: 1.75; }
         .btn-main { display: inline-flex; align-items: center; gap: 9px; background: linear-gradient(135deg,var(--blue),var(--blue-hi)); color: #fff; font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; padding: 14px 34px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: all .25s; box-shadow: 0 8px 28px rgba(43,91,168,.4); white-space: nowrap; }
@@ -791,7 +791,6 @@ export default function Solar() {
               <div className="ir-tag">Residential</div>
             </div>
             <div className="ir-body">
-              <div className="ir-num">01 / Residential</div>
               <div className="ir-title">RESIDENTIAL SOLAR SYSTEMS</div>
               <div className="ir-desc">Roof-mounted solar PV systems designed and optimised for household energy consumption — with export capability to earn via the Smart Export Guarantee.</div>
               <ul className="ir-features">
@@ -809,7 +808,6 @@ export default function Solar() {
               <div className="ir-tag">Commercial</div>
             </div>
             <div className="ir-body">
-              <div className="ir-num">02 / Commercial</div>
               <div className="ir-title">COMMERCIAL SOLAR SYSTEMS</div>
               <div className="ir-desc">Large-scale rooftop installations engineered to significantly reduce business energy costs with scalable three-phase infrastructure for the future.</div>
               <ul className="ir-features">
@@ -893,17 +891,21 @@ export default function Solar() {
               <Link to="/contact-us" className="btn-main btn-green" style={{ marginTop: 28, alignSelf: "flex-start" }}>Get a Quote →</Link>
             </div>
             {[
-              ["01 / Entry", "🌱", "ENTRY SYSTEM", "Affordable entry into solar", ["Small households", "Lower upfront cost", "Export-ready"]],
-              ["02 / Standard", "☀️", "STANDARD SYSTEM", "Balanced performance and value", ["Most UK homes", "Good ROI", "Daily consumption optimised"]],
-              ["04 / Commercial", "🏢", "COMMERCIAL SYSTEM", "Designed for business efficiency", ["Large-scale installs", "Three-phase systems", "Scalable for growth"]],
-              ["05 / Hybrid", "🔋", "HYBRID / FUTURE-READY", "Built for energy independence", ["Battery-ready systems", "EV charger integration", "Smart energy management"]],
-            ].map(([num, icon, name, tag, feats], i) => (
-              <div key={num} className={`rs-card reveal rd${i + 2}`}>
-                <div className="rs-card-num">{num}</div>
+              ["🌱", "ENTRY SYSTEM", "Affordable entry into solar", ["Small households", "Lower upfront cost", "Export-ready"]],
+              ["☀️", "STANDARD SYSTEM", "Balanced performance and value", ["Most UK homes", "Good ROI", "Daily consumption optimised"]],
+              ["🏢", "COMMERCIAL SYSTEM", "Designed for business efficiency", ["Large-scale installs", "Three-phase systems", "Scalable for growth"]],
+              ["🔋", "HYBRID / FUTURE-READY", "Built for energy independence", ["Battery-ready systems", "EV charger integration", "Smart energy management"]],
+            ].map(([icon, name, tag, feats], i) => (
+              <div key={name} className={`rs-card reveal rd${i + 2}`}>
+                {/* ❌ Removed number */}
+                {/* <div className="rs-card-num">{num}</div> */}
+
                 <div className="rs-card-icon">{icon}</div>
                 <div className="rs-card-name">{name}</div>
                 <div className="rs-card-tag">{tag}</div>
-                <ul className="rs-card-feats">{feats.map(f => <li key={f}>{f}</li>)}</ul>
+                <ul className="rs-card-feats">
+                  {feats.map(f => <li key={f}>{f}</li>)}
+                </ul>
               </div>
             ))}
           </div>

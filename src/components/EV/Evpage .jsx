@@ -81,7 +81,7 @@ export default function EV() {
         .rd1{transition-delay:.1s} .rd2{transition-delay:.2s} .rd3{transition-delay:.3s} .rd4{transition-delay:.4s} .rd5{transition-delay:.5s}
         .e-container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
         .sec-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
-        .sec-label::before { content: ''; display: block; width: 22px; height: 1px; background: var(--green-hi); }
+        // .sec-label::before { content: ''; display: block; width: 22px; height: 1px; background: var(--green-hi); }
         .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(38px,5vw,60px); line-height: .95; letter-spacing: 2px; margin-bottom: 16px; }
         .sec-desc { font-size: 16px; color: var(--light); font-weight: 300; max-width: 560px; line-height: 1.75; }
         .btn-main { display: inline-flex; align-items: center; gap: 9px; background: linear-gradient(135deg,var(--blue),var(--blue-hi)); color: #fff; font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; padding: 14px 34px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: all .25s; box-shadow: 0 8px 28px rgba(43,91,168,.4); }
@@ -384,7 +384,7 @@ export default function EV() {
         <div className="e-container">
           <div className="intro-grid">
             <div>
-              <div className="sec-label reveal">EV Charger Installation Services</div>
+              {/* <div className="sec-label reveal">EV Charger Installation Services</div> */}
               <h2 className="sec-title reveal rd1">EV CHARGER<br />INSTALLATION SERVICES</h2>
               <p className="sec-desc reveal rd2" style={{ marginBottom: 24 }}>We provide end-to-end EV charger installation services for residential, commercial, and fleet environments. Every installation is engineered for safety, efficiency, and long-term scalability.</p>
               <p className="sec-desc reveal rd3">Whether you are installing your first charger at home or deploying multiple units across a commercial site, our team ensures a seamless and compliant setup.</p>
@@ -491,18 +491,23 @@ export default function EV() {
           </div>
           <div className="range-grid">
             {[
-              ["01 / ENTRY", "🔌", "ENTRY RANGE", "Simple, reliable and cost-effective", ["Ideal for daily residential use", "7.4 kW single-phase", "Basic smart functionality", "Compact and practical"], false],
-              ["02 / SMART", "📱", "SMART RANGE", "Enhanced control and efficiency", ["App-enabled control", "Off-peak scheduling", "Energy monitoring", "Suitable for most homes and small businesses"], false],
-              ["03 / PREMIUM ★", "⚡", "PREMIUM RANGE", "Advanced performance and design", ["Advanced smart features", "Faster charging capability (subject to supply)", "Sleek modern design", "Enhanced user interface"], true],
-              ["04 / COMMERCIAL", "🏢", "COMMERCIAL", "Built for scale and reliability", ["Multiple charger installations", "Load balancing", "User access control", "Usage reporting"], false],
-              ["05 / FUTURE", "🔋", "FUTURE-READY", "Designed for integrated energy", ["Solar-compatible", "Battery-ready integration", "Smart energy ecosystem", "Ideal for long-term energy optimisation"], false],
-            ].map(([badge, icon, name, tagline, feats, featured], i) => (
+              ["🔌", "ENTRY RANGE", "Simple, reliable and cost-effective", ["Ideal for daily residential use", "7.4 kW single-phase", "Basic smart functionality", "Compact and practical"], false],
+              ["📱", "SMART RANGE", "Enhanced control and efficiency", ["App-enabled control", "Off-peak scheduling", "Energy monitoring", "Suitable for most homes and small businesses"], false],
+              ["⚡", "PREMIUM RANGE", "Advanced performance and design", ["Advanced smart features", "Faster charging capability (subject to supply)", "Sleek modern design", "Enhanced user interface"], true],
+              ["🏢", "COMMERCIAL", "Built for scale and reliability", ["Multiple charger installations", "Load balancing", "User access control", "Usage reporting"], false],
+              ["🔋", "FUTURE-READY", "Designed for integrated energy", ["Solar-compatible", "Battery-ready integration", "Smart energy ecosystem", "Ideal for long-term energy optimisation"], false],
+            ].map(([icon, name, tagline, feats, featured], i) => (
               <div key={name} className={`rc reveal rd${i + 1}${featured ? " featured" : ""}`}>
-                <div className="rc-badge">{badge}</div>
+
+                {/* ❌ Removed badge */}
+                {/* <div className="rc-badge">{badge}</div> */}
+
                 <div className="rc-icon">{icon}</div>
                 <div className="rc-name">{name}</div>
                 <div className="rc-tagline">{tagline}</div>
-                <ul className="rc-feats">{feats.map(f => <li key={f}>{f}</li>)}</ul>
+                <ul className="rc-feats">
+                  {feats.map(f => <li key={f}>{f}</li>)}
+                </ul>
               </div>
             ))}
           </div>

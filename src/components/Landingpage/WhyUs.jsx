@@ -26,7 +26,7 @@ export default function WhyUs() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 80, alignItems: 'center' }} className="why-grid">
           {/* Left */}
           <div>
-            <div className="section-label reveal">Why Watten Power</div>
+            <div className="section-label reveal before:hidden">Why Watten Power</div>
             <h2 className="reveal reveal-delay-1" style={{
               fontFamily: "'Bebas Neue', sans-serif",
               fontSize: 'clamp(34px, 5vw, 62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 18,

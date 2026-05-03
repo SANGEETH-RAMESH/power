@@ -49,7 +49,7 @@ export default function Services() {
       {/* ✅ UPDATED: Used clamp() so padding shrinks from 52px to 20px on mobile */}
       <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 clamp(20px, 5vw, 52px)' }} className="services-container">
         
-        <div className="section-label reveal">What We Do</div>
+        <div className="section-label reveal before:hidden">What We Do</div>
 
         <h2 className="reveal reveal-delay-1" style={{
           fontFamily: "'Bebas Neue', sans-serif",

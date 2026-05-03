@@ -48,7 +48,7 @@ export default function Compliance() {
       <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }} className="compliance-container">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }} className="compliance-inner">
           <div>
-            <div className="section-label reveal">Standards & Compliance</div>
+            <div className="section-label reveal before:hidden">Standards & Compliance</div>
             <h2 className="reveal reveal-delay-1" style={{
               fontFamily: "'Bebas Neue', sans-serif",
               fontSize: 'clamp(34px, 5vw, 62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 18,

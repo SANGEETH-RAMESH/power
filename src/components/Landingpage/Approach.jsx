@@ -18,7 +18,7 @@ export default function Approach() {
       background: 'linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%)',
     }} className="approach-section">
       <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 52px' }} className="approach-container">
-        <div className="section-label reveal">Our Approach</div>
+        <div className="section-label reveal before:hidden">Our Approach</div>
         <h2 className="reveal reveal-delay-1" style={{
           fontFamily: "'Bebas Neue', sans-serif",
           fontSize: 'clamp(34px, 5vw, 62px)', lineHeight: .95, letterSpacing: 2, marginBottom: 60,
