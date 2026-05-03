@@ -10,6 +10,13 @@ import { SolarEstimatorWizard } from './SolarEstimator';
 // (no header/footer/intro) and accepts { startFromStep, onBack } props.
 // ─────────────────────────────────────────────────────────────────────────
 
+import img1 from '../../assets/images/solar/man-worker-firld-by-solar-panels.jpg'
+import img2 from '../../assets/images/solar/house-with-solar-panels-garden.jpg'
+import img3 from '../../assets/images/solar/medium-shot-men-shaking-hands.jpg'
+import img4 from '../../assets/images/solar/modern-city-skyline-with-solar-panels-sustainable-future.jpeg'
+import img6 from '../../assets/images/solar/young-man-with-arms-outstretched-standing-street.png'
+
+
 function SolFooterCol({ title, links }) {
   return (
     <div>
@@ -62,6 +69,8 @@ export default function Solar() {
       estimatorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 80);
   }
+
+  const navItems = [["Home", "/", ""], ["EV Charger", "/ev-charger", ""], ["Solar Solution", "/solar", "active"],["Contact Us", "/contact-us", ""]]
 
   return (
     <div className="solar-page">
@@ -233,11 +242,16 @@ export default function Solar() {
 
         .estimation-inner {
   display: grid;
-  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  grid-template-columns: minmax(0,1fr);
   min-height: 600px;
   align-items: stretch;
   width: 100%;
   overflow: hidden;
+  transition: grid-template-columns .5s ease;
+}
+        
+        .estimation-inner.show-estimator {
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
 }
 
 
@@ -250,109 +264,206 @@ export default function Solar() {
           justify-content: center;
           position: relative;
           z-index: 2;
+          width: 100%;
         }
+        
+        .estimation-inner.show-estimator .est-content {
+          width: auto;
+        }
+        
         .est-content::after {
           content: '';
           position: absolute;
           top: 0; right: -1px; bottom: 0;
           width: 1px;
           background: linear-gradient(to bottom, transparent, var(--green), transparent);
+          opacity: 0;
         }
+        
+        .estimation-inner.show-estimator .est-content::after {
+          opacity: 1;
+        }
+        .est-title {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: clamp(36px, 5vw, 52px);
+          letter-spacing: 2px;
+          line-height: 1.15;
+          margin-bottom: 24px;
+          color: var(--white);
+          opacity: 0;
+          animation: fadeUp .8s .15s ease both;
+        }
+        
+        .est-title .green {
+          background: linear-gradient(135deg, #72b038, #5a8c2e);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          display: inline-block;
+        }
+
         .est-intro {
-          font-size: 15px;
-          color: var(--muted);
-          line-height: 1.75;
-          margin-bottom: 36px;
-          max-width: 460px;
+          font-size: 16px;
+          color: var(--light);
+          line-height: 1.8;
+          margin-bottom: 48px;
+          max-width: 520px;
+          font-weight: 400;
+          opacity: 0;
+          animation: fadeUp .8s .25s ease both;
         }
 
         /* Input factors grid */
         .est-factors {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 12px;
-          margin-bottom: 40px;
+          gap: 14px;
+          margin-bottom: 48px;
+          opacity: 0;
+          animation: fadeUp .8s .35s ease both;
         }
         .ef-item {
           display: flex;
-          align-items: center;
-          gap: 12px;
-          background: rgba(255,255,255,.04);
-          border: 1px solid var(--line);
-          border-radius: var(--r);
-          padding: 14px 16px;
-          transition: border-color .25s;
+          align-items: flex-start;
+          gap: 14px;
+          background: rgba(90,140,46,.08);
+          border: 1px solid rgba(90,140,46,.25);
+          border-radius: var(--r2);
+          padding: 20px 18px;
+          transition: all .3s ease;
+          position: relative;
+          overflow: hidden;
         }
-        .ef-item:hover { border-color: rgba(90,140,46,.4); }
+        
+        .ef-item::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: linear-gradient(135deg, rgba(90,140,46,.1), transparent);
+          opacity: 0;
+          transition: opacity .3s;
+        }
+        
+        .ef-item:hover { 
+          border-color: rgba(90,140,46,.45);
+          background: rgba(90,140,46,.12);
+          transform: translateY(-2px);
+        }
+        
+        .ef-item:hover::before { opacity: 1; }
+        
         .ef-icon {
-          width: 36px; height: 36px;
-          border-radius: 10px;
-          background: var(--green-dim);
-          border: 1px solid var(--line-g);
+          width: 44px; height: 44px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, var(--green-dim), rgba(90,140,46,.15));
+          border: 1px solid rgba(90,140,46,.3);
           display: flex; align-items: center; justify-content: center;
-          font-size: 16px; flex-shrink: 0;
+          font-size: 20px; 
+          flex-shrink: 0;
+          position: relative;
+          z-index: 1;
         }
-        .ef-label { font-size: 12px; color: var(--muted); line-height: 1.4; }
-        .ef-label strong { display: block; font-size: 13px; color: var(--light); font-weight: 500; margin-bottom: 1px; }
+        
+        .ef-label { 
+          font-size: 13px; 
+          color: var(--muted); 
+          line-height: 1.5;
+          position: relative;
+          z-index: 1;
+        }
+        .ef-label strong { 
+          display: block; 
+          font-size: 14px; 
+          color: var(--white); 
+          font-weight: 600; 
+          margin-bottom: 3px; 
+        }
 
         /* Big CTA button */
         .est-btn {
           display: inline-flex;
           align-items: center;
-          gap: 14px;
-          background: linear-gradient(135deg, var(--green), var(--green-hi));
+          gap: 16px;
+          background: linear-gradient(135deg, #5a8c2e, #72b038);
           color: #fff;
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px;
-          letter-spacing: 2px;
-          padding: 20px 44px;
-          border-radius: 50px;
+          font-size: 18px;
+          letter-spacing: 2.5px;
+          text-transform: uppercase;
+          padding: 22px 48px;
+          border-radius: 60px;
           border: none;
           cursor: pointer;
           text-decoration: none;
-          transition: all .3s ease;
-          box-shadow: 0 10px 40px rgba(90,140,46,.4);
+          transition: all .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          box-shadow: 0 12px 48px rgba(90,140,46,.35), inset 0 1px 0 rgba(255,255,255,.15);
           align-self: flex-start;
           position: relative;
           overflow: hidden;
+          font-weight: 700;
+          opacity: 0;
+          animation: fadeUp .8s .45s ease both;
         }
+        
         .est-btn::before {
           content: '';
           position: absolute; inset: 0;
-          background: linear-gradient(135deg, rgba(255,255,255,.12), transparent);
-          opacity: 0; transition: opacity .3s;
+          background: linear-gradient(135deg, rgba(255,255,255,.25), rgba(255,255,255,.05));
+          opacity: 0; 
+          transition: opacity .3s;
         }
-        .est-btn:hover { transform: translateY(-3px); box-shadow: 0 18px 56px rgba(90,140,46,.5); }
+        
+        .est-btn:hover { 
+          transform: translateY(-4px);
+          box-shadow: 0 20px 64px rgba(90,140,46,.45), inset 0 1px 0 rgba(255,255,255,.2);
+        }
+        
         .est-btn:hover::before { opacity: 1; }
+        
+        .est-btn:active {
+          transform: translateY(-1px);
+        }
+        
         .est-btn-icon {
-          width: 42px; height: 42px;
-          background: rgba(255,255,255,.2);
+          width: 48px; height: 48px;
+          background: rgba(255,255,255,.15);
           border-radius: 50%;
           display: flex; align-items: center; justify-content: center;
-          font-size: 20px;
-          transition: transform .3s;
+          font-size: 22px;
+          transition: transform .3s cubic-bezier(0.34, 1.56, 0.64, 1);
           flex-shrink: 0;
+          border: 1px solid rgba(255,255,255,.1);
         }
-        .est-btn:hover .est-btn-icon { transform: scale(1.15) rotate(10deg); }
+        
+        .est-btn:hover .est-btn-icon { 
+          transform: scale(1.2) rotate(15deg);
+          background: rgba(255,255,255,.25);
+        }
+        
         .est-note {
-          font-size: 12px;
+          font-size: 11px;
           color: var(--muted);
-          margin-top: 16px;
+          margin-top: 20px;
           font-family: 'Space Mono', monospace;
-          letter-spacing: .5px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
         }
 
         /* Right — preview / estimator panel */
         .est-preview {
   background: linear-gradient(135deg, rgba(90,140,46,.12) 0%, rgba(43,91,168,.15) 100%);
   padding: 80px 64px;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   position: relative;
   overflow: hidden;
   align-self: stretch;
   min-width: 0;
+}
+        
+        .estimation-inner.show-estimator .est-preview {
+  display: flex;
 }
         .est-preview::before {
           content: '';
@@ -400,14 +511,15 @@ export default function Solar() {
         .emc2-val { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; color: var(--green-hi); }
         .emc2-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
-        /* Live estimator wrapper inside right panel */
+/* Live estimator wrapper inside right panel */
        .est-live-wrap {
   position: relative;
   z-index: 2;
   animation: fadeUp .45s ease both;
   width: 100%;
   min-width: 0;
-  overflow: hidden;
+  overflow: auto;
+  max-height: 100%;
 }
 
 
@@ -415,7 +527,7 @@ export default function Solar() {
 .est-live-wrap > div {
   min-height: unset !important;
   background: transparent !important;
-  overflow: hidden !important;
+  overflow: visible !important;
   width: 100% !important;
   max-width: 100% !important;
 }
@@ -591,7 +703,7 @@ export default function Solar() {
           <img src={logo} alt="Watten Power" style={{ height: 40, display: 'block' }} />
         </Link>
         <ul className="nav-links">
-          {[["Home", "/", ""], ["EV Charger", "/ev-charger", ""], ["Solar Solution", "/solar", "active"]].map(([label, href, cls]) => (
+          {navItems.map(([label, href, cls]) => (
             <li key={label}><Link to={href} className={cls}>{label}</Link></li>
           ))}
         </ul>
@@ -600,7 +712,7 @@ export default function Solar() {
         </button>
       </nav>
       <ul className={`nav-mobile${navOpen ? " open" : ""}`}>
-        {[["Home", "/", ""], ["EV Charger", "/ev-charger", ""], ["Solar Solution", "/solar", "active"], ["Contact", "/contact-us", ""]].map(([label, href, cls]) => (
+        {navItems.map(([label, href, cls]) => (
           <li key={label}><Link to={href} className={cls} onClick={() => setNavOpen(false)}>{label}</Link></li>
         ))}
       </ul>
@@ -615,7 +727,7 @@ export default function Solar() {
           <div className="s-hero-breadcrumb">
             <Link to="/">Home</Link><span>›</span><span className="cur">Solar Installation</span>
           </div>
-          <div className="s-hero-sun">☀️</div>
+          {/* <div className="s-hero-sun">☀️</div> */}
           <h1 className="s-hero-title">
             <span className="line-1">SOLAR SYSTEM</span>
             <span className="line-2">INSTALLATION</span>
@@ -641,7 +753,7 @@ export default function Solar() {
       <section className="s-intro">
         <div className="s-intro-split">
           <div className="s-intro-img reveal">
-            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80" alt="Solar install" />
+            <img src={img1} alt="Solar install" />
             <div className="img-badge">
               <div className="img-badge-label">Avg. System Size</div>
               <div className="img-badge-val">4.2 kWp</div>
@@ -667,7 +779,7 @@ export default function Solar() {
           <h2 className="sec-title reveal rd1">SOLAR FOR EVERY<br />PROPERTY TYPE</h2>
           <div className="install-row reveal rd2">
             <div className="ir-img">
-              <img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=700&q=80" alt="Residential solar" />
+              <img src={img2} alt="Residential solar" />
               <div className="ir-img-overlay" />
               <div className="ir-tag">Residential</div>
             </div>
@@ -685,7 +797,7 @@ export default function Solar() {
           </div>
           <div className="install-row reverse reveal rd2">
             <div className="ir-img">
-              <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=80" alt="Commercial solar" />
+              <img src={img4} alt="Commercial solar" />
               <div className="ir-img-overlay" />
               <div className="ir-tag">Commercial</div>
             </div>
@@ -721,12 +833,12 @@ export default function Solar() {
               <p className="sec-desc reveal rd2">A structured, engineering-led process from roof assessment to final handover — every stage handled professionally.</p>
             </div>
             <div className="process-img reveal rd2">
-              <img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=700&q=80" alt="Solar installation" />
-              <div className="process-img-badge">
+              <img src={img6} alt="Solar installation" />
+              {/* <div className="process-img-badge">
                 <div className="img-badge-label">Typical Install</div>
                 <div className="img-badge-val">1–2 Days</div>
                 <div className="img-badge-sub">Residential system</div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="timeline reveal rd3">
@@ -800,12 +912,15 @@ export default function Solar() {
 
       {/* ══ ESTIMATE YOUR SOLAR SYSTEM ══════════════════════════════════ */}
       <section className="estimation-section" id="estimator">
-        <div className="estimation-inner">
+        <div className={`estimation-inner ${showEstimator ? 'show-estimator' : ' s-container'}`}>
 
           {/* ── LEFT: Static content ────────────────────────────────── */}
           <div className="est-content">
             <div className="sec-label reveal">Solar Cost Estimator</div>
-            <h2 className="sec-title reveal rd1">ESTIMATE YOUR<br />SOLAR SYSTEM</h2>
+            <h2 className="est-title reveal rd1">
+              Estimate Your<br />
+              <span className="green">Solar System</span>
+            </h2>
             <p className="est-intro reveal rd2">
               Not sure how much a solar installation will cost? Our free estimator gives you an instant, personalised estimate — including recommended system size, projected savings, and estimated payback period — based on your property and energy usage.
             </p>
@@ -934,7 +1049,7 @@ export default function Solar() {
               <p className="sec-desc reveal rd2">Every installation is backed by comprehensive warranties, monitoring, and ongoing support — giving you complete peace of mind.</p>
             </div>
             <div className="aftersales-img reveal rd2">
-              <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=700&q=80" alt="Support" />
+              <img src={img3} alt="Support" />
             </div>
           </div>
           <div className="support-grid">

@@ -2,6 +2,15 @@ import { useEffect, useState } from "react";
 import logo from '../../assets/logo.png';
 import { Link } from "react-router-dom";
 
+import ev_installation_img from '../../assets/images/ev-charger-installation.webp'
+import ev_vehicle_img from '../../assets/images/electric-vehicle-technology-utilized-home-charging-station-nowatermarks.jpeg'
+import workplace_charging from '../../assets/images/workplace_charging.jpg'
+import smart_charging from '../../assets/images/smart_charging.jpg'
+
+import hero_img from '../../assets/images/technician-installing.png'
+import how_it_works_img from '../../assets/images/qualifiedtechnician-working.png'
+import beyond_installation_img from '../../assets/images/car-mechanic.jpg'
+
 function EVFooterCol({ title, links }) {
   return (
     <div>
@@ -43,6 +52,8 @@ export default function EV() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const navItems = [["Home", "/", ""], ["EV Charger", "/ev-charger", "active"], ["Solar Solution", "/solar", ""], ["Contact Us", "/contact-us", ""]]
 
   return (
     <div className="ev-page">
@@ -314,7 +325,7 @@ export default function EV() {
           <img src={logo} alt="Watten Power" style={{ height: 40 }} />
         </Link>
         <ul className="nav-links">
-          {[["Home", "/", ""], ["EV Charger", "/ev-charger", "active"], ["Solar Solution", "/solar", ""]].map(([label, href, cls]) => (
+          {navItems.map(([label, href, cls]) => (
             <li key={label}><Link to={href} className={cls}>{label}</Link></li>
           ))}
         </ul>
@@ -323,7 +334,7 @@ export default function EV() {
         </button>
       </nav>
       <ul className={`nav-mobile${navOpen ? " open" : ""}`}>
-        {[["Home", "/", ""], ["EV Charger", "/ev-charger", "active"], ["Solar Solution", "/solar", ""], ["Contact", "/contact-us", ""]].map(([label, href, cls]) => (
+        {navItems.map(([label, href, cls]) => (
           <li key={label}><Link to={href} className={cls} onClick={() => setNavOpen(false)}>{label}</Link></li>
         ))}
       </ul>
@@ -331,10 +342,10 @@ export default function EV() {
       {/* HERO */}
       <section className="e-hero">
         <div className="e-hero-bg">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80" alt="EV charger" />
+          <img src={hero_img} alt="EV charger" />
         </div>
         <div className="e-hero-img-accent">
-          <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=900&q=80" alt="EV charging" />
+          <img src={hero_img} alt="EV charging" />
         </div>
         <div className="e-hero-content">
           <div className="e-hero-breadcrumb">
@@ -372,11 +383,11 @@ export default function EV() {
               <p className="sec-desc reveal rd3">Whether you are installing your first charger at home or deploying multiple units across a commercial site, our team ensures a seamless and compliant setup.</p>
             </div>
             <div className="intro-img reveal rd2">
-              <img src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?w=800&q=80" alt="EV charger at home" />
-              <div className="intro-img-badge">
+              <img src={ev_installation_img} alt="EV charger at home" />
+              {/* <div className="intro-img-badge">
                 <div className="iib-label">Typical Install Time</div>
                 <div className="iib-val">Half Day</div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -389,9 +400,9 @@ export default function EV() {
           <h2 className="sec-title reveal rd1">THREE ENVIRONMENTS.<br />ONE SPECIALIST.</h2>
           <div className="install-grid">
             {[
-              ["Residential", "RESIDENTIAL INSTALLATIONS", "Smart home EV charger installations designed for standard daily residential use with safe, reliable performance.", ["Smart home EV chargers (7.4 kW single-phase)", "App-controlled charging systems", "Integration with off-peak tariffs (e.g. time-of-use charging)", "Time-of-use optimisation"], "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=700&q=80"],
-              ["Commercial", "COMMERCIAL & WORKPLACE CHARGING", "Commercial and workplace charging systems for offices, car parks, fleets, and multi-user environments.", ["7 kW to 22 kW charging systems", "Multi-point charger installations", "Load balancing for multiple vehicles", "Fleet charging infrastructure"], "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=700&q=80"],
-              ["Smart Systems", "SMART CHARGING", "Smart charging capabilities with remote monitoring, usage tracking, and future solar or battery integration.", ["OCPP-enabled systems", "Remote monitoring and control", "Energy usage tracking", "Solar and battery integration ready"], "https://images.unsplash.com/photo-1609429019995-8c40f49535a5?w=700&q=80"],
+              ["Residential", "RESIDENTIAL INSTALLATIONS", "Smart home EV charger installations designed for standard daily residential use with safe, reliable performance.", ["Smart home EV chargers (7.4 kW single-phase)", "App-controlled charging systems", "Integration with off-peak tariffs (e.g. time-of-use charging)", "Time-of-use optimisation"], ev_vehicle_img],
+              ["Commercial", "COMMERCIAL & WORKPLACE CHARGING", "Commercial and workplace charging systems for offices, car parks, fleets, and multi-user environments.", ["7 kW to 22 kW charging systems", "Multi-point charger installations", "Load balancing for multiple vehicles", "Fleet charging infrastructure"], workplace_charging],
+              ["Smart Systems", "SMART CHARGING", "Smart charging capabilities with remote monitoring, usage tracking, and future solar or battery integration.", ["OCPP-enabled systems", "Remote monitoring and control", "Energy usage tracking", "Solar and battery integration ready"], smart_charging],
             ].map(([tag, title, desc, feats, img], i) => (
               <div key={title} className={`install-card reveal rd${i + 1}`}>
                 <div className="ic-img">
@@ -420,16 +431,21 @@ export default function EV() {
               <p className="sec-desc reveal rd2">We follow a structured engineering-led process to ensure safety, compliance, and performance.</p>
             </div>
             <div className="process-visual reveal rd2">
-              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="EV charger installation engineer" />
-              <div className="pv-stat pv-stat-1">
+              <img
+                src={how_it_works_img}
+                className="object-cover"
+                style={{ objectPosition: '0px center' }}
+                alt="EV charger installation engineer"
+              />
+              {/* <div className="pv-stat pv-stat-1">
                 <div className="pvs-label">Certification Issued</div>
                 <div className="pvs-val">Same Day</div>
-              </div>
-              <div className="pv-stat pv-stat-2">
+              </div> */}
+              {/* <div className="pv-stat pv-stat-2">
                 <div className="pvs-label">Average Install</div>
                 <div className="pvs-val">4–6 hrs</div>
                 <div className="pvs-sub">Residential single unit</div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="process-steps reveal">
@@ -599,7 +615,7 @@ export default function EV() {
             </div>
             <div className="aftersales-visual">
               <div className="av-img reveal rd1">
-                <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=700&q=80" alt="EV support technician" />
+                <img src={beyond_installation_img} alt="EV support technician" />
               </div>
               <div className="av-cards reveal rd2">
                 {[

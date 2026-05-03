@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 
+import logo from '../../assets/logo.png';
+
 const LOGO_SRC =
     "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/wAAACAAQABAAAAD/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AJWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//Z";
 
@@ -239,7 +241,7 @@ const INITIAL_DATA = {
     priority: null,
 };
 
-function SolarEstimator({ startFromStep, onBack, embedded } = {}) {
+function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
     const [view, setView] = useState(startFromStep ? "wizard" : "intro");
     const [step, setStep] = useState(startFromStep || 1);
     const [data, setData] = useState({ ...INITIAL_DATA });
@@ -284,11 +286,15 @@ function SolarEstimator({ startFromStep, onBack, embedded } = {}) {
         return "idle";
     });
 
-    const rootStyle = embedded
+    const rootStyle = splitLayout
+        ? { color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflow: "hidden", width: "100%", height: "100%" }
+        : embedded
         ? { color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflow: "hidden", width: "100%" }
         : { minHeight: "100vh", color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflowX: "hidden", background: "#07111f" };
 
-    const mainStyle = embedded
+    const mainStyle = splitLayout
+        ? { position: "relative", zIndex: 10, width: "100%", height: "100%", padding: "2rem 2rem", margin: 0, overflow: "auto", maxHeight: "calc(100vh - 100px)" }
+        : embedded
         ? { position: "relative", zIndex: 10, width: "100%", padding: 0, margin: 0 }
         : { position: "relative", zIndex: 10, maxWidth: 860, margin: "0 auto", padding: "6rem 1.5rem 5rem" };
 
@@ -306,7 +312,7 @@ function SolarEstimator({ startFromStep, onBack, embedded } = {}) {
             {!embedded && (
                 <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", height: 68, borderBottom: "1px solid rgba(43,91,168,0.28)", background: "rgba(7,17,31,0.9)", backdropFilter: "blur(24px)" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <img src={LOGO_SRC} alt="Watten Power" style={{ height: 40, mixBlendMode: "screen" }} />
+                        <img src={logo} alt="Watten Power" style={{ height: 40, mixBlendMode: "screen" }} />
                         <span style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 900, fontSize: 20, letterSpacing: "-0.5px" }}>
                             <span style={{ color: "#4a7fd4" }}>Watten</span>{" "}
                             <span style={{ color: "#72b038" }}>Power</span>
@@ -322,7 +328,7 @@ function SolarEstimator({ startFromStep, onBack, embedded } = {}) {
             <main ref={mainRef} style={mainStyle}>
 
                 {/* ── INTRO ── */}
-                {view === "intro" && (
+                {view === "intro" && !splitLayout && (
                     <div style={{ textAlign: "center", padding: "48px 0", animation: "rise 0.5s ease both" }}>
                         <div style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid rgba(90,140,46,0.32)", borderRadius: 50, padding: "8px 20px", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 2, color: "#72b038", background: "rgba(90,140,46,0.15)", marginBottom: 28 }}>
                             <span style={{ animation: "pulse 2s infinite" }}>●</span> Free Instant Estimate

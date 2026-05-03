@@ -2,10 +2,15 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from '../../assets/logo.png'
 
+import img1 from '../../assets/images/solar/walking-solar-panels-morning-mist-mountain-view.png'
+
+
 const navItems = [
   { label: "Home", link: "/" },
   { label: "EV Charger", link: "/ev-charger" },
   { label: "Solar Solution", link: "/solar" },
+  { label: "Contact Us", link: "/contact-us" }
+
 ];
 
 function Navbar() {
@@ -146,7 +151,9 @@ export default function Contact() {
     setFiles(prev => [...prev, ...newFiles.filter(f => !prev.find(p => p.name === f.name))]);
   };
 
-  const rp = (label) => ({ onClick: () => {} });
+  const rp = (label) => ({ onClick: () => { } });
+
+  const navItems = [["Home", "/", ""], ["EV Charger", "/ev-charger", "active"], ["Solar Solution", "/solar", ""], ["Contact Us", "/contact-us", ""]]
 
   return (
     <div className="contact-page">
@@ -329,11 +336,11 @@ export default function Contact() {
 
       {/* HERO */}
       <section className="c-hero">
-        <div className="c-hero-mosaic">
-          {["https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=600&q=80","https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&q=80","https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"].map((src, i) => (
+        {/* <div className="c-hero-mosaic">
+          {["https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=600&q=80", "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&q=80", "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"].map((src, i) => (
             <div key={i} className="hm-cell"><img src={src} alt="" /></div>
           ))}
-        </div>
+        </div> */}
         <div className="c-hero-body">
           <div className="c-hero-kicker">Watten Power Ltd</div>
           <h1 className="c-hero-h1">
@@ -348,8 +355,8 @@ export default function Contact() {
           </div>
         </div>
         <div className="c-hero-photo-row">
-          {[["⚡","EV Charger Installation","Home & commercial solutions"],["☀️","Solar System Installation","Residential & commercial PV"],["🕐","24-Hour Response","Free, no-obligation consultation"]].map(([icon,strong,text]) => (
-            <div key={strong} className="hpr-cell">
+          {[["⚡", "EV Charger Installation", "Home & commercial solutions"], ["☀️", "Solar System Installation", "Residential & commercial PV"], ["🕐", "24-Hour Response", "Free, no-obligation consultation"]].map(([icon, strong, text]) => (
+            <div key={strong} className="hpr-cell flex items-center justify-center">
               <div className="hpr-icon">{icon}</div>
               <div className="hpr-text"><strong>{strong}</strong>{text}</div>
             </div>
@@ -362,7 +369,7 @@ export default function Contact() {
         <div className="c-next-inner">
           <div className="c-next-label">What Happens After You Submit</div>
           <div className="c-next-timeline">
-            {[["🔍","We Review Your Enquiry","Our team carefully assesses your requirements and the details you have submitted"],["📞","We May Contact You","For any clarification needed to prepare the most accurate recommendation"],["🏠","Site Survey If Required","A site visit may be scheduled to assess your property and infrastructure"],["✅","Tailored Quote Delivered","You receive a personalised recommendation and detailed quote"]].map(([icon,title,desc]) => (
+            {[["🔍", "We Review Your Enquiry", "Our team carefully assesses your requirements and the details you have submitted"], ["📞", "We May Contact You", "For any clarification needed to prepare the most accurate recommendation"], ["🏠", "Site Survey If Required", "A site visit may be scheduled to assess your property and infrastructure"], ["✅", "Tailored Quote Delivered", "You receive a personalised recommendation and detailed quote"]].map(([icon, title, desc]) => (
               <div key={title} className="nt-item">
                 <div className="nt-dot">{icon}</div>
                 <div className="nt-title">{title}</div>
@@ -389,24 +396,24 @@ export default function Contact() {
           <div className="fg2">
             <div className="fgroup">
               <div className="flabel">Full Name <span className="req">*</span></div>
-              <input className={`finput${errors.fullName ? " err" : ""}`} type="text" placeholder="e.g. James Mitchell" value={formData.fullName} onChange={e => { setFormData(p => ({...p, fullName: e.target.value})); setErrors(p => ({...p, fullName: ""})); }} />
+              <input className={`finput${errors.fullName ? " err" : ""}`} type="text" placeholder="e.g. James Mitchell" value={formData.fullName} onChange={e => { setFormData(p => ({ ...p, fullName: e.target.value })); setErrors(p => ({ ...p, fullName: "" })); }} />
               {errors.fullName && <div className="ferr show">{errors.fullName}</div>}
             </div>
             <div className="fgroup">
               <div className="flabel">Phone Number <span className="req">*</span></div>
-              <input className={`finput${errors.phone ? " err" : ""}`} type="tel" placeholder="e.g. 07404 378787" value={formData.phone} onChange={e => { setFormData(p => ({...p, phone: e.target.value})); setErrors(p => ({...p, phone: ""})); }} />
+              <input className={`finput${errors.phone ? " err" : ""}`} type="tel" placeholder="e.g. 07404 378787" value={formData.phone} onChange={e => { setFormData(p => ({ ...p, phone: e.target.value })); setErrors(p => ({ ...p, phone: "" })); }} />
               {errors.phone && <div className="ferr show">{errors.phone}</div>}
             </div>
           </div>
           <div className="fg2">
             <div className="fgroup">
               <div className="flabel">Email Address <span className="req">*</span></div>
-              <input className={`finput${errors.email ? " err" : ""}`} type="email" placeholder="e.g. james@example.com" value={formData.email} onChange={e => { setFormData(p => ({...p, email: e.target.value})); setErrors(p => ({...p, email: ""})); }} />
+              <input className={`finput${errors.email ? " err" : ""}`} type="email" placeholder="e.g. james@example.com" value={formData.email} onChange={e => { setFormData(p => ({ ...p, email: e.target.value })); setErrors(p => ({ ...p, email: "" })); }} />
               {errors.email && <div className="ferr show">{errors.email}</div>}
             </div>
             <div className="fgroup">
               <div className="flabel">Property Address / Postcode <span className="req">*</span></div>
-              <input className={`finput${errors.postcode ? " err" : ""}`} type="text" placeholder="e.g. 12 Oak Road, SW1A 1AA" value={formData.postcode} onChange={e => { setFormData(p => ({...p, postcode: e.target.value})); setErrors(p => ({...p, postcode: ""})); }} />
+              <input className={`finput${errors.postcode ? " err" : ""}`} type="text" placeholder="e.g. 12 Oak Road, SW1A 1AA" value={formData.postcode} onChange={e => { setFormData(p => ({ ...p, postcode: e.target.value })); setErrors(p => ({ ...p, postcode: "" })); }} />
               {errors.postcode && <div className="ferr show">{errors.postcode}</div>}
             </div>
           </div>
@@ -424,8 +431,8 @@ export default function Contact() {
           </div>
           <div className="flabel" style={{ marginBottom: 14 }}>Select one or both services <span className="req">*</span></div>
           <div className="svc-grid">
-            {[["ev","⚡","EV CHARGER INSTALLATION","Home or commercial EV charging point — 7 kW to 22 kW systems"],["solar","☀️","SOLAR SYSTEM INSTALLATION","Residential or commercial solar PV system — with optional battery storage"]].map(([key,icon,name,info]) => (
-              <div key={key} className={`svc-box${services[key] ? " selected" : ""}`} onClick={() => { setServices(p => ({...p, [key]: !p[key]})); setErrors(p => ({...p, service: ""})); }}>
+            {[["ev", "⚡", "EV CHARGER INSTALLATION", "Home or commercial EV charging point — 7 kW to 22 kW systems"], ["solar", "☀️", "SOLAR SYSTEM INSTALLATION", "Residential or commercial solar PV system — with optional battery storage"]].map(([key, icon, name, info]) => (
+              <div key={key} className={`svc-box${services[key] ? " selected" : ""}`} onClick={() => { setServices(p => ({ ...p, [key]: !p[key] })); setErrors(p => ({ ...p, service: "" })); }}>
                 <div className="svc-big-icon">{icon}</div>
                 <div className="svc-name">{name}</div>
                 <div className="svc-info">{info}</div>
@@ -443,13 +450,13 @@ export default function Contact() {
                 <div className="fgroup">
                   <div className="flabel">Property Type</div>
                   <div className="rpills">
-                    {["🏠 House","🏢 Flat","🏭 Commercial"].map(v => <span key={v} className={`rp-btn${evDetails.property===v?" selected":""}`} onClick={()=>setEvDetails(p=>({...p,property:v}))}>{v}</span>)}
+                    {["🏠 House", "🏢 Flat", "🏭 Commercial"].map(v => <span key={v} className={`rp-btn${evDetails.property === v ? " selected" : ""}`} onClick={() => setEvDetails(p => ({ ...p, property: v }))}>{v}</span>)}
                   </div>
                 </div>
                 <div className="fgroup">
                   <div className="flabel">Parking Type</div>
                   <div className="rpills">
-                    {["🏡 Driveway","🚪 Garage","🚗 Street"].map(v => <span key={v} className={`rp-btn${evDetails.parking===v?" selected":""}`} onClick={()=>setEvDetails(p=>({...p,parking:v}))}>{v}</span>)}
+                    {["🏡 Driveway", "🚪 Garage", "🚗 Street"].map(v => <span key={v} className={`rp-btn${evDetails.parking === v ? " selected" : ""}`} onClick={() => setEvDetails(p => ({ ...p, parking: v }))}>{v}</span>)}
                   </div>
                 </div>
               </div>
@@ -457,20 +464,20 @@ export default function Contact() {
                 <div className="fgroup">
                   <div className="flabel">Number of Chargers Required</div>
                   <div className="rpills">
-                    {["1","2","3+"].map(v => <span key={v} className={`rp-btn${evDetails.chargers===v?" selected":""}`} onClick={()=>setEvDetails(p=>({...p,chargers:v}))}>{v}</span>)}
+                    {["1", "2", "3+"].map(v => <span key={v} className={`rp-btn${evDetails.chargers === v ? " selected" : ""}`} onClick={() => setEvDetails(p => ({ ...p, chargers: v }))}>{v}</span>)}
                   </div>
                 </div>
                 <div className="fgroup">
                   <div className="flabel">Electrical Supply</div>
                   <div className="rpills">
-                    {["Single Phase","Three Phase","Not Sure"].map(v => <span key={v} className={`rp-btn${evDetails.phase===v?" selected":""}`} onClick={()=>setEvDetails(p=>({...p,phase:v}))}>{v}</span>)}
+                    {["Single Phase", "Three Phase", "Not Sure"].map(v => <span key={v} className={`rp-btn${evDetails.phase === v ? " selected" : ""}`} onClick={() => setEvDetails(p => ({ ...p, phase: v }))}>{v}</span>)}
                   </div>
                 </div>
               </div>
               <div className="fgroup">
                 <div className="flabel">Do you already have an EV?</div>
                 <div className="rpills">
-                  {["✅ Yes","⏳ No"].map(v => <span key={v} className={`rp-btn${evDetails.hasEV===v?" selected":""}`} onClick={()=>setEvDetails(p=>({...p,hasEV:v}))}>{v}</span>)}
+                  {["✅ Yes", "⏳ No"].map(v => <span key={v} className={`rp-btn${evDetails.hasEV === v ? " selected" : ""}`} onClick={() => setEvDetails(p => ({ ...p, hasEV: v }))}>{v}</span>)}
                 </div>
               </div>
             </div>
@@ -484,13 +491,13 @@ export default function Contact() {
                 <div className="fgroup">
                   <div className="flabel">Property Type</div>
                   <div className="rpills">
-                    {["🏠 House","🏢 Commercial"].map(v => <span key={v} className={`rp-btn${solarDetails.property===v?" selected":""}`} onClick={()=>setSolarDetails(p=>({...p,property:v}))}>{v}</span>)}
+                    {["🏠 House", "🏢 Commercial"].map(v => <span key={v} className={`rp-btn${solarDetails.property === v ? " selected" : ""}`} onClick={() => setSolarDetails(p => ({ ...p, property: v }))}>{v}</span>)}
                   </div>
                 </div>
                 <div className="fgroup">
                   <div className="flabel">Roof Type</div>
                   <div className="rpills">
-                    {["📐 Pitched","▬ Flat","❓ Not Sure"].map(v => <span key={v} className={`rp-btn${solarDetails.roof===v?" selected":""}`} onClick={()=>setSolarDetails(p=>({...p,roof:v}))}>{v}</span>)}
+                    {["📐 Pitched", "▬ Flat", "❓ Not Sure"].map(v => <span key={v} className={`rp-btn${solarDetails.roof === v ? " selected" : ""}`} onClick={() => setSolarDetails(p => ({ ...p, roof: v }))}>{v}</span>)}
                   </div>
                 </div>
               </div>
@@ -498,13 +505,13 @@ export default function Contact() {
                 <div className="fgroup">
                   <div className="flabel">Monthly Electricity Bill (Optional)</div>
                   <div className="rpills">
-                    {["£50–£100","£100–£200","£200+"].map(v => <span key={v} className={`rp-btn${solarDetails.bill===v?" selected":""}`} onClick={()=>setSolarDetails(p=>({...p,bill:v}))}>{v}</span>)}
+                    {["£50–£100", "£100–£200", "£200+"].map(v => <span key={v} className={`rp-btn${solarDetails.bill === v ? " selected" : ""}`} onClick={() => setSolarDetails(p => ({ ...p, bill: v }))}>{v}</span>)}
                   </div>
                 </div>
                 <div className="fgroup">
                   <div className="flabel">Battery Storage?</div>
                   <div className="rpills">
-                    {["✅ Yes","❌ No","❓ Not Sure"].map(v => <span key={v} className={`rp-btn${solarDetails.battery===v?" selected":""}`} onClick={()=>setSolarDetails(p=>({...p,battery:v}))}>{v}</span>)}
+                    {["✅ Yes", "❌ No", "❓ Not Sure"].map(v => <span key={v} className={`rp-btn${solarDetails.battery === v ? " selected" : ""}`} onClick={() => setSolarDetails(p => ({ ...p, battery: v }))}>{v}</span>)}
                   </div>
                 </div>
               </div>
@@ -525,7 +532,7 @@ export default function Contact() {
           <div className="fg1">
             <div className="fgroup">
               <div className="flabel">Message / Requirements</div>
-              <textarea className="ftextarea" placeholder="Any specific requirements, questions, access details, or anything else our team should know before preparing your recommendation..." value={formData.message} onChange={e => setFormData(p => ({...p, message: e.target.value}))} />
+              <textarea className="ftextarea" placeholder="Any specific requirements, questions, access details, or anything else our team should know before preparing your recommendation..." value={formData.message} onChange={e => setFormData(p => ({ ...p, message: e.target.value }))} />
             </div>
           </div>
         </div>
@@ -546,15 +553,15 @@ export default function Contact() {
             <div className="ua-title">DRAG & DROP OR CLICK TO UPLOAD</div>
             <div className="ua-sub">Upload photos to help us prepare a more accurate quote for your property</div>
             <div className="ua-tags">
-              {["Fuse Board","Parking Area (EV)","Roof (Solar)","Property Exterior"].map(t => <span key={t} className="ua-tag">{t}</span>)}
+              {["Fuse Board", "Parking Area (EV)", "Roof (Solar)", "Property Exterior"].map(t => <span key={t} className="ua-tag">{t}</span>)}
             </div>
           </div>
           {files.length > 0 && (
             <div className="file-list">
               {files.map((f, i) => (
                 <div key={f.name} className="file-row">
-                  <span>📄 {f.name} <span style={{ color: "var(--muted)", fontSize: 11 }}>({(f.size/1024).toFixed(1)} KB)</span></span>
-                  <button className="file-rm" onClick={() => setFiles(prev => prev.filter((_,j) => j !== i))}>✕</button>
+                  <span>📄 {f.name} <span style={{ color: "var(--muted)", fontSize: 11 }}>({(f.size / 1024).toFixed(1)} KB)</span></span>
+                  <button className="file-rm" onClick={() => setFiles(prev => prev.filter((_, j) => j !== i))}>✕</button>
                 </div>
               ))}
             </div>
@@ -567,7 +574,7 @@ export default function Contact() {
 
         {/* Consent */}
         <div>
-          <div className="consent-row" onClick={() => { setConsented(p => !p); setErrors(e => ({...e, consent: ""})); }}>
+          <div className="consent-row" onClick={() => { setConsented(p => !p); setErrors(e => ({ ...e, consent: "" })); }}>
             <div className={`consent-cb${consented ? " on" : ""}`}>{consented ? "✓" : ""}</div>
             <div className="consent-txt">
               I agree to Watten Power Ltd contacting me regarding this enquiry. My information will be handled in accordance with the <a href="#" onClick={e => e.stopPropagation()}>Privacy Policy</a> and will not be shared with third parties. <span style={{ color: "var(--green-hi)" }}>*</span>
@@ -579,9 +586,9 @@ export default function Contact() {
 
       {/* CTA BAND */}
       <div className="c-cta-band">
-        <div className="cta-photos">
-          <img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=700&q=80" alt="Solar install" />
-          <img src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?w=700&q=80" alt="EV charger" />
+        <div >
+          <img src={img1} alt="Solar install" />
+          {/* <img src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?w=700&q=80" alt="EV charger" /> */}
         </div>
         <div className="cta-content">
           <div>
