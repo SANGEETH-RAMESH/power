@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from '../../assets/logo.png';
+import logo from '../../assets/little_logo.png';
 import { Link } from "react-router-dom";
 
 import ev_installation_img from '../../assets/images/ev-charger-installation.webp'
@@ -321,8 +321,15 @@ export default function EV() {
 
       {/* NAV */}
       <nav className={`e-nav${scrolled ? " scrolled" : ""}`}>
-        <Link to="/" className="nav-logo">
-          <img src={logo} alt="Watten Power" style={{ height: 40 }} />
+        <Link to="/" className="flex items-center gap-2">
+          <img src={logo} alt="logo" className="h-[34px] w-auto" />
+
+          <span
+            className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
+            style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
+          >
+            WATTEN POWER
+          </span>
         </Link>
         <ul className="nav-links">
           {navItems.map(([label, href, cls]) => (
@@ -742,7 +749,16 @@ export default function EV() {
         <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: 48, marginBottom: 48 }} className="ev-footer-top">
           <div>
             <div style={{ marginBottom: 16 }}>
-              <Link to="/"><img src={logo} alt="Watten Power" style={{ height: 40, display: 'block' }} /></Link>
+              <Link to="/" className="flex items-center gap-2">
+                <img src={logo} alt="logo" className="h-[34px] w-auto" />
+
+                <span
+                  className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
+                  style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
+                >
+                  WATTEN POWER
+                </span>
+              </Link>
             </div>
             <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
               Watten Power Ltd is a UK-based clean energy solutions provider specialising in EV charging and solar installations for residential and commercial properties.

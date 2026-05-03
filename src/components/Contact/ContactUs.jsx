@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from '../../assets/logo.png'
+import logo from '../../assets/little_logo.png'
 
 import img1 from '../../assets/images/solar/walking-solar-panels-morning-mist-mountain-view.png'
 
@@ -53,8 +53,15 @@ function Navbar() {
       `}</style>
 
       <nav className={`wp-nav ${scrolled ? "scrolled" : "not-scrolled"}`}>
-        <Link to="/" className="wp-nav-logo">
-          <img src={logo} alt="Watten Power" />
+        <Link to="/" className="flex items-center gap-2">
+          <img src={logo} alt="logo" className="h-[34px] w-auto" />
+
+          <span
+            className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
+            style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
+          >
+            WATTEN POWER
+          </span>
         </Link>
 
         <button
@@ -643,7 +650,16 @@ export default function Contact() {
         <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: 48, marginBottom: 48 }} className="sol-footer-top">
           <div>
             <div style={{ marginBottom: 16 }}>
-              <Link to="/"><img src={logo} alt="Watten Power" style={{ height: 40, display: 'block' }} /></Link>
+              <Link to="/" className="flex items-center gap-2">
+                <img src={logo} alt="logo" className="h-[34px] w-auto" />
+
+                <span
+                  className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
+                  style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
+                >
+                  WATTEN POWER
+                </span>
+              </Link>
             </div>
             <p style={{ fontSize: 13, color: '#6278a0', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
               Watten Power Ltd is a UK-based clean energy solutions provider specialising in EV charging and solar installations for residential and commercial properties.

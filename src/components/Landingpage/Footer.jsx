@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import logo from '../../assets/logo.png';
+import logo from '../../assets/little_logo.png';
 
 export default function Footer() {
   return (
@@ -13,8 +13,15 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-            <Link to="/" className="flex items-center gap-3">
-              <img src={logo} alt="logo" className="h-[40px]" />
+            <Link to="/" className="flex items-center gap-2">
+              <img src={logo} alt="logo" className="h-[34px] w-auto" />
+
+              <span
+                className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
+                style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
+              >
+                WATTEN POWER
+              </span>
             </Link>
           </div>
           <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>

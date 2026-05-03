@@ -10,7 +10,7 @@ import Ticker from "./Ticker";
 import WhyUs from "./WhyUs";
 
 
-export default function Landing(){
+export default function Landing() {
     return (
         <>
             <CircuitCanvas />

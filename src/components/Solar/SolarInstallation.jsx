@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import logo from '../../assets/logo.png';
+import logo from '../../assets/little_logo.png';
 import { Link } from "react-router-dom";
 
 // ─── Import your Solar Estimator wizard ───────────────────────────────────
@@ -70,7 +70,7 @@ export default function Solar() {
     }, 80);
   }
 
-  const navItems = [["Home", "/", ""], ["EV Charger", "/ev-charger", ""], ["Solar Solution", "/solar", "active"],["Contact Us", "/contact-us", ""]]
+  const navItems = [["Home", "/", ""], ["EV Charger", "/ev-charger", ""], ["Solar Solution", "/solar", "active"], ["Contact Us", "/contact-us", ""]]
 
   return (
     <div className="solar-page">
@@ -699,8 +699,15 @@ export default function Solar() {
 
       {/* NAV */}
       <nav className={`s-nav${scrolled ? " scrolled" : ""}`}>
-        <Link to="/">
-          <img src={logo} alt="Watten Power" style={{ height: 40, display: 'block' }} />
+        <Link to="/" className="flex items-center gap-2">
+          <img src={logo} alt="logo" className="h-[34px] w-auto" />
+
+          <span
+            className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
+            style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
+          >
+            WATTEN POWER
+          </span>
         </Link>
         <ul className="nav-links">
           {navItems.map(([label, href, cls]) => (
@@ -1148,7 +1155,16 @@ export default function Solar() {
         <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: 48, marginBottom: 48 }} className="sol-footer-top">
           <div>
             <div style={{ marginBottom: 16 }}>
-              <Link to="/"><img src={logo} alt="Watten Power" style={{ height: 40, display: 'block' }} /></Link>
+              <Link to="/" className="flex items-center gap-2">
+                <img src={logo} alt="logo" className="h-[34px] w-auto" />
+
+                <span
+                  className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
+                  style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
+                >
+                  WATTEN POWER
+                </span>
+              </Link>
             </div>
             <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
               Watten Power Ltd is a UK-based clean energy solutions provider specialising in EV charging and solar installations for residential and commercial properties.
