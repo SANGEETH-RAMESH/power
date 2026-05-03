@@ -617,7 +617,7 @@ export default function Contact() {
       {/* CTA BAND */}
       <div className="c-cta-band">
         <div style={{ height: "100%" }}>
-  <img src={img1} alt="Solar install" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(.5) saturate(.7)", display: "block" }} />
+          <img src={img1} alt="Solar install" style={{ width: "100%", height: "100%", objectFit: "cover",  display: "block" }} />
           {/* <img src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?w=700&q=80" alt="EV charger" /> */}
         </div>
         <div className="cta-content">
