@@ -10,13 +10,13 @@ export default function WattenRoute() {
     return (
         <>
             <Routes>
-                <Route path="/watten-power" element={<Landing/>} />
+                <Route path="/" element={<Landing/>} />
                 <Route path="/ev-charger" element={<EVPage/>}/>
                 <Route path="/solar" element={<SolarInstallation/>}/>
                 <Route path="/contact-us" element={<ContactPage/>}/>
                 <Route path="/solar-estimator" element={<SolarEstimator/>}/>
                 
-                <Route path="/" element={<ComingSoon/>}/>
+                {/* <Route path="/" element={<ComingSoon/>}/> */}
 
                 {/* 🔥 Redirect everything else to "/" */}
                 {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
