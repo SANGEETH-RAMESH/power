@@ -1173,13 +1173,19 @@ export default function Solar() {
           <SolFooterCol title="Services" links={[
             { label: 'EV Charger Installation', href: '/ev-charger' },
             { label: 'Solar System Installation', href: '/solar' },
-            { label: 'Battery Storage', href: '/battery-storage' },
             { label: 'Solar Estimator', href: '/solar-estimator' },
           ]} />
           <SolFooterCol title="Contact Us" links={[
             { label: '0208 001 1100', href: 'tel:02080011100' },
             { label: 'info@wattenpower.com', href: 'mailto:info@wattenpower.com' },
-            { label: 'Office 2, 60 Gold Street, Northampton, NN1 1RS', href: '#' },
+            {
+              label: (
+                <>
+                  Office 2, 60 Gold Street,<br />
+                  Northampton,NN1 1RS
+                </>
+              ), href: '#'
+            },
           ]} />
           <SolFooterCol title="Legal" links={[
             { label: 'Terms & Conditions', href: '/terms-and-conditions' },
