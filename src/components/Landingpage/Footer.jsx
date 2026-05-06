@@ -68,7 +68,9 @@ export default function Footer() {
         fontSize: 12, color: 'var(--muted)', flexWrap: 'wrap', gap: 12,
       }}>
         <span>© 2026 Watten Power Ltd. All rights reserved.</span>
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>Registered in England &amp; Wales</span>
+        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>
+          Made with ❤️ by poweroins
+        </span>
       </div>
 
       <style>{`

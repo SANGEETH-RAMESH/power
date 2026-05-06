@@ -15,6 +15,7 @@ import img2 from '../../assets/images/solar/residental_2.jpeg'
 import img3 from '../../assets/images/solar/medium-shot-men-shaking-hands.jpg'
 import img4 from '../../assets/images/solar/modern-city-skyline-with-solar-panels-sustainable-future.jpeg'
 import img6 from '../../assets/images/solar/young-man-with-arms-outstretched-standing-street.png'
+import Navbar from "../Common/Navbar";
 
 
 function SolFooterCol({ title, links }) {
@@ -131,7 +132,7 @@ export default function Solar() {
         .s-hero-sun { width: 80px; height: 80px; margin: 0 auto 28px; border-radius: 50%; background: radial-gradient(circle,rgba(90,140,46,.4),rgba(90,140,46,.1) 60%,transparent); border: 1px solid rgba(90,140,46,.3); display: flex; align-items: center; justify-content: center; font-size: 36px; animation: fadeUp .8s .05s ease both, pulse-sun 3s ease-in-out infinite; }
         @keyframes pulse-sun { 0%,100%{box-shadow:0 0 0 0 rgba(90,140,46,.3)} 50%{box-shadow:0 0 40px 10px rgba(90,140,46,.15)} }
         .s-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px,10vw,130px); line-height: .9; letter-spacing: 3px; margin-bottom: 14px; animation: fadeUp .8s .1s ease both; }
-        .s-hero-title .line-2 { display: block; color: var(--green-hi); -webkit-text-stroke: 1px var(--green); }
+        .s-hero-title .line-2 { display: block;  color: var(--green-hi);  }
         .s-hero-tagline { font-size: clamp(13px,1.8vw,17px); color: var(--light); max-width: 640px; margin: 0 auto 40px; line-height: 1.7; animation: fadeUp .8s .2s ease both; }
         .s-hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; padding: 0 16px; animation: fadeUp .8s .3s ease both; width: 100%; }
         .s-hero-bottom { position: relative; z-index: 3; width: 100%; display: flex; flex-wrap: wrap; justify-content: center; border-top: 1px solid rgba(43,91,168,.2); animation: fadeUp .8s .4s ease both; }
@@ -627,14 +628,22 @@ export default function Solar() {
           .comp-strip { grid-template-columns: repeat(3,1fr); }
           .standards-row { grid-template-columns: repeat(3,1fr); }
         }
-       @media (max-width: 960px) {
-  .estimation-inner { grid-template-columns: 1fr; }
-  .est-content {
-  min-width: 0;
-}
-  .est-content, .est-preview { padding: 52px 28px; }
+      @media (max-width: 960px) {
+  .estimation-inner,
+  .estimation-inner.show-estimator {
+    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .est-content { padding: 52px 28px; width: 100%; }
   .est-content::after { display: none; }
-  .est-preview { overflow-y: visible; align-self: auto; }
+  .est-preview {
+    display: flex !important;   /* always visible on mobile */
+    padding: 40px 28px;
+    overflow-y: visible;
+    align-self: auto;
+    width: 100%;
+  }
   .est-live-wrap { width: 100%; }
 }
         @media (max-width: 900px) {
@@ -698,7 +707,7 @@ export default function Solar() {
       `}</style>
 
       {/* NAV */}
-      <nav className={`s-nav${scrolled ? " scrolled" : ""}`}>
+      {/* <nav className={`s-nav${scrolled ? " scrolled" : ""}`}>
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="logo" className="h-[34px] w-auto" />
 
@@ -717,7 +726,8 @@ export default function Solar() {
         <button className="nav-burger" onClick={() => setNavOpen(!navOpen)} aria-label="Menu">
           <span /><span /><span />
         </button>
-      </nav>
+      </nav> */}
+      <Navbar/>
       <ul className={`nav-mobile${navOpen ? " open" : ""}`}>
         {navItems.map(([label, href, cls]) => (
           <li key={label}><Link to={href} className={cls} onClick={() => setNavOpen(false)}>{label}</Link></li>
@@ -743,6 +753,10 @@ export default function Solar() {
           <div className="s-hero-btns">
             <Link to="/contact-us" className="btn-main btn-green">Get a Free Quote →</Link>
             <a href="#process" className="btn-outline">How It Works</a>
+            <a href="#estimator" className="btn-main btn-green"
+              onClick={(e) => { e.preventDefault(); handleEstimateClick(); document.getElementById('estimator')?.scrollIntoView({ behavior: 'smooth' }); }}>
+              ☀️ Estimate Your System →
+            </a>
           </div>
         </div>
         <div className="s-hero-bottom">
@@ -835,7 +849,11 @@ export default function Solar() {
             <div>
               <div className="sec-label reveal">Installation Process</div>
               <h2 className="sec-title reveal rd1">HOW IT WORKS</h2>
-              <p className="sec-desc reveal rd2">A structured, engineering-led process from roof assessment to final handover — every stage handled professionally.</p>
+              <p className="sec-desc reveal rd2">A structured, engineering-led process...</p>
+              {/* <a href="#estimator" className="btn-main btn-green reveal rd3" style={{ marginTop: 28, alignSelf: 'flex-start' }}
+                onClick={(e) => { e.preventDefault(); handleEstimateClick(); document.getElementById('estimator')?.scrollIntoView({ behavior: 'smooth' }); }}>
+                ☀️ Estimate Your System →
+              </a> */}
             </div>
             <div className="process-img reveal rd2">
               <img src={img6} alt="Solar installation" />
@@ -1204,7 +1222,9 @@ export default function Solar() {
           fontSize: 12, color: 'var(--muted)', flexWrap: 'wrap', gap: 12,
         }}>
           <span>© 2026 Watten Power Ltd. All rights reserved.</span>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>Registered in England &amp; Wales</span>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>
+            Made with ❤️ by poweroins
+          </span>
         </div>
         <style>{`
           @media (max-width: 960px) {

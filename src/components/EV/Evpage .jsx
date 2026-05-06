@@ -10,6 +10,7 @@ import smart_charging from '../../assets/images/smart_charging.jpg'
 import hero_img from '../../assets/images/technician-installing.png'
 import how_it_works_img from '../../assets/images/qualifiedtechnician-working.png'
 import beyond_installation_img from '../../assets/images/car-mechanic.jpg'
+import Navbar from "../Common/Navbar";
 
 function EVFooterCol({ title, links }) {
   return (
@@ -217,10 +218,10 @@ export default function EV() {
         .brand-card:hover { border-color: rgba(43,91,168,.5); transform: translateY(-3px); }
         .brand-logo { color: var(--light); height: 40px; display: flex; align-items: center; }
         .brand-logo svg { max-height: 40px; }
-        .brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: var(--light); }
+.brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 2px; color: var(--green-hi); }
         .brand-tag { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
         .brands-brochure { margin-top: 44px; text-align: center; }
-        .brands-brochure p { font-size: 13px; color: var(--muted); margin-bottom: 18px; font-family: 'Space Mono', monospace; letter-spacing: 1px; text-transform: uppercase; }
+.brands-brochure p { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.75; }
         .brochure-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 50px; padding: 14px 28px; color: var(--light); text-decoration: none; font-size: 14px; font-weight: 500; transition: all .25s; }
         .brochure-btn:hover { border-color: rgba(43,91,168,.5); color: var(--white); }
         .brochure-btn-icon { color: var(--green-hi); display: flex; }
@@ -320,7 +321,7 @@ export default function EV() {
       `}</style>
 
       {/* NAV */}
-      <nav className={`e-nav${scrolled ? " scrolled" : ""}`}>
+      {/* <nav className={`e-nav${scrolled ? " scrolled" : ""}`}>
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="logo" className="h-[34px] w-auto" />
 
@@ -339,7 +340,8 @@ export default function EV() {
         <button className="nav-burger" onClick={() => setNavOpen(!navOpen)} aria-label="Menu">
           <span /><span /><span />
         </button>
-      </nav>
+      </nav> */}
+      <Navbar/>
       <ul className={`nav-mobile${navOpen ? " open" : ""}`}>
         {navItems.map(([label, href, cls]) => (
           <li key={label}><Link to={href} className={cls} onClick={() => setNavOpen(false)}>{label}</Link></li>
@@ -441,7 +443,7 @@ export default function EV() {
               <img
                 src={how_it_works_img}
                 className="object-cover"
-                style={{ objectPosition: '0px center' }}
+                style={{ objectPosition: '-80px center' }}  // was '0px center', increase negative value to skip more from left
                 alt="EV charger installation engineer"
               />
               {/* <div className="pv-stat pv-stat-1">
@@ -529,7 +531,9 @@ export default function EV() {
         <div className="e-container">
           <div className="brands-header">
             <div className="sec-label reveal">Charger Brands</div>
-            <h2 className="sec-title reveal rd1" style={{ textAlign: "center" }}>BRANDS WE INSTALL</h2>
+            <h2 className="sec-title reveal rd1" style={{ textAlign: "center", fontSize: 'clamp(24px,3vw,36px)' }}>
+              BRANDS WE INSTALL
+            </h2>
             <p className="reveal rd2" style={{ fontSize: 14, color: "var(--muted)", marginTop: 10 }}>We work with a carefully selected range of trusted manufacturers — recommending the right brand for your specific needs, property, and budget.</p>
           </div>
           <div className="brands-track">
@@ -803,7 +807,9 @@ export default function EV() {
           fontSize: 12, color: 'var(--muted)', flexWrap: 'wrap', gap: 12,
         }}>
           <span>© 2026 Watten Power Ltd. All rights reserved.</span>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>Registered in England &amp; Wales</span>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>
+            Made with ❤️ by poweroins
+          </span>
         </div>
         <style>{`
           @media (max-width: 960px) {

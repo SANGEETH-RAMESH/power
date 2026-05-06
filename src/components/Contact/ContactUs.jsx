@@ -617,7 +617,7 @@ export default function Contact() {
       {/* CTA BAND */}
       <div className="c-cta-band">
         <div style={{ height: "100%" }}>
-          <img src={img1} alt="Solar install" style={{ width: "100%", height: "100%", objectFit: "cover",  display: "block" }} />
+          <img src={img1} alt="Solar install" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
           {/* <img src="https://images.unsplash.com/photo-1647427060118-4911c9821b82?w=700&q=80" alt="EV charger" /> */}
         </div>
         <div className="cta-content">
@@ -697,7 +697,9 @@ export default function Contact() {
           fontSize: 12, color: '#6278a0', flexWrap: 'wrap', gap: 12,
         }}>
           <span>© 2026 Watten Power Ltd. All rights reserved.</span>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>Registered in England &amp; Wales</span>
+          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>
+            Made with ❤️ by poweroins
+          </span>
         </div>
         <style>{`
     @media (max-width: 960px) {
