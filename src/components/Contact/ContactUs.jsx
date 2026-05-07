@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from '../../assets/little_logo.png'
-
+import termsPdf from '../../assets/pdfs/terms-and-conditions.pdf';
+import privacyPdf from '../../assets/pdfs/privacy-policy.pdf';
+import cookiePdf from '../../assets/pdfs/cookie-policy.pdf';
+import salePdf from '../../assets/pdfs/terms-of-sale.pdf';
+import refundPdf from '../../assets/pdfs/refunds-returns-policy.pdf';
+import slaveryPdf from '../../assets/pdfs/modern-slavery.pdf';
 import img1 from '../../assets/images/solar/walking-solar-panels-morning-mist-mountain-view.png'
 
 
@@ -103,7 +108,10 @@ function ContactFooterCol({ title, links }) {
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
         {links.map((l, i) => (
           <li key={i}>
-            <a href={l.href}
+            <a
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ fontSize: 13, color: '#6278a0', textDecoration: 'none', transition: 'color .2s', wordBreak: 'break-word' }}
               onMouseEnter={e => e.target.style.color = '#f0f6ff'}
               onMouseLeave={e => e.target.style.color = '#6278a0'}
@@ -682,14 +690,35 @@ export default function Contact() {
               ), href: '#'
             },
           ]} />
-          <ContactFooterCol title="Legal" links={[
-            { label: 'Terms & Conditions', href: '/terms-and-conditions' },
-            { label: 'Privacy Policy', href: '/privacy-policy' },
-            { label: 'Cookie Policy', href: '/cookie-policy' },
-            { label: 'Terms of Sale', href: '/terms-of-sale' },
-            { label: 'Return Policy', href: '/return-policy' },
-            { label: 'Modern Slavery Statement', href: '/modern-slavery-statement' },
-          ]} />
+          <ContactFooterCol
+            title="Legal"
+            links={[
+              {
+                label: 'Terms & Conditions of Use',
+                href: termsPdf,
+              },
+              {
+                label: 'Terms of Sale',
+                href: salePdf,
+              },
+              {
+                label: 'Cookie Policy',
+                href: cookiePdf,
+              },
+              {
+                label: 'Privacy Policy',
+                href: privacyPdf,
+              },
+              {
+                label: 'Refunds & Returns Policy',
+                href: refundPdf,
+              },
+              {
+                label: 'Modern Slavery & Human Trafficking Statement',
+                href: slaveryPdf,
+              },
+            ]}
+          />
         </div>
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',

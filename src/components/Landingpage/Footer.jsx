@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom"
 import logo from '../../assets/little_logo.png';
 
+import termsPdf from '../../assets/pdfs/terms-and-conditions.pdf';
+import privacyPdf from '../../assets/pdfs/privacy-policy.pdf';
+import cookiePdf from '../../assets/pdfs/cookie-policy.pdf';
+import salePdf from '../../assets/pdfs/terms-of-sale.pdf';
+import refundPdf from '../../assets/pdfs/refunds-returns-policy.pdf';
+import slaveryPdf from '../../assets/pdfs/modern-slavery.pdf';
+
 export default function Footer() {
   return (
     <footer style={{
@@ -52,14 +59,35 @@ export default function Footer() {
         ]} />
 
         {/* Legal */}
-        <FooterCol title="Legal" links={[
-          { label: 'Terms & Conditions', href: '/terms-and-conditions' },
-          { label: 'Privacy Policy', href: '/privacy-policy' },
-          { label: 'Cookie Policy', href: '/cookie-policy' },
-          { label: 'Terms of Sale', href: '/terms-of-sale' },
-          { label: 'Return Policy', href: '/return-policy' },
-          { label: 'Modern Slavery Statement', href: '/modern-slavery-statement' },
-        ]} />
+        <FooterCol
+          title="Legal"
+          links={[
+            {
+              label: 'Terms & Conditions of Use',
+              href: termsPdf,
+            },
+            {
+              label: 'Terms of Sale',
+              href: salePdf,
+            },
+            {
+              label: 'Cookie Policy',
+              href: cookiePdf,
+            },
+            {
+              label: 'Privacy Policy',
+              href: privacyPdf,
+            },
+            {
+              label: 'Refunds & Returns Policy',
+              href: refundPdf,
+            },
+            {
+              label: 'Modern Slavery & Human Trafficking Statement',
+              href: slaveryPdf,
+            },
+          ]}
+        />
       </div>
 
       <div style={{

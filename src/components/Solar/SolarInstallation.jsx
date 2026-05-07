@@ -10,6 +10,15 @@ import { SolarEstimatorWizard } from './SolarEstimator';
 // (no header/footer/intro) and accepts { startFromStep, onBack } props.
 // ─────────────────────────────────────────────────────────────────────────
 
+
+
+import termsPdf from '../../assets/pdfs/terms-and-conditions.pdf';
+import privacyPdf from '../../assets/pdfs/privacy-policy.pdf';
+import cookiePdf from '../../assets/pdfs/cookie-policy.pdf';
+import salePdf from '../../assets/pdfs/terms-of-sale.pdf';
+import refundPdf from '../../assets/pdfs/refunds-returns-policy.pdf';
+import slaveryPdf from '../../assets/pdfs/modern-slavery.pdf';
+
 import img1 from '../../assets/images/solar/man-worker-firld-by-solar-panels.jpg'
 import img2 from '../../assets/images/solar/residental_2.jpeg'
 import img3 from '../../assets/images/solar/medium-shot-men-shaking-hands.jpg'
@@ -92,7 +101,7 @@ export default function Solar() {
         .reveal.vis { opacity: 1; transform: translateY(0); }
         .rd1 { transition-delay: .1s } .rd2 { transition-delay: .2s } .rd3 { transition-delay: .3s } .rd4 { transition-delay: .4s } .rd5 { transition-delay: .5s }
         .s-container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
-        .sec-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+        .sec-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; margin-left: 0; padding-left: 0; }
         // .sec-label::before { content: ''; display: block; width: 22px; height: 1px; background: var(--green-hi); }
         .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(38px,5vw,60px); line-height: .95; letter-spacing: 2px; margin-bottom: 16px; }
         .sec-desc { font-size: 16px; color: var(--light); font-weight: 300; max-width: 560px; line-height: 1.75; }
@@ -206,7 +215,7 @@ export default function Solar() {
         /* RANGE */
         .s-range { padding: 100px 0; border-top: 1px solid var(--line); }
         .range-header { text-align: center; margin-bottom: 60px; }
-        .range-header .sec-label { justify-content: center; }
+        .range-header .sec-label { justify-content: flex-start; }
         .range-header .sec-label::before { display: none; }
         .range-showcase { display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 16px; min-height: 600px; }
         .rs-main { grid-row: 1/3; background: linear-gradient(160deg,rgba(90,140,46,.2),rgba(43,91,168,.12)); border: 2px solid var(--green); border-radius: var(--r2); padding: 44px 36px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
@@ -239,6 +248,7 @@ export default function Solar() {
   overflow: hidden;
   width: 100%;
   max-width: 100vw;
+  background: var(--ink-2);
 }
 
         .estimation-inner {
@@ -452,7 +462,7 @@ export default function Solar() {
 
         /* Right — preview / estimator panel */
         .est-preview {
-  background: linear-gradient(135deg, rgba(90,140,46,.12) 0%, rgba(43,91,168,.15) 100%);
+  background: var(--ink-2);
   padding: 80px 64px;
   display: none;
   flex-direction: column;
@@ -616,7 +626,7 @@ export default function Solar() {
 
         /* CTA */
         .s-cta { padding: 100px 0; border-top: 1px solid var(--line); text-align: center; background: linear-gradient(135deg,rgba(90,140,46,.08),rgba(43,91,168,.06)); }
-        .s-cta .sec-label { justify-content: center; }
+        .s-cta .sec-label { justify-content: flex-start; }
         .s-cta .sec-label::before { display: none; }
         .s-cta .sec-title { font-size: clamp(42px,6vw,72px); }
         .s-cta .sec-desc { margin: 0 auto 40px; text-align: center; }
@@ -755,7 +765,7 @@ export default function Solar() {
             <a href="#process" className="btn-outline">How It Works</a>
             <a href="#estimator" className="btn-main btn-green"
               onClick={(e) => { e.preventDefault(); handleEstimateClick(); document.getElementById('estimator')?.scrollIntoView({ behavior: 'smooth' }); }}>
-              ☀️ Estimate Your System →
+              Estimate Your System →
             </a>
           </div>
         </div>
@@ -893,7 +903,7 @@ export default function Solar() {
           <div className="range-header">
             <div className="sec-label reveal">Our Solar Range</div>
             <h2 className="sec-title reveal rd1">THE RIGHT SYSTEM<br />FOR YOUR PROPERTY</h2>
-            <p className="sec-desc reveal rd2" style={{ margin: "0 auto", textAlign: "center", maxWidth: 600 }}>Tailored to different energy needs and budgets — we recommend the right system based on your consumption, roof size, and long-term goals.</p>
+            <p className="sec-desc reveal rd2" style={{ maxWidth: 600 }}>Tailored to different energy needs and budgets — we recommend the right system based on your consumption, roof size, and long-term goals.</p>
           </div>
           <div className="range-showcase">
             <div className="rs-main reveal rd1">
@@ -939,7 +949,8 @@ export default function Solar() {
 
       {/* ══ ESTIMATE YOUR SOLAR SYSTEM ══════════════════════════════════ */}
       <section className="estimation-section" id="estimator">
-        <div className={`estimation-inner ${showEstimator ? 'show-estimator' : ' s-container'}`}>
+        <div className={`estimation-inner ${showEstimator ? 'show-estimator' : ''}`}>
+
 
           {/* ── LEFT: Static content ────────────────────────────────── */}
           <div className="est-content">
@@ -1207,14 +1218,35 @@ export default function Solar() {
               ), href: '#'
             },
           ]} />
-          <SolFooterCol title="Legal" links={[
-            { label: 'Terms & Conditions', href: '/terms-and-conditions' },
-            { label: 'Privacy Policy', href: '/privacy-policy' },
-            { label: 'Cookie Policy', href: '/cookie-policy' },
-            { label: 'Terms of Sale', href: '/terms-of-sale' },
-            { label: 'Return Policy', href: '/return-policy' },
-            { label: 'Modern Slavery Statement', href: '/modern-slavery-statement' },
-          ]} />
+          <SolFooterCol
+  title="Legal"
+  links={[
+    {
+      label: 'Terms & Conditions of Use',
+      href: termsPdf,
+    },
+    {
+      label: 'Terms of Sale',
+      href: salePdf,
+    },
+    {
+      label: 'Cookie Policy',
+      href: cookiePdf,
+    },
+    {
+      label: 'Privacy Policy',
+      href: privacyPdf,
+    },
+    {
+      label: 'Refunds & Returns Policy',
+      href: refundPdf,
+    },
+    {
+      label: 'Modern Slavery & Human Trafficking Statement',
+      href: slaveryPdf,
+    },
+  ]}
+/>
         </div>
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',

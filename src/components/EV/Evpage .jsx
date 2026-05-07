@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import logo from '../../assets/little_logo.png';
 import { Link } from "react-router-dom";
+import termsPdf from '../../assets/pdfs/terms-and-conditions.pdf';
+import privacyPdf from '../../assets/pdfs/privacy-policy.pdf';
+import cookiePdf from '../../assets/pdfs/cookie-policy.pdf';
+import salePdf from '../../assets/pdfs/terms-of-sale.pdf';
+import refundPdf from '../../assets/pdfs/refunds-returns-policy.pdf';
+import slaveryPdf from '../../assets/pdfs/modern-slavery.pdf';
 
 import ev_installation_img from '../../assets/images/ev-charger-installation.webp'
 import ev_vehicle_img from '../../assets/images/electric-vehicle-technology-utilized-home-charging-station-nowatermarks.jpeg'
@@ -82,7 +88,6 @@ export default function EV() {
         .rd1{transition-delay:.1s} .rd2{transition-delay:.2s} .rd3{transition-delay:.3s} .rd4{transition-delay:.4s} .rd5{transition-delay:.5s}
         .e-container { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
         .sec-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
-        // .sec-label::before { content: ''; display: block; width: 22px; height: 1px; background: var(--green-hi); }
         .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(38px,5vw,60px); line-height: .95; letter-spacing: 2px; margin-bottom: 16px; }
         .sec-desc { font-size: 16px; color: var(--light); font-weight: 300; max-width: 560px; line-height: 1.75; }
         .btn-main { display: inline-flex; align-items: center; gap: 9px; background: linear-gradient(135deg,var(--blue),var(--blue-hi)); color: #fff; font-weight: 500; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; padding: 14px 34px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: all .25s; box-shadow: 0 8px 28px rgba(43,91,168,.4); }
@@ -218,10 +223,10 @@ export default function EV() {
         .brand-card:hover { border-color: rgba(43,91,168,.5); transform: translateY(-3px); }
         .brand-logo { color: var(--light); height: 40px; display: flex; align-items: center; }
         .brand-logo svg { max-height: 40px; }
-.brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 2px; color: var(--green-hi); }
+        .brand-name { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); }
         .brand-tag { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
         .brands-brochure { margin-top: 44px; text-align: center; }
-.brands-brochure p { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.75; }
+        .brands-brochure p { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.75; }
         .brochure-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 50px; padding: 14px 28px; color: var(--light); text-decoration: none; font-size: 14px; font-weight: 500; transition: all .25s; }
         .brochure-btn:hover { border-color: rgba(43,91,168,.5); color: var(--white); }
         .brochure-btn-icon { color: var(--green-hi); display: flex; }
@@ -321,27 +326,7 @@ export default function EV() {
       `}</style>
 
       {/* NAV */}
-      {/* <nav className={`e-nav${scrolled ? " scrolled" : ""}`}>
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="logo" className="h-[34px] w-auto" />
-
-          <span
-            className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
-            style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
-          >
-            WATTEN POWER
-          </span>
-        </Link>
-        <ul className="nav-links">
-          {navItems.map(([label, href, cls]) => (
-            <li key={label}><Link to={href} className={cls}>{label}</Link></li>
-          ))}
-        </ul>
-        <button className="nav-burger" onClick={() => setNavOpen(!navOpen)} aria-label="Menu">
-          <span /><span /><span />
-        </button>
-      </nav> */}
-      <Navbar/>
+      <Navbar />
       <ul className={`nav-mobile${navOpen ? " open" : ""}`}>
         {navItems.map(([label, href, cls]) => (
           <li key={label}><Link to={href} className={cls} onClick={() => setNavOpen(false)}>{label}</Link></li>
@@ -386,17 +371,12 @@ export default function EV() {
         <div className="e-container">
           <div className="intro-grid">
             <div>
-              {/* <div className="sec-label reveal">EV Charger Installation Services</div> */}
               <h2 className="sec-title reveal rd1">EV CHARGER<br />INSTALLATION SERVICES</h2>
               <p className="sec-desc reveal rd2" style={{ marginBottom: 24 }}>We provide end-to-end EV charger installation services for residential, commercial, and fleet environments. Every installation is engineered for safety, efficiency, and long-term scalability.</p>
               <p className="sec-desc reveal rd3">Whether you are installing your first charger at home or deploying multiple units across a commercial site, our team ensures a seamless and compliant setup.</p>
             </div>
             <div className="intro-img reveal rd2">
               <img src={ev_installation_img} alt="EV charger at home" />
-              {/* <div className="intro-img-badge">
-                <div className="iib-label">Typical Install Time</div>
-                <div className="iib-val">Half Day</div>
-              </div> */}
             </div>
           </div>
         </div>
@@ -405,7 +385,8 @@ export default function EV() {
       {/* WHAT WE INSTALL */}
       <section className="e-install">
         <div className="e-container">
-          <div className="sec-label reveal">What We Install</div>
+          {/* sec-label aligned to match sec-title left edge */}
+          <div className="sec-label reveal" style={{ marginLeft: 0 }}>What We Install</div>
           <h2 className="sec-title reveal rd1">THREE ENVIRONMENTS.<br />ONE SPECIALIST.</h2>
           <div className="install-grid">
             {[
@@ -443,18 +424,9 @@ export default function EV() {
               <img
                 src={how_it_works_img}
                 className="object-cover"
-                style={{ objectPosition: '-80px center' }}  // was '0px center', increase negative value to skip more from left
+                style={{ objectPosition: '-80px center' }}
                 alt="EV charger installation engineer"
               />
-              {/* <div className="pv-stat pv-stat-1">
-                <div className="pvs-label">Certification Issued</div>
-                <div className="pvs-val">Same Day</div>
-              </div> */}
-              {/* <div className="pv-stat pv-stat-2">
-                <div className="pvs-label">Average Install</div>
-                <div className="pvs-val">4–6 hrs</div>
-                <div className="pvs-sub">Residential single unit</div>
-              </div> */}
             </div>
           </div>
           <div className="process-steps reveal">
@@ -484,7 +456,8 @@ export default function EV() {
         <div className="e-container">
           <div className="range-intro">
             <div>
-              <div className="sec-label reveal">Our Charger Range</div>
+              {/* sec-label aligned to match sec-title left edge */}
+              <div className="sec-label reveal" style={{ marginLeft: 0 }}>Our Charger Range</div>
               <h2 className="sec-title reveal rd1">OUR EV<br />CHARGER RANGE</h2>
             </div>
             <div className="reveal rd2">
@@ -500,10 +473,6 @@ export default function EV() {
               ["🔋", "FUTURE-READY", "Designed for integrated energy", ["Solar-compatible", "Battery-ready integration", "Smart energy ecosystem", "Ideal for long-term energy optimisation"], false],
             ].map(([icon, name, tagline, feats, featured], i) => (
               <div key={name} className={`rc reveal rd${i + 1}${featured ? " featured" : ""}`}>
-
-                {/* ❌ Removed badge */}
-                {/* <div className="rc-badge">{badge}</div> */}
-
                 <div className="rc-icon">{icon}</div>
                 <div className="rc-name">{name}</div>
                 <div className="rc-tagline">{tagline}</div>
@@ -608,7 +577,8 @@ export default function EV() {
         <div className="e-container">
           <div className="aftersales-grid">
             <div>
-              <div className="sec-label reveal">After Sales Support</div>
+              {/* sec-label aligned to match sec-title left edge */}
+              <div className="sec-label reveal" style={{ marginLeft: 0 }}>After Sales Support</div>
               <h2 className="sec-title reveal rd1">BEYOND<br />INSTALLATION</h2>
               <p className="sec-desc reveal rd2" style={{ marginBottom: 36 }}>Installation is only the first step. Reliable performance depends on proper support and maintenance. At Watten Power Ltd, we provide structured after-sales support to ensure your system continues to operate safely and efficiently.</p>
               <div className="as-list reveal rd3">
@@ -657,7 +627,8 @@ export default function EV() {
         <div className="e-container">
           <div className="compliance-inner">
             <div>
-              <div className="sec-label reveal">Standards</div>
+              {/* sec-label aligned to match sec-title left edge */}
+              <div className="sec-label reveal" style={{ marginLeft: 0 }}>Standards</div>
               <h2 className="sec-title reveal rd1">SAFE.<br />CERTIFIED.<br />COMPLIANT.</h2>
               <p className="sec-desc reveal rd2" style={{ marginBottom: 24 }}>All installations are carried out in accordance with UK regulations and industry standards:</p>
               <p className="compliance-note reveal rd3">Every installation is completed with safety, compliance, and long-term performance in mind.</p>
@@ -684,7 +655,8 @@ export default function EV() {
       {/* WHY */}
       <section className="e-why">
         <div className="e-container">
-          <div className="sec-label reveal">Why Watten Power</div>
+          {/* sec-label aligned to match sec-title left edge */}
+          <div className="sec-label reveal" style={{ marginLeft: 0 }}>Why Watten Power</div>
           <h2 className="sec-title reveal rd1">WHY CHOOSE<br />WATTEN POWER?</h2>
           <div className="why-grid">
             {[
@@ -713,7 +685,8 @@ export default function EV() {
               <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80" alt="Solar and EV integration" />
             </div>
             <div>
-              <div className="sec-label reveal">Future-Ready</div>
+              {/* sec-label aligned to match sec-title left edge */}
+              <div className="sec-label reveal" style={{ marginLeft: 0 }}>Future-Ready</div>
               <h2 className="sec-title reveal rd1">FUTURE-READY<br />ENERGY INTEGRATION</h2>
               <p className="sec-desc reveal rd2" style={{ marginBottom: 28 }}>Your EV charger is not just a charging point. It is part of a wider energy ecosystem. Our systems are designed to integrate with solar PV systems, battery storage solutions, and smart energy management platforms.</p>
               <div className="future-ecosystem reveal rd3">
@@ -760,7 +733,6 @@ export default function EV() {
             <div style={{ marginBottom: 16 }}>
               <Link to="/" className="flex items-center gap-2">
                 <img src={logo} alt="logo" className="h-[34px] w-auto" />
-
                 <span
                   className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
                   style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
@@ -792,14 +764,35 @@ export default function EV() {
             },
           ]} />
 
-          <EVFooterCol title="Legal" links={[
-            { label: 'Terms & Conditions', href: '/terms-and-conditions' },
-            { label: 'Privacy Policy', href: '/privacy-policy' },
-            { label: 'Cookie Policy', href: '/cookie-policy' },
-            { label: 'Terms of Sale', href: '/terms-of-sale' },
-            { label: 'Return Policy', href: '/return-policy' },
-            { label: 'Modern Slavery Statement', href: '/modern-slavery-statement' },
-          ]} />
+          <EVFooterCol
+            title="Legal"
+            links={[
+              {
+                label: 'Terms & Conditions of Use',
+                href: termsPdf,
+              },
+              {
+                label: 'Terms of Sale',
+                href: salePdf,
+              },
+              {
+                label: 'Cookie Policy',
+                href: cookiePdf,
+              },
+              {
+                label: 'Privacy Policy',
+                href: privacyPdf,
+              },
+              {
+                label: 'Refunds & Returns Policy',
+                href: refundPdf,
+              },
+              {
+                label: 'Modern Slavery & Human Trafficking Statement',
+                href: slaveryPdf,
+              },
+            ]}
+          />
         </div>
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
