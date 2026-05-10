@@ -7,6 +7,11 @@ import cookiePdf from '../../assets/pdfs/cookie-policy.pdf';
 import salePdf from '../../assets/pdfs/terms-of-sale.pdf';
 import refundPdf from '../../assets/pdfs/refunds-returns-policy.pdf';
 import slaveryPdf from '../../assets/pdfs/modern-slavery.pdf';
+import tesla_logo from '../../assets/tesla.png';
+import ohme_logo from '../../assets/Ohme.png';
+import easee_logo from '../../assets/easee-one.png';
+import zappi_logo from '../../assets/Logo_Zappi.png';
+import hypervolt from '../../assets/hypervolt.png';
 
 import ev_installation_img from '../../assets/images/ev-charger-installation.webp'
 import ev_vehicle_img from '../../assets/images/electric-vehicle-technology-utilized-home-charging-station-nowatermarks.jpeg'
@@ -371,6 +376,7 @@ export default function EV() {
         <div className="e-container">
           <div className="intro-grid">
             <div>
+              <div className="sec-label reveal" style={{ marginLeft: 0 }}>Future-Ready EV Charging</div>
               <h2 className="sec-title reveal rd1">EV CHARGER<br />INSTALLATION SERVICES</h2>
               <p className="sec-desc reveal rd2" style={{ marginBottom: 24 }}>We provide end-to-end EV charger installation services for residential, commercial, and fleet environments. Every installation is engineered for safety, efficiency, and long-term scalability.</p>
               <p className="sec-desc reveal rd3">Whether you are installing your first charger at home or deploying multiple units across a commercial site, our team ensures a seamless and compliant setup.</p>
@@ -391,7 +397,7 @@ export default function EV() {
           <div className="install-grid">
             {[
               ["Residential", "RESIDENTIAL INSTALLATIONS", "Smart home EV charger installations designed for standard daily residential use with safe, reliable performance.", ["Smart home EV chargers (7.4 kW single-phase)", "App-controlled charging systems", "Integration with off-peak tariffs (e.g. time-of-use charging)", "Time-of-use optimisation"], ev_vehicle_img],
-              ["Commercial", "COMMERCIAL & WORKPLACE CHARGING", "Commercial and workplace charging systems for offices, car parks, fleets, and multi-user environments.", ["7 kW to 22 kW charging systems", "Multi-point charger installations", "Load balancing for multiple vehicles", "Fleet charging infrastructure"], workplace_charging],
+              ["Commercial", "COMMERCIAL CHARGING", "Commercial and workplace charging systems for offices, car parks, fleets, and multi-user environments.", ["7 kW to 22 kW charging systems", "Multi-point charger installations", "Load balancing for multiple vehicles", "Fleet charging infrastructure"], workplace_charging],
               ["Smart Systems", "SMART CHARGING", "Smart charging capabilities with remote monitoring, usage tracking, and future solar or battery integration.", ["OCPP-enabled systems", "Remote monitoring and control", "Energy usage tracking", "Solar and battery integration ready"], smart_charging],
             ].map(([tag, title, desc, feats, img], i) => (
               <div key={title} className={`install-card reveal rd${i + 1}`}>
@@ -418,7 +424,11 @@ export default function EV() {
             <div>
               <div className="sec-label reveal">Installation Process</div>
               <h2 className="sec-title reveal rd1">HOW IT<br />WORKS</h2>
-              <p className="sec-desc reveal rd2">We follow a structured engineering-led process to ensure safety, compliance, and performance.</p>
+              <p className="sec-desc reveal rd2">We follow a structured, engineering-led process to ensure every installation is safe, compliant, and built for long-term performance.<br /><br />
+
+                From initial assessment to final commissioning, each step is carefully planned and executed to deliver a seamless experience with minimal disruption.<br /><br />
+
+                Our approach focuses on precision, quality workmanship, and full adherence to UK standards, ensuring your system operates efficiently from day one and remains reliable for years to come..</p>
             </div>
             <div className="process-visual reveal rd2">
               <img
@@ -495,82 +505,82 @@ export default function EV() {
         </div>
       </section>
 
-      {/* BRANDS */}
-      <section className="e-brands">
-        <div className="e-container">
-          <div className="brands-header">
-            <div className="sec-label reveal">Charger Brands</div>
-            <h2 className="sec-title reveal rd1" style={{ textAlign: "center", fontSize: 'clamp(24px,3vw,36px)' }}>
-              BRANDS WE INSTALL
-            </h2>
-            <p className="reveal rd2" style={{ fontSize: 14, color: "var(--muted)", marginTop: 10 }}>We work with a carefully selected range of trusted manufacturers — recommending the right brand for your specific needs, property, and budget.</p>
+     {/* BRANDS */}
+<section className="e-brands">
+  <div className="e-container">
+    <div className="brands-header">
+      <div className="sec-label reveal">Charger Brands</div>
+      <h2 className="sec-title reveal rd1" style={{ textAlign: "center", fontSize: 'clamp(24px,3vw,36px)' }}>
+        BRANDS WE INSTALL
+      </h2>
+      <p className="reveal rd2" style={{ fontSize: 14, color: "var(--muted)", marginTop: 10 }}>
+        We work with a carefully selected range of trusted manufacturers — recommending the right brand for your specific needs, property, and budget.
+      </p>
+    </div>
+
+    <div className="brands-track">
+      {[
+        { img: zappi_logo,  name: "ZAPPI",     tag: "Eco Smart",      height: 38, filter: 'brightness(10) saturate(0)', blend: 'screen'  },
+        { img: hypervolt,   name: "HYPERVOLT", tag: "Home & Pro",     height: 85, filter: 'invert(1)',                  blend: 'normal'  },
+        { img: ohme_logo,   name: "OHME",      tag: "Smart Tariff",   height: 40, filter: 'brightness(10) saturate(0)', blend: 'screen'  },
+        { img: tesla_logo,  name: "TESLA",     tag: "Wall Connector", height: 40, filter: 'invert(1)',                  blend: 'normal'  },
+        { img: easee_logo,  name: "EASEE ONE", tag: "Compact",        height: 38, filter: 'invert(1)',                  blend: 'normal'  },
+      ].map(({ img, name, tag, height, filter, blend }, i) => (
+        <div key={name} className={`brand-card reveal rd${i + 1}`}>
+          <div
+            className="brand-logo"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 60,
+              width: '100%',
+            }}
+          >
+            <img
+              src={img}
+              alt={name}
+              style={{
+                height,
+                width: 'auto',
+                maxWidth: 130,
+                objectFit: 'contain',
+                mixBlendMode: blend,
+                filter,
+                opacity: 0.9,
+              }}
+            />
           </div>
-          <div className="brands-track">
-            <div className="brand-card reveal rd1">
-              <div className="brand-logo">
-                <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40">
-                  <text x="0" y="32" fontFamily="Arial Black, sans-serif" fontWeight="900" fontSize="34" letterSpacing="-1">zappi</text>
-                </svg>
-              </div>
-              <div className="brand-name">ZAPPI</div>
-              <div className="brand-tag">Eco Smart</div>
-            </div>
-            <div className="brand-card reveal rd2">
-              <div className="brand-logo">
-                <svg viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40">
-                  <polygon points="18,2 6,22 14,22 2,38 22,16 13,16" />
-                  <text x="28" y="30" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="22" letterSpacing="0">hypervolt</text>
-                </svg>
-              </div>
-              <div className="brand-name">HYPERVOLT</div>
-              <div className="brand-tag">Home &amp; Pro</div>
-            </div>
-            <div className="brand-card reveal rd3">
-              <div className="brand-logo">
-                <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40">
-                  <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" strokeWidth="4" />
-                  <text x="40" y="28" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="26" letterSpacing="1">ohme</text>
-                </svg>
-              </div>
-              <div className="brand-name">OHME</div>
-              <div className="brand-tag">Smart Tariff</div>
-            </div>
-            <div className="brand-card reveal rd4">
-              <div className="brand-logo">
-                <svg viewBox="0 0 100 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40">
-                  <path d="M50 6 C30 6 14 10 4 16 L8 20 C12 14 28 10 50 10 C72 10 88 14 92 20 L96 16 C86 10 70 6 50 6Z" />
-                  <path d="M50 10 L50 48 L46 48 L46 14 C38 15 32 18 28 22 L24 18 C32 12 40 10 50 10Z M50 10 L50 48 L54 48 L54 14 C62 15 68 18 72 22 L76 18 C68 12 60 10 50 10Z" opacity=".7" />
-                </svg>
-              </div>
-              <div className="brand-name">TESLA</div>
-              <div className="brand-tag">Wall Connector</div>
-            </div>
-            <div className="brand-card reveal rd5">
-              <div className="brand-logo">
-                <svg viewBox="0 0 130 40" xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="40">
-                  <rect x="0" y="8" width="24" height="24" rx="5" fill="none" stroke="currentColor" strokeWidth="3" />
-                  <rect x="5" y="13" width="14" height="3" rx="1.5" />
-                  <rect x="5" y="19" width="10" height="3" rx="1.5" />
-                  <rect x="5" y="25" width="14" height="3" rx="1.5" />
-                  <text x="32" y="29" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="22" letterSpacing="0">easee one</text>
-                </svg>
-              </div>
-              <div className="brand-name">EASEE ONE</div>
-              <div className="brand-tag">Compact</div>
-            </div>
-          </div>
-          <div className="brands-brochure reveal">
-            <p>Want to know more about the chargers we install?</p>
-            <a href="#" className="brochure-btn" onClick={(e) => { e.preventDefault(); alert('Brochure coming soon — contact us at info@wattenpower.com for product details.'); }}>
-              <span className="brochure-btn-icon">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="12" y1="18" x2="12" y2="12" /><line x1="9" y1="15" x2="15" y2="15" /></svg>
-              </span>
-              View EV Charger Brochure
-              <span className="brochure-btn-arrow">↓</span>
-            </a>
-          </div>
+          <div className="brand-name">{name}</div>
+          <div className="brand-tag">{tag}</div>
         </div>
-      </section>
+      ))}
+    </div>
+
+    <div className="brands-brochure reveal">
+      <p>Want to know more about the chargers we install?</p>
+      <a
+        href="#"
+        className="brochure-btn"
+        onClick={(e) => {
+          e.preventDefault();
+          alert('Brochure coming soon — contact us at info@wattenpower.com for product details.');
+        }}
+      >
+        <span className="brochure-btn-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="12" y1="18" x2="12" y2="12" />
+            <line x1="9" y1="15" x2="15" y2="15" />
+          </svg>
+        </span>
+        View EV Charger Brochure
+        <span className="brochure-btn-arrow">↓</span>
+      </a>
+    </div>
+  </div>
+</section>
 
       {/* AFTER SALES */}
       <section className="e-aftersales">
