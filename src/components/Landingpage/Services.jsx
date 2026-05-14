@@ -1,10 +1,12 @@
 import { useReveal } from '../../hooks/useReveal'
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
+import lightning from '../../assets/new/lightning.svg';
+import solar from '../../assets/new/sun.svg';
 
 const services = [
   {
     num: '01 / EV CHARGING',
-    icon: '⚡',
+    icon: lightning,
     title: 'EV CHARGER INSTALLATION',
     desc: 'Home and commercial EV charger installation designed around your vehicle, property, and usage. We handle everything from survey to commissioning.',
     features: [
@@ -16,11 +18,11 @@ const services = [
     ],
     cta: 'Request Installation →',
     green: false,
-    link:'/contact-us'
+    link: '/contact-us'
   },
   {
     num: '02 / SOLAR POWER',
-    icon: '☀️',
+    icon: solar,
     title: 'SOLAR SYSTEM INSTALLATION',
     desc: 'Grid-tied, hybrid, and off-grid solar systems installed to MCS standards. Reduce your energy bills and earn from surplus generation via the Smart Export Guarantee.',
     features: [
@@ -32,7 +34,7 @@ const services = [
     ],
     cta: 'Get Solar Quote →',
     green: true,
-    link:"/contact-us"
+    link: "/contact-us"
   },
 ]
 
@@ -48,7 +50,7 @@ export default function Services() {
     >
       {/* ✅ UPDATED: Used clamp() so padding shrinks from 52px to 20px on mobile */}
       <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 clamp(20px, 5vw, 52px)' }} className="services-container">
-        
+
         <div className="section-label reveal before:hidden" style={{ marginLeft: 0, paddingLeft: 0 }}>What We Do</div>
 
         <h2 className="reveal reveal-delay-1" style={{
@@ -72,15 +74,15 @@ export default function Services() {
         </p>
 
         {/* ✅ UPDATED: Used auto-fit and minmax to automatically wrap cards on smaller screens */}
-        <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', 
-            gap: 24, 
-            marginTop: 60 
-          }} 
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+          gap: 24,
+          marginTop: 60
+        }}
           className="services-grid"
         >
-          
+
           {services.map((s, i) => (
             <div
               key={i}
@@ -145,7 +147,19 @@ export default function Services() {
                   ? 'rgba(90,140,46,.35)'
                   : 'rgba(43,91,168,.4)'}`
               }}>
-                {s.icon}
+                {typeof s.icon === 'string' && s.icon.includes('.svg') ? (
+                  <div
+                    style={{
+                      width: 34,
+                      height: 34,
+                      backgroundColor: '#79bc3c',
+                      WebkitMask: `url(${s.icon}) center/contain no-repeat`,
+                      mask: `url(${s.icon}) center/contain no-repeat`,
+                    }}
+                  />
+                ) : (
+                  <span>{s.icon}</span>
+                )}
               </div>
 
               <div style={{

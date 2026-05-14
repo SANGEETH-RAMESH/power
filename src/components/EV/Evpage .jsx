@@ -13,6 +13,17 @@ import easee_logo from '../../assets/easee-one.png';
 import zappi_logo from '../../assets/Logo_Zappi.png';
 import hypervolt from '../../assets/hypervolt.png';
 
+import searchIcon from '../../assets/new/search.svg';
+import tickIcon from '../../assets/new/tick3.svg';
+import graphIcon from '../../assets/new/graph.svg';
+import handShakeIcon from '../../assets/new/support.svg';
+import setSquare from '../../assets/new/setsquare.svg';
+import spanner from '../../assets/new/spanner.svg';
+import phoneIcon from '../../assets/new/phonesetting.svg';
+import lockIcon from '../../assets/new/locksafe.svg';
+import chatIcon from '../../assets/new/chat.svg';
+import reportIcon from '../../assets/new/notes.svg';
+
 import ev_installation_img from '../../assets/images/ev-charger-installation.webp'
 import ev_vehicle_img from '../../assets/images/electric-vehicle-technology-utilized-home-charging-station-nowatermarks.jpeg'
 import workplace_charging from '../../assets/images/workplace_charging.jpg'
@@ -376,7 +387,7 @@ export default function EV() {
         <div className="e-container">
           <div className="intro-grid">
             <div>
-              <div className="sec-label reveal" style={{ marginLeft: 0 }}>Future-Ready EV Charging</div>
+              <div className="sec-label reveal" style={{ marginLeft: 3 }}>Future-Ready EV Charging</div>
               <h2 className="sec-title reveal rd1">EV CHARGER<br />INSTALLATION SERVICES</h2>
               <p className="sec-desc reveal rd2" style={{ marginBottom: 24 }}>We provide end-to-end EV charger installation services for residential, commercial, and fleet environments. Every installation is engineered for safety, efficiency, and long-term scalability.</p>
               <p className="sec-desc reveal rd3">Whether you are installing your first charger at home or deploying multiple units across a commercial site, our team ensures a seamless and compliant setup.</p>
@@ -441,12 +452,12 @@ export default function EV() {
           </div>
           <div className="process-steps reveal">
             {[
-              ["01", "SITE SURVEY", "We assess your electrical capacity, parking layout, and installation feasibility.", "🔍"],
-              ["02", "SYSTEM DESIGN", "We recommend the right charger type, power rating, and protection systems.", "📐"],
-              ["03", "DNO NOTIFICATION", "We handle Distribution Network Operator notifications for higher load installations.", "📋"],
-              ["04", "INSTALLATION", "Our certified engineers complete installation including cabling, mounting, and connections.", "🔧"],
-              ["05", "TESTING & CERTIFICATION", "Full electrical testing is carried out and certification is issued.", "✅"],
-              ["06", "HANDOVER", "We guide you through charger usage, app setup, and safety procedures.", "🤝"],
+              ["01", "SITE SURVEY", "We assess your electrical capacity, parking layout, and installation feasibility.", searchIcon],
+              ["02", "SYSTEM DESIGN", "We recommend the right charger type, power rating, and protection systems.", setSquare],
+              ["03", "DNO NOTIFICATION", "We handle Distribution Network Operator notifications for higher load installations.", reportIcon],
+              ["04", "INSTALLATION", "Our certified engineers complete installation including cabling, mounting, and connections.", spanner],
+              ["05", "TESTING & CERTIFICATION", "Full electrical testing is carried out and certification is issued.", tickIcon],
+              ["06", "HANDOVER", "We guide you through charger usage, app setup, and safety procedures.", handShakeIcon],
             ].map(([num, title, desc, icon], i, arr) => (
               <div key={num} className="ps" style={i === arr.length - 1 ? { borderBottom: "none" } : {}}>
                 <div className="ps-num">{num}</div>
@@ -454,7 +465,21 @@ export default function EV() {
                   <div className="ps-title">{title}</div>
                   <div className="ps-desc">{desc}</div>
                 </div>
-                <div className="ps-icon">{icon}</div>
+                <div className="ps-icon">
+                  {typeof icon === 'string' && icon.includes('.svg') ? (
+                    <div
+                      style={{
+                        width: 24,
+                        height: 24,
+                        backgroundColor: '#79bc3c',
+                        WebkitMask: `url(${icon}) center/contain no-repeat`,
+                        mask: `url(${icon}) center/contain no-repeat`,
+                      }}
+                    />
+                  ) : (
+                    icon
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -505,82 +530,81 @@ export default function EV() {
         </div>
       </section>
 
-     {/* BRANDS */}
-<section className="e-brands">
-  <div className="e-container">
-    <div className="brands-header">
-      <div className="sec-label reveal">Charger Brands</div>
-      <h2 className="sec-title reveal rd1" style={{ textAlign: "center", fontSize: 'clamp(24px,3vw,36px)' }}>
-        BRANDS WE INSTALL
-      </h2>
-      <p className="reveal rd2" style={{ fontSize: 14, color: "var(--muted)", marginTop: 10 }}>
-        We work with a carefully selected range of trusted manufacturers — recommending the right brand for your specific needs, property, and budget.
-      </p>
-    </div>
-
-    <div className="brands-track">
-      {[
-        { img: zappi_logo,  name: "ZAPPI",     tag: "Eco Smart",      height: 38, filter: 'brightness(10) saturate(0)', blend: 'screen'  },
-        { img: hypervolt,   name: "HYPERVOLT", tag: "Home & Pro",     height: 85, filter: 'invert(1)',                  blend: 'normal'  },
-        { img: ohme_logo,   name: "OHME",      tag: "Smart Tariff",   height: 40, filter: 'brightness(10) saturate(0)', blend: 'screen'  },
-        { img: tesla_logo,  name: "TESLA",     tag: "Wall Connector", height: 40, filter: 'invert(1)',                  blend: 'normal'  },
-        { img: easee_logo,  name: "EASEE ONE", tag: "Compact",        height: 38, filter: 'invert(1)',                  blend: 'normal'  },
-      ].map(({ img, name, tag, height, filter, blend }, i) => (
-        <div key={name} className={`brand-card reveal rd${i + 1}`}>
-          <div
-            className="brand-logo"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 60,
-              width: '100%',
-            }}
-          >
-            <img
-              src={img}
-              alt={name}
-              style={{
-                height,
-                width: 'auto',
-                maxWidth: 130,
-                objectFit: 'contain',
-                mixBlendMode: blend,
-                filter,
-                opacity: 0.9,
-              }}
-            />
+      {/* BRANDS */}
+      <section className="e-brands">
+        <div className="e-container">
+          <div className="brands-header">
+            <div className="sec-label reveal">Charger Brands</div>
+            <h2 className="sec-title reveal rd1" style={{ textAlign: "center", fontSize: 'clamp(24px,3vw,36px)' }}>
+              BRANDS WE INSTALL
+            </h2>
+            <p className="reveal rd2" style={{ fontSize: 14, color: "var(--muted)", marginTop: 10 }}>
+              We work with a carefully selected range of trusted manufacturers — recommending the right brand for your specific needs, property, and budget.
+            </p>
           </div>
-          <div className="brand-name">{name}</div>
-          <div className="brand-tag">{tag}</div>
-        </div>
-      ))}
-    </div>
 
-    <div className="brands-brochure reveal">
-      <p>Want to know more about the chargers we install?</p>
-      <a
-        href="#"
-        className="brochure-btn"
-        onClick={(e) => {
-          e.preventDefault();
-          alert('Brochure coming soon — contact us at info@wattenpower.com for product details.');
-        }}
-      >
-        <span className="brochure-btn-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-            <line x1="12" y1="18" x2="12" y2="12" />
-            <line x1="9" y1="15" x2="15" y2="15" />
-          </svg>
-        </span>
-        View EV Charger Brochure
-        <span className="brochure-btn-arrow">↓</span>
-      </a>
-    </div>
-  </div>
-</section>
+          <div className="brands-track">
+            {[
+              { img: zappi_logo, name: "ZAPPI", tag: "Eco Smart", height: 38, filter: 'brightness(10) saturate(0)', blend: 'screen' },
+              { img: hypervolt, name: "HYPERVOLT", tag: "Home & Pro", height: 85, filter: 'invert(1)', blend: 'normal' },
+              { img: ohme_logo, name: "OHME", tag: "Smart Tariff", height: 40, filter: 'brightness(10) saturate(0)', blend: 'screen' },
+              { img: tesla_logo, name: "TESLA", tag: "Wall Connector", height: 40, filter: 'invert(1)', blend: 'normal' },
+              { img: easee_logo, name: "EASEE ONE", tag: "Compact", height: 38, filter: 'invert(1)', blend: 'normal' },
+            ].map(({ img, name, tag, height, filter, blend }, i) => (
+              <div key={name} className={`brand-card reveal rd${i + 1}`}>
+                <div
+                  className="brand-logo"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: 48,
+                    width: 100,
+                  }}
+                >
+                  <img
+                    src={img}
+                    alt={name}
+                    style={{
+                      width: name == 'OHME' ? 60 : 100,
+                      // height: 80,
+                      objectFit: 'contain',
+                      mixBlendMode: blend,
+                      filter,
+                      opacity: 0.9,
+                    }}
+                  />
+                </div>
+                <div className="brand-name">{name}</div>
+                <div className="brand-tag">{tag}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="brands-brochure reveal">
+            <p>Want to know more about the chargers we install?</p>
+            <a
+              href="#"
+              className="brochure-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                alert('Brochure coming soon — contact us at info@wattenpower.com for product details.');
+              }}
+            >
+              <span className="brochure-btn-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="12" y1="18" x2="12" y2="12" />
+                  <line x1="9" y1="15" x2="15" y2="15" />
+                </svg>
+              </span>
+              View EV Charger Brochure
+              <span className="brochure-btn-arrow">↓</span>
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* AFTER SALES */}
       <section className="e-aftersales">
@@ -615,13 +639,27 @@ export default function EV() {
               </div>
               <div className="av-cards reveal rd2">
                 {[
-                  ["📞", "Remote Support", "On-call technical assistance without needing a site visit for most issues."],
-                  ["🔧", "On-Site Repairs", "Fast dispatch for faults requiring physical inspection or component replacement."],
-                  ["📊", "Usage Reports", "Energy and session data for commercial clients to track costs and usage."],
-                  ["🔒", "Safety Checks", "Periodic electrical safety inspections aligned with BS 7671 recommendations."],
+                  [phoneIcon, "Remote Support", "On-call technical assistance without needing a site visit for most issues."],
+                  [spanner, "On-Site Repairs", "Fast dispatch for faults requiring physical inspection or component replacement."],
+                  [graphIcon, "Usage Reports", "Energy and session data for commercial clients to track costs and usage."],
+                  [lockIcon, "Safety Checks", "Periodic electrical safety inspections aligned with BS 7671 recommendations."],
                 ].map(([icon, title, desc]) => (
                   <div key={title} className="av-card">
-                    <div className="av-card-icon">{icon}</div>
+                    <div className="av-card-icon">
+                      {typeof icon === 'string' && icon.includes('.svg') ? (
+                        <div
+                          style={{
+                            width: 24,
+                            height: 24,
+                            backgroundColor: '#79bc3c',
+                            WebkitMask: `url(${icon}) center/contain no-repeat`,
+                            mask: `url(${icon}) center/contain no-repeat`,
+                          }}
+                        />
+                      ) : (
+                        icon
+                      )}
+                    </div>
                     <div className="av-card-title">{title}</div>
                     <div className="av-card-desc">{desc}</div>
                   </div>
@@ -650,6 +688,7 @@ export default function EV() {
                 ["📱", "Smart CP Regs", "UK Smart Charge Point Regulations"],
                 ["🌐", "G98 / G99", "Grid Connection Compliance"],
                 ["🔋", "OCPP 1.6J", "Compatibility where applicable"],
+                ["🏭", "Mfr. Standards", "Installed as per approved guidelines"],
               ].map(([icon, name, desc]) => (
                 <div key={name} className="std-card reveal">
                   <div className="std-icon">{icon}</div>
@@ -670,13 +709,26 @@ export default function EV() {
           <h2 className="sec-title reveal rd1">WHY CHOOSE<br />WATTEN POWER?</h2>
           <div className="why-grid">
             {[
-              ["🔍", "ENGINEERING-LED INSTALLATIONS", "We design systems based on actual load requirements, not generic templates."],
-              ["✅", "FULLY COMPLIANT & CERTIFIED", "Every installation meets UK electrical and safety regulations."],
-              ["📈", "SCALABLE INFRASTRUCTURE", "Our installations are designed to support future expansion including solar and battery integration."],
-              ["💬", "TRANSPARENT APPROACH", "Clear scope, clear pricing, no unnecessary upselling."],
+              [searchIcon, "ENGINEERING-LED INSTALLATIONS", "We design systems based on actual load requirements, not generic templates."],
+              [tickIcon, "FULLY COMPLIANT & CERTIFIED", "Every installation meets UK electrical and safety regulations."],
+              [graphIcon, "SCALABLE INFRASTRUCTURE", "Our installations are designed to support future expansion including solar and battery integration."],
+              [chatIcon, "TRANSPARENT APPROACH", "Clear scope, clear pricing, no unnecessary upselling."],
             ].map(([icon, title, desc]) => (
               <div key={title} className="why-card">
-                <div className="wc-icon">{icon}</div>
+                <div className="wc-icon">{typeof icon === 'string' && icon.includes('.svg') ? (
+                  <div
+                    style={{
+                      width: 24,
+                      height: 24,
+                      backgroundColor: '#79bc3c',
+                      WebkitMask: `url(${icon}) center/contain no-repeat`,
+                      mask: `url(${icon}) center/contain no-repeat`,
+                    }}
+                  />
+                ) : (
+                  icon
+                )}
+                </div>
                 <div>
                   <div className="wc-title">{title}</div>
                   <div className="wc-desc">{desc}</div>
@@ -778,7 +830,7 @@ export default function EV() {
             title="Legal"
             links={[
               {
-                label: 'Terms & Conditions of Use',
+                label: 'Terms & Conditions',
                 href: termsPdf,
               },
               {
@@ -798,7 +850,7 @@ export default function EV() {
                 href: refundPdf,
               },
               {
-                label: 'Modern Slavery & Human Trafficking Statement',
+                label: 'Modern Slavery Statement',
                 href: slaveryPdf,
               },
             ]}

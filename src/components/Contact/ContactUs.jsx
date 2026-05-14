@@ -9,6 +9,11 @@ import refundPdf from '../../assets/pdfs/refunds-returns-policy.pdf';
 import slaveryPdf from '../../assets/pdfs/modern-slavery.pdf';
 import img1 from '../../assets/images/solar/walking-solar-panels-morning-mist-mountain-view.png'
 
+import searchIcon from '../../assets/new/search.svg';
+import tickIcon from '../../assets/new/tick3.svg';
+import houseIcon from '../../assets/new/house.svg';
+import phoneIcon from '../../assets/new/phonesetting.svg';
+import phoneIcon2 from '../../assets/new/phonecall.svg';
 
 const navItems = [
   { label: "Home", link: "/" },
@@ -389,7 +394,19 @@ export default function Contact() {
           <p className="c-hero-desc">Whether you are interested in an EV charger or a solar system, our team is here to help you choose the right solution. Complete the form below and we will get back to you with a tailored recommendation.</p>
           <div className="c-hero-btns">
             <a href="#form-start" className="hbtn-primary">Complete the Form ↓</a>
-            <a href="tel:07404378787" className="hbtn-outline">📞 07404 378787</a>
+            <a href="tel:07404378787" className="hbtn-outline">
+              <div
+                style={{
+                  width: 18,
+                  height: 18,
+                  backgroundColor: '#79bc3c',
+                  WebkitMask: `url(${phoneIcon2}) center/contain no-repeat`,
+                  mask: `url(${phoneIcon2}) center/contain no-repeat`,
+                  flexShrink: 0,
+                }}
+              />
+              07404 378787
+            </a>
           </div>
         </div>
         <div className="c-hero-photo-row">
@@ -407,9 +424,23 @@ export default function Contact() {
         <div className="c-next-inner">
           <div className="c-next-label">What Happens After You Submit</div>
           <div className="c-next-timeline">
-            {[["🔍", "We Review Your Enquiry", "Our team carefully assesses your requirements and the details you have submitted"], ["📞", "We May Contact You", "For any clarification needed to prepare the most accurate recommendation"], ["🏠", "Site Survey If Required", "A site visit may be scheduled to assess your property and infrastructure"], ["✅", "Tailored Quote Delivered", "You receive a personalised recommendation and detailed quote"]].map(([icon, title, desc]) => (
+            {[[searchIcon, "We Review Your Enquiry", "Our team carefully assesses your requirements and the details you have submitted"], [phoneIcon2, "We May Contact You", "For any clarification needed to prepare the most accurate recommendation"], [houseIcon, "Site Survey If Required", "A site visit may be scheduled to assess your property and infrastructure"], [tickIcon, "Tailored Quote Delivered", "You receive a personalised recommendation and detailed quote"]].map(([icon, title, desc]) => (
               <div key={title} className="nt-item">
-                <div className="nt-dot">{icon}</div>
+                <div className="nt-dot">{
+                  typeof icon === 'string' && icon.includes('.svg') ? (
+                    <div
+                      style={{
+                        width: 18,
+                        height: 18,
+                        backgroundColor: '#79bc3c',
+                        WebkitMask: `url(${icon}) center/contain no-repeat`,
+                        mask: `url(${icon}) center/contain no-repeat`,
+                      }}
+                    />
+                  ) : (
+                    icon
+                  )
+                }</div>
                 <div className="nt-title">{title}</div>
                 <div className="nt-desc">{desc}</div>
               </div>
@@ -641,7 +672,18 @@ export default function Contact() {
             <div className="submit-note">Free &nbsp;·&nbsp; No Obligation &nbsp;·&nbsp; 24hr Response</div>
             <div className="contact-direct">
               <div className="cd-title">PREFER TO SPEAK DIRECTLY?</div>
-              <div className="cd-item"><div className="cd-ic">📞</div><div className="cd-val"><a href="tel:07404378787">07404 378787</a></div></div>
+              <div className="cd-item"><div className="cd-ic">
+                <div
+                  style={{
+                    width: 18,
+                    height: 18,
+                    backgroundColor: '#79bc3c',
+                    WebkitMask: `url(${phoneIcon2}) center/contain no-repeat`,
+                    mask: `url(${phoneIcon2}) center/contain no-repeat`,
+                    flexShrink: 0,
+                  }}
+                />
+              </div><div className="cd-val"><a href="tel:07404378787">07404 378787</a></div></div>
               <div className="cd-item"><div className="cd-ic">✉️</div><div className="cd-val"><a href="mailto:info@wattenpower.com">info@wattenpower.com</a></div></div>
             </div>
           </div>
@@ -694,7 +736,7 @@ export default function Contact() {
             title="Legal"
             links={[
               {
-                label: 'Terms & Conditions of Use',
+                label: 'Terms & Conditions',
                 href: termsPdf,
               },
               {
@@ -714,7 +756,7 @@ export default function Contact() {
                 href: refundPdf,
               },
               {
-                label: 'Modern Slavery & Human Trafficking Statement',
+                label: 'Modern Slavery Statement',
                 href: slaveryPdf,
               },
             ]}

@@ -63,7 +63,7 @@ export default function Footer() {
           title="Legal"
           links={[
             {
-              label: 'Terms & Conditions of Use',
+              label: 'Terms & Conditions',
               href: termsPdf,
             },
             {
@@ -83,7 +83,7 @@ export default function Footer() {
               href: refundPdf,
             },
             {
-              label: 'Modern Slavery & Human Trafficking Statement',
+              label: 'Modern Slavery Statement',
               href: slaveryPdf,
             },
           ]}

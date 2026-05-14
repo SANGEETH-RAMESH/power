@@ -1,10 +1,15 @@
 import { useReveal } from '../../hooks/useReveal'
+import searchIcon from '../../assets/new/search.svg';
+import tickIcon from '../../assets/new/tick3.svg';
+import graphIcon from '../../assets/new/graph.svg';
+import handShakeIcon from '../../assets/new/support.svg';
+
 
 const pillars = [
-  { icon: '🔍', title: 'NEEDS-BASED DESIGN', desc: 'Systems sized and configured based on your actual energy usage and property, not generic packages.' },
-  { icon: '✅', title: 'FULLY COMPLIANT', desc: 'Aligned with UK electrical standards, building regulations, and DNO requirements from day one.' },
-  { icon: '📈', title: 'BUILT FOR SCALE', desc: 'Infrastructure designed with future capacity in mind — add battery storage, more panels, or EV chargers later.' },
-  { icon: '🤝', title: 'ONGOING SUPPORT', desc: 'We remain your partner beyond installation — monitoring, maintenance, and technical advice when you need it.' },
+  { icon: searchIcon, title: 'NEEDS-BASED DESIGN', desc: 'Systems sized and configured based on your actual energy usage and property, not generic packages.' },
+  { icon: tickIcon, title: 'FULLY COMPLIANT', desc: 'Aligned with UK electrical standards, building regulations, and DNO requirements from day one.' },
+  { icon: graphIcon, title: 'BUILT FOR SCALE', desc: 'Infrastructure designed with future capacity in mind — add battery storage, more panels, or EV chargers later.' },
+  { icon: handShakeIcon, title: 'ONGOING SUPPORT', desc: 'We remain your partner beyond installation — monitoring, maintenance, and technical advice when you need it.' },
 ]
 
 const stats = [
@@ -69,7 +74,23 @@ export default function WhyUs() {
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(90,140,46,.45)'; e.currentTarget.style.transform = 'translateY(-3px)' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--line)'; e.currentTarget.style.transform = '' }}
               >
-                <div style={{ fontSize: 26, marginBottom: 14 }}>{p.icon}</div>
+                <div style={{ fontSize: 26, marginBottom: 14 }}>
+
+
+                  {typeof p.icon === 'string' && p.icon.endsWith('.svg') ? (
+                    <div
+                      style={{
+                        width: 34,
+                        height: 34,
+                        backgroundColor: '#79bc3c',
+                        WebkitMask: `url(${p.icon}) center/contain no-repeat`,
+                        mask: `url(${p.icon}) center/contain no-repeat`,
+                      }}
+                    />
+                  ) : (
+                    <span>{p.icon}</span>
+                  )}
+                </div>
                 <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 1, marginBottom: 8 }}>{p.title}</div>
                 <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.7 }}>{p.desc}</div>
               </div>

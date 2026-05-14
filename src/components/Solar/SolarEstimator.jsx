@@ -289,13 +289,13 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
     const rootStyle = splitLayout
         ? { color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflow: "hidden", width: "100%", height: "100%" }
         : embedded
-        ? { color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflow: "hidden", width: "100%" }
+? { color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflow: "visible", width: "100%", display: "block" }
         : { minHeight: "100vh", color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflowX: "hidden", background: "#07111f" };
 
     const mainStyle = splitLayout
         ? { position: "relative", zIndex: 10, width: "100%", height: "100%", padding: "2rem 2rem", margin: 0, overflow: "auto", maxHeight: "calc(100vh - 100px)" }
         : embedded
-        ? { position: "relative", zIndex: 10, width: "100%", padding: 0, margin: 0 }
+        ? { position: "relative", zIndex: 10, width: "100%", maxWidth: "100%", padding: 0, margin: 0, boxSizing: "border-box" }
         : { position: "relative", zIndex: 10, maxWidth: 860, margin: "0 auto", padding: "6rem 1.5rem 5rem" };
 
     return (
@@ -379,7 +379,8 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
                             <div style={{ animation: "rise 0.4s ease both" }}>
                                 <p style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, fontSize: "clamp(18px,3vw,26px)", letterSpacing: "-0.5px", marginBottom: 8, lineHeight: 1.2, color: "#fff" }}>What type of property is this for?</p>
                                 <p style={{ fontSize: 13, color: "#8999bb", marginBottom: 28, lineHeight: 1.6 }}>Helps us understand your roof setup and any applicable UK schemes.</p>
-                                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 28 }}>
+                                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 28, width: "100%", boxSizing: "border-box" }}>
+
                                     {[
                                         { v: "residential", icon: "🏠", t: "Residential", d: "House, flat, bungalow" },
                                         { v: "commercial", icon: "🏢", t: "Commercial", d: "Office, shop, hotel, warehouse" },
