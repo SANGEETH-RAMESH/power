@@ -12,14 +12,14 @@ import refundPdf from '../../assets/pdfs/refunds-returns-policy.pdf';
 import slaveryPdf from '../../assets/pdfs/modern-slavery.pdf';
 
 import searchIcon from '../../assets/new/search.svg';
-import tickIcon from '../../assets/new/tick3.svg';
 import graphIcon from '../../assets/new/graph.svg';
 import handShakeIcon from '../../assets/new/support.svg';
 import setSquare from '../../assets/new/SetSquare.svg';
 import spanner from '../../assets/new/spanner.svg';
 import phoneIcon from '../../assets/new/phonesetting.svg';
 import lockIcon from '../../assets/new/locksafe.svg';
-import houseIcon from '../../assets/new/house.svg';
+import houseIcon from '../../assets/new/house.svg?url';
+import tickIcon from '../../assets/new/tick3.svg?url';
 import settingIcon from '../../assets/new/setting.svg';
 import solar from '../../assets/new/sun.svg';
 import targetIcon from '../../assets/new/target.svg';
