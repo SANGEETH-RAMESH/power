@@ -26,6 +26,8 @@ import targetIcon from '../../assets/new/target.svg';
 import lightning from '../../assets/new/lightning.svg';
 import money from '../../assets/new/lotmoney.svg';
 
+import surveryIcon from '../../assets/new/sitesurvey.svg';
+
 import img1 from '../../assets/images/solar/man-worker-firld-by-solar-panels.jpg';
 import img2 from '../../assets/images/solar/residental_2.jpeg';
 import img3 from '../../assets/images/solar/medium-shot-men-shaking-hands.jpg';
@@ -382,7 +384,7 @@ export default function Solar() {
             {[
               ["01", houseIcon, "SITE ASSESSMENT", "Roof orientation, shading analysis, structural suitability, and electrical capacity review before any work begins."],
               ["02", setSquare, "SYSTEM DESIGN", "System sizing based on your consumption, budget, and return on investment targets — tailored to your property."],
-              ["03", "📋", "DNO APPLICATION", "G98 / G99 grid approval managed entirely on your behalf where required for the installation.",'icon'],
+              ["03",surveryIcon, "DNO APPLICATION", "G98 / G99 grid approval managed entirely on your behalf where required for the installation."],
               ["04", settingIcon, "INSTALLATION", "Panels, inverter, cabling, mounting structures, and all protection systems installed by certified engineers."],
               ["05", tickIcon, "TESTING & COMMISSIONING", "Full system electrical testing, performance validation, and certification issued on completion."],
               ["06", handShakeIcon, "HANDOVER", "System walkthrough, monitoring app setup, SEG registration guidance, and full documentation provided."],
