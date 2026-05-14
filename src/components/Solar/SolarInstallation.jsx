@@ -72,10 +72,10 @@ function IconCell({ icon, size = 22 }) {
       <img
         src={icon}
         alt=""
+        className="svg-icon"
         style={{
           width: size,
           height: size,
-          display: 'inline-block',
           flexShrink: 0,
           filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)',
         }}
@@ -140,6 +140,7 @@ export default function Solar() {
           .solar-page { background: var(--ink); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.65; overflow-x: hidden; min-height: 100vh; }
           .solar-page ::selection { background: var(--green); color: #fff; }
           .solar-page img { display: block; max-width: 100%; }
+.solar-page img.svg-icon { display: inline-block !important; width: auto; max-width: none; }
           .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
           .reveal.vis { opacity: 1; transform: translateY(0); }
           .rd1{transition-delay:.1s} .rd2{transition-delay:.2s} .rd3{transition-delay:.3s} .rd4{transition-delay:.4s} .rd5{transition-delay:.5s}
