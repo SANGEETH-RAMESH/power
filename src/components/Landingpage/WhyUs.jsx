@@ -77,19 +77,15 @@ export default function WhyUs() {
                 <div style={{ fontSize: 26, marginBottom: 14 }}>
 
 
-                  {typeof p.icon === 'string' && p.icon.endsWith('.svg') ? (
-                    <div
-                      style={{
-                        width: 34,
-                        height: 34,
-                        backgroundColor: '#79bc3c',
-                        WebkitMask: `url(${p.icon}) center/contain no-repeat`,
-                        mask: `url(${p.icon}) center/contain no-repeat`,
-                      }}
-                    />
-                  ) : (
-                    <span>{p.icon}</span>
-                  )}
+                  <img
+  src={p.icon}
+  alt=""
+  style={{
+    width: 34,
+    height: 34,
+    filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)',
+  }}
+/>
                 </div>
                 <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 1, marginBottom: 8 }}>{p.title}</div>
                 <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.7 }}>{p.desc}</div>

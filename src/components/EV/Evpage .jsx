@@ -466,19 +466,7 @@ export default function EV() {
                   <div className="ps-desc">{desc}</div>
                 </div>
                 <div className="ps-icon">
-                  {typeof icon === 'string' && icon.includes('.svg') ? (
-                    <div
-                      style={{
-                        width: 24,
-                        height: 24,
-                        backgroundColor: '#79bc3c',
-                        WebkitMask: `url(${icon}) center/contain no-repeat`,
-                        mask: `url(${icon}) center/contain no-repeat`,
-                      }}
-                    />
-                  ) : (
-                    icon
-                  )}
+                  <img src={icon} alt="" style={{ width: 24, height: 24, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
                 </div>
               </div>
             ))}
@@ -646,19 +634,7 @@ export default function EV() {
                 ].map(([icon, title, desc]) => (
                   <div key={title} className="av-card">
                     <div className="av-card-icon">
-                      {typeof icon === 'string' && icon.includes('.svg') ? (
-                        <div
-                          style={{
-                            width: 24,
-                            height: 24,
-                            backgroundColor: '#79bc3c',
-                            WebkitMask: `url(${icon}) center/contain no-repeat`,
-                            mask: `url(${icon}) center/contain no-repeat`,
-                          }}
-                        />
-                      ) : (
-                        icon
-                      )}
+                      <img src={icon} alt="" style={{ width: 24, height: 24, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
                     </div>
                     <div className="av-card-title">{title}</div>
                     <div className="av-card-desc">{desc}</div>
@@ -715,19 +691,7 @@ export default function EV() {
               [chatIcon, "TRANSPARENT APPROACH", "Clear scope, clear pricing, no unnecessary upselling."],
             ].map(([icon, title, desc]) => (
               <div key={title} className="why-card">
-                <div className="wc-icon">{typeof icon === 'string' && icon.includes('.svg') ? (
-                  <div
-                    style={{
-                      width: 24,
-                      height: 24,
-                      backgroundColor: '#79bc3c',
-                      WebkitMask: `url(${icon}) center/contain no-repeat`,
-                      mask: `url(${icon}) center/contain no-repeat`,
-                    }}
-                  />
-                ) : (
-                  icon
-                )}
+                <div className="wc-icon"><img src={icon} alt="" style={{ width: 24, height: 24, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
                 </div>
                 <div>
                   <div className="wc-title">{title}</div>

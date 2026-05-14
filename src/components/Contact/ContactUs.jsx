@@ -395,16 +395,7 @@ export default function Contact() {
           <div className="c-hero-btns">
             <a href="#form-start" className="hbtn-primary">Complete the Form ↓</a>
             <a href="tel:07404378787" className="hbtn-outline">
-              <div
-                style={{
-                  width: 18,
-                  height: 18,
-                  backgroundColor: '#79bc3c',
-                  WebkitMask: `url(${phoneIcon2}) center/contain no-repeat`,
-                  mask: `url(${phoneIcon2}) center/contain no-repeat`,
-                  flexShrink: 0,
-                }}
-              />
+              <img src={phoneIcon2} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)', flexShrink: 0 }} />
               07404 378787
             </a>
           </div>
@@ -428,15 +419,7 @@ export default function Contact() {
               <div key={title} className="nt-item">
                 <div className="nt-dot">{
                   typeof icon === 'string' && icon.includes('.svg') ? (
-                    <div
-                      style={{
-                        width: 18,
-                        height: 18,
-                        backgroundColor: '#79bc3c',
-                        WebkitMask: `url(${icon}) center/contain no-repeat`,
-                        mask: `url(${icon}) center/contain no-repeat`,
-                      }}
-                    />
+                    <img src={icon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
                   ) : (
                     icon
                   )
@@ -673,16 +656,7 @@ export default function Contact() {
             <div className="contact-direct">
               <div className="cd-title">PREFER TO SPEAK DIRECTLY?</div>
               <div className="cd-item"><div className="cd-ic">
-                <div
-                  style={{
-                    width: 18,
-                    height: 18,
-                    backgroundColor: '#79bc3c',
-                    WebkitMask: `url(${phoneIcon2}) center/contain no-repeat`,
-                    mask: `url(${phoneIcon2}) center/contain no-repeat`,
-                    flexShrink: 0,
-                  }}
-                />
+                <img src={phoneIcon2} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)', flexShrink: 0 }} />
               </div><div className="cd-val"><a href="tel:07404378787">07404 378787</a></div></div>
               <div className="cd-item"><div className="cd-ic">✉️</div><div className="cd-val"><a href="mailto:info@wattenpower.com">info@wattenpower.com</a></div></div>
             </div>

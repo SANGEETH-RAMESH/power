@@ -69,13 +69,13 @@ function SvgIcon({ src }) {
 function IconCell({ icon, size = 22 }) {
   if (typeof icon === 'string' && icon.includes('.svg')) {
     return (
-      <div
+      <img
+        src={icon}
+        alt=""
         style={{
           width: size,
           height: size,
-          backgroundColor: '#79bc3c',
-          WebkitMask: `url(${icon}) center/contain no-repeat`,
-          mask: `url(${icon}) center/contain no-repeat`,
+          filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)',
         }}
       />
     );
