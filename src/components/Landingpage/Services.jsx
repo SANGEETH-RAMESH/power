@@ -149,14 +149,24 @@ export default function Services() {
               }}>
                 {typeof s.icon === 'string' && s.icon.includes('.svg') ? (
                   <div
-                    style={{
-                      width: 34,
-                      height: 34,
-                      backgroundColor: '#79bc3c',
-                      WebkitMask: `url(${s.icon}) center/contain no-repeat`,
-                      mask: `url(${s.icon}) center/contain no-repeat`,
-                    }}
-                  />
+  style={{
+    width: 34,
+    height: 34,
+    backgroundColor: '#79bc3c',
+
+    WebkitMaskImage: `url(${s.icon})`,
+    maskImage: `url(${s.icon})`,
+
+    WebkitMaskRepeat: 'no-repeat',
+    maskRepeat: 'no-repeat',
+
+    WebkitMaskPosition: 'center',
+    maskPosition: 'center',
+
+    WebkitMaskSize: 'contain',
+    maskSize: 'contain',
+  }}
+/>
                 ) : (
                   <span>{s.icon}</span>
                 )}
