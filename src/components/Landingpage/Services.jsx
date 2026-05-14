@@ -147,29 +147,17 @@ export default function Services() {
                   ? 'rgba(90,140,46,.35)'
                   : 'rgba(43,91,168,.4)'}`
               }}>
-                {typeof s.icon === 'string' && s.icon.includes('.svg') ? (
-                  <div
-  style={{
-    width: 34,
-    height: 34,
-    backgroundColor: '#79bc3c',
-
-    WebkitMaskImage: `url(${s.icon})`,
-    maskImage: `url(${s.icon})`,
-
-    WebkitMaskRepeat: 'no-repeat',
-    maskRepeat: 'no-repeat',
-
-    WebkitMaskPosition: 'center',
-    maskPosition: 'center',
-
-    WebkitMaskSize: 'contain',
-    maskSize: 'contain',
-  }}
-/>
-                ) : (
-                  <span>{s.icon}</span>
-                )}
+                <img
+                  src={s.icon}
+                  alt=""
+                  style={{
+                    width: 34,
+                    height: 34,
+                    filter: s.green
+                      ? 'invert(1) sepia(1) saturate(3) hue-rotate(50deg)'
+                      : 'invert(1) brightness(2)',
+                  }}
+                />
               </div>
 
               <div style={{
