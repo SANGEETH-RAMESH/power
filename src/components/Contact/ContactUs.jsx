@@ -418,11 +418,9 @@ export default function Contact() {
             {[[searchIcon, "We Review Your Enquiry", "Our team carefully assesses your requirements and the details you have submitted"], [phoneIcon2, "We May Contact You", "For any clarification needed to prepare the most accurate recommendation"], [houseIcon, "Site Survey If Required", "A site visit may be scheduled to assess your property and infrastructure"], [tickIcon, "Tailored Quote Delivered", "You receive a personalised recommendation and detailed quote"]].map(([icon, title, desc]) => (
               <div key={title} className="nt-item">
                 <div className="nt-dot">{
-                  typeof icon === 'string' && icon.includes('.svg') ? (
+             
                     <img src={icon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
-                  ) : (
-                    icon
-                  )
+                  
                 }</div>
                 <div className="nt-title">{title}</div>
                 <div className="nt-desc">{desc}</div>
