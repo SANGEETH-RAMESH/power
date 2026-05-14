@@ -75,6 +75,8 @@ function IconCell({ icon, size = 22 }) {
         style={{
           width: size,
           height: size,
+          display: 'inline-block',
+          flexShrink: 0,
           filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)',
         }}
       />
