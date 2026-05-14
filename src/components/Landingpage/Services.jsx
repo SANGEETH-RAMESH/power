@@ -148,16 +148,14 @@ export default function Services() {
                   : 'rgba(43,91,168,.4)'}`
               }}>
                 <img
-                  src={s.icon}
-                  alt=""
-                  style={{
-                    width: 34,
-                    height: 34,
-                    filter: s.green
-                      ? 'invert(1) sepia(1) saturate(3) hue-rotate(50deg)'
-                      : 'invert(1) brightness(2)',
-                  }}
-                />
+  src={s.icon}
+  alt=""
+  style={{
+    width: 34,
+    height: 34,
+    filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)',
+  }}
+/>
               </div>
 
               <div style={{
