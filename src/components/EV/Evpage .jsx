@@ -17,7 +17,7 @@ import searchIcon from '../../assets/new/search.svg';
 import tickIcon from '../../assets/new/tick3.svg';
 import graphIcon from '../../assets/new/graph.svg';
 import handShakeIcon from '../../assets/new/support.svg';
-import setSquare from '../../assets/new/setsquare.svg';
+import setSquare from '../../assets/new/setSquare.svg';
 import spanner from '../../assets/new/spanner.svg';
 import phoneIcon from '../../assets/new/phonesetting.svg';
 import lockIcon from '../../assets/new/locksafe.svg';
