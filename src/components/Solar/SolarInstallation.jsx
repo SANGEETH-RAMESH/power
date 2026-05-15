@@ -13,7 +13,7 @@ import slaveryPdf from '../../assets/pdfs/modern-slavery.pdf';
 
 import searchIcon from '../../assets/new/search.svg';
 import graphIcon from '../../assets/new/graph.svg';
-import handShakeIcon from '../../assets/new/support.svg';
+import handShakeIcon from '../../assets/new/handShake1.svg';
 import setSquare from '../../assets/new/SetSquare.svg';
 import spanner from '../../assets/new/spanner.svg';
 import phoneIcon from '../../assets/new/phonesetting.svg';
@@ -25,8 +25,21 @@ import solar from '../../assets/new/sun.svg';
 import targetIcon from '../../assets/new/target.svg';
 import lightning from '../../assets/new/lightning.svg';
 import money from '../../assets/new/lotmoney.svg';
-
+import shieldIcon from '../../assets/new/shield1.svg';
+import nutIcon from '../../assets/new/nut1.svg';
+import batteryIcon from '../../assets/new/batterycharger.svg';
+import buildingIcon from '../../assets/new/building.svg';
+import leafIcon from '../../assets/new/leaf.svg';
 import surveryIcon from '../../assets/new/sitesurvey.svg';
+import trophyIcon from '../../assets/new/trophy.svg';
+import moneyIcon from '../../assets/new/lotmoney.svg';
+import leaf1Icon from '../../assets/new/leaf1.svg';
+import phoneIcon2 from '../../assets/new/phonecall.svg';
+import medalIcon from '../../assets/new/medal.svg';
+import starIcon from '../../assets/new/star.svg';
+import plugIcon from '../../assets/new/plug.svg';
+import gbIcon from '../../assets/new/gb.svg';
+
 
 import img1 from '../../assets/images/solar/man-worker-firld-by-solar-panels.jpg';
 import img2 from '../../assets/images/solar/residental_2.jpeg';
@@ -354,12 +367,14 @@ export default function Solar() {
           <div className="sec-label reveal mt-[52px]">System Components</div>
           <h3 className="reveal rd1 mb-6" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, letterSpacing: '1.5px' }}>EVERYTHING INCLUDED IN EVERY SYSTEM</h3>
           <div className="grid grid-cols-6 gap-3 mt-6 reveal rd2 max-[1024px]:grid-cols-3 max-[900px]:grid-cols-3 max-[600px]:grid-cols-2">
-            {[["☀️", "High-Efficiency Panels"], ["⚡", "String / Hybrid Inverters"], ["🛡️", "DC & AC Protection"], ["🔩", "Mounting & Cabling"], ["📊", "Monitoring Systems"], ["🔋", "Battery Compatible"]].map(([icon, label]) => (
+            {[[solar, "High-Efficiency Panels"], [lightning, "String / Hybrid Inverters"], [shieldIcon, "DC & AC Protection"], [nutIcon, "Mounting & Cabling"], [graphIcon, "Monitoring Systems"], [batteryIcon, "Battery Compatible"]].map(([icon, label]) => (
               <div key={label} className="rounded-[var(--r)] p-5 text-center transition-all duration-300 hover:-translate-y-[3px]" style={{ background: 'var(--panel)', border: '1px solid var(--line)' }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.4)'}
                 onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--line)'}
               >
-                <div className="text-[28px] mb-[10px]">{icon}</div>
+                <div className="text-[28px] mb-[10px]">
+                  <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
+                </div>
                 <div style={{ fontSize: 9, color: 'var(--muted)', lineHeight: 1.5, fontFamily: "'Space Mono', monospace", letterSpacing: '.5px', textTransform: 'uppercase' }}>{label}</div>
               </div>
             ))}
@@ -384,11 +399,11 @@ export default function Solar() {
             {[
               ["01", houseIcon, "SITE ASSESSMENT", "Roof orientation, shading analysis, structural suitability, and electrical capacity review before any work begins."],
               ["02", setSquare, "SYSTEM DESIGN", "System sizing based on your consumption, budget, and return on investment targets — tailored to your property."],
-              ["03",surveryIcon, "DNO APPLICATION", "G98 / G99 grid approval managed entirely on your behalf where required for the installation."],
+              ["03", surveryIcon, "DNO APPLICATION", "G98 / G99 grid approval managed entirely on your behalf where required for the installation."],
               ["04", settingIcon, "INSTALLATION", "Panels, inverter, cabling, mounting structures, and all protection systems installed by certified engineers."],
               ["05", tickIcon, "TESTING & COMMISSIONING", "Full system electrical testing, performance validation, and certification issued on completion."],
               ["06", handShakeIcon, "HANDOVER", "System walkthrough, monitoring app setup, SEG registration guidance, and full documentation provided."],
-            ].map(([num, icon, title, desc,type], i) => (
+            ].map(([num, icon, title, desc, type], i) => (
               <div key={num} className="tl-item relative pb-12 pl-12 last:pb-0">
                 <div className="tl-num">{num}</div>
                 <div className="tl-dot">
@@ -425,16 +440,40 @@ export default function Solar() {
       {/* ── SOLAR RANGE ── */}
       <section className="py-[100px] border-t border-[var(--line)] max-[600px]:py-[60px]">
         <div className="max-w-[1160px] mx-auto px-[52px] max-[1024px]:px-8 max-[900px]:px-6 max-[600px]:px-4">
-          <div className="text-center mb-[60px]">
-            <div className="sec-label reveal justify-start">Our Solar Range</div>
-            <h2 className="sec-title reveal rd1">THE RIGHT SYSTEM<br />FOR YOUR PROPERTY</h2>
-            <p className="sec-desc reveal rd2 max-w-[600px]">Tailored to different energy needs and budgets — we recommend the right system based on your consumption, roof size, and long-term goals.</p>
+          <div className="text-center mb-[60px] flex flex-col items-center">
+            <div className="sec-label reveal vis justify-center">
+              Our Solar Range
+            </div>
+
+            <h2 className="sec-title reveal vis rd1 text-center">
+              THE RIGHT SYSTEM<br />
+              FOR YOUR PROPERTY
+            </h2>
+
+            <p className="sec-desc reveal vis rd2 max-w-[600px] text-center">
+              Tailored to different energy needs and budgets — we recommend the right system based on your consumption, roof size, and long-term goals.
+            </p>
           </div>
           <div className="range-showcase max-[900px]:grid-cols-1">
             <div className="rs-main relative overflow-hidden rounded-[var(--r2)] p-[44px_36px] flex flex-col justify-between reveal rd1" style={{ background: 'linear-gradient(160deg,rgba(90,140,46,.2),rgba(43,91,168,.12))', border: '2px solid var(--green)' }}>
               <div>
                 <div className="inline-block mb-6 px-[14px] py-[5px] rounded-[50px]" style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--green-hi)', background: 'var(--green-dim)', border: '1px solid var(--line-g)' }}>⭐ Most Popular</div>
-                <div className="text-[52px] mb-5">⚡</div>
+                <div
+                  className="mb-5 flex items-center justify-center"
+                  style={{ width: 52, height: 52 }}
+                >
+                  <img
+                    src={lightning}
+                    alt=""
+                    className="svg-icon"
+                    style={{
+                      width: 32,
+                      height: 32,
+                      objectFit: 'contain',
+                      filter: ICON_FILTER
+                    }}
+                  />
+                </div>
                 <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 40, letterSpacing: 2, marginBottom: 8 }}>PREMIUM SYSTEM</div>
                 <div className="mb-7" style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.5 }}>Maximum efficiency and output</div>
                 <ul className="list-none flex flex-col gap-[10px] rs-main-feats">
@@ -446,13 +485,15 @@ export default function Solar() {
               <Link to="/contact-us" className="btn-main btn-green mt-7 self-start">Get a Quote →</Link>
             </div>
             {[
-              ["🌱", "ENTRY SYSTEM", "Affordable entry into solar", ["Small households", "Lower upfront cost", "Export-ready"]],
-              ["☀️", "STANDARD SYSTEM", "Balanced performance and value", ["Most UK homes", "Good ROI", "Daily consumption optimised"]],
-              ["🏢", "COMMERCIAL SYSTEM", "Designed for business efficiency", ["Large-scale installs", "Three-phase systems", "Scalable for growth"]],
-              ["🔋", "HYBRID / FUTURE-READY", "Built for energy independence", ["Battery-ready systems", "EV charger integration", "Smart energy management"]],
+              [leaf1Icon, "ENTRY SYSTEM", "Affordable entry into solar", ["Small households", "Lower upfront cost", "Export-ready"]],
+              [solar, "STANDARD SYSTEM", "Balanced performance and value", ["Most UK homes", "Good ROI", "Daily consumption optimised"]],
+              [buildingIcon, "COMMERCIAL SYSTEM", "Designed for business efficiency", ["Large-scale installs", "Three-phase systems", "Scalable for growth"]],
+              [batteryIcon, "HYBRID / FUTURE-READY", "Built for energy independence", ["Battery-ready systems", "EV charger integration", "Smart energy management"]],
             ].map(([icon, name, tag, feats], i) => (
               <div key={name} className={`rs-card rounded-[var(--r2)] p-[26px_24px] flex flex-col gap-2 transition-all duration-300 reveal rd${i + 2}`} style={{ background: 'var(--panel)', border: '1px solid var(--line)' }}>
-                <div className="text-[26px]">{icon}</div>
+                <div className="text-[26px]">
+                  <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
+                </div>
                 <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: '1.5px' }}>{name}</div>
                 <div style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.4 }}>{tag}</div>
                 <ul className="list-none flex flex-col gap-[6px] mt-1 rs-card-feats">
@@ -536,111 +577,130 @@ export default function Solar() {
         `}</style>
 
         <div className="est-wrap">
-  <div className={`est-left${showEstimator ? ' active' : ''}`} ref={estimatorRef}>
-    <div className="reveal mb-4" style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--green-hi)' }}>
-      Solar Cost Estimator
-    </div>
-    <h2 className="reveal rd1 mb-5" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(36px,4vw,56px)', letterSpacing: '2px', lineHeight: 1.05 }}>
-      Estimate Your<br />
-      <span style={{ background: 'linear-gradient(135deg,#72b038,#5a8c2e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', display: 'inline-block' }}>
-        Solar System
-      </span>
-    </h2>
-    <p className="reveal rd2 mb-9" style={{ fontSize: 15, color: 'var(--light)', lineHeight: 1.8, maxWidth: 440 }}>
-      Not sure how much a solar installation will cost? Our free estimator gives you an instant, personalised estimate — including recommended system size, projected savings, and estimated payback period.
-    </p>
-    <div className="est-btn-wrap">
-      <button
-        className="est-btn relative inline-flex items-center gap-4 text-white rounded-[60px] border-none cursor-pointer overflow-hidden font-bold reveal rd3 px-10 py-5"
-        style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: '2.5px', textTransform: 'uppercase' }}
-        onClick={handleEstimateClick}
-      >
-        <div className="est-btn-icon w-12 h-12 rounded-full flex items-center justify-center text-[22px] flex-shrink-0 transition-all duration-300" style={{ background: 'rgba(255,255,255,.15)', border: '1px solid rgba(255,255,255,.1)' }}>
-          ☀️
+          <div className={`est-left${showEstimator ? ' active' : ''}`} ref={estimatorRef}>
+            <div className="reveal mb-4" style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--green-hi)' }}>
+              Solar Cost Estimator
+            </div>
+            <h2 className="reveal rd1 mb-5" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 'clamp(36px,4vw,56px)', letterSpacing: '2px', lineHeight: 1.05 }}>
+              Estimate Your<br />
+              <span style={{ background: 'linear-gradient(135deg,#72b038,#5a8c2e)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', display: 'inline-block' }}>
+                Solar System
+              </span>
+            </h2>
+            <p className="reveal rd2 mb-9" style={{ fontSize: 15, color: 'var(--light)', lineHeight: 1.8, maxWidth: 440 }}>
+              Not sure how much a solar installation will cost? Our free estimator gives you an instant, personalised estimate — including recommended system size, projected savings, and estimated payback period.
+            </p>
+            <div className="est-btn-wrap">
+              <button
+                className="est-btn relative inline-flex items-center gap-4 text-white rounded-[60px] border-none cursor-pointer overflow-hidden font-bold reveal rd3 px-10 py-5"
+                style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: '2.5px', textTransform: 'uppercase' }}
+                onClick={handleEstimateClick}
+              >
+                <div className="est-btn-icon w-12 h-12 rounded-full flex items-center justify-center text-[22px] flex-shrink-0 transition-all duration-300" style={{ background: 'rgba(255,255,255,.15)', border: '1px solid rgba(255,255,255,.1)' }}>
+                  ☀️
+                </div>
+                Estimate Your System
+              </button>
+            </div>
+
+            {/* Cards below content ONLY after button click */}
+            {showEstimator && (
+              <div className="est-cards-grid rd2" style={{ marginTop: 32 }}>
+                {estimatorCards.map(([icon, strong, sub]) => (
+                  <div
+                    key={strong}
+                    className="ef-item relative flex items-start gap-[12px] rounded-[16px] p-4 overflow-hidden transition-all duration-300 hover:-translate-y-[2px]"
+                    style={{ background: 'rgba(90,140,46,.08)', border: '1px solid rgba(90,140,46,.25)' }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.45)'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.25)'}
+                  >
+                    <div className="w-9 h-9 rounded-[9px] flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(90,140,46,.15)', border: '1px solid rgba(90,140,46,.3)' }}>
+                      <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
+                    </div>
+                    <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.5 }}>
+                      <strong className="block mb-[2px]" style={{ fontSize: 13, color: 'var(--white)', fontWeight: 600 }}>{strong}</strong>
+                      {sub}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* RIGHT: cards by default, wizard after click */}
+          <div className="est-right">
+            <div id="estimator-wizard" />
+
+            {/* Cards on right ONLY before button click */}
+            {!showEstimator && (
+              <div className="est-cards-grid rd2" style={{ marginTop: 0 }}>
+                {estimatorCards.map(([icon, strong, sub]) => (
+                  <div
+                    key={strong}
+                    className="ef-item relative flex items-start gap-[12px] rounded-[16px] p-4 overflow-hidden transition-all duration-300 hover:-translate-y-[2px]"
+                    style={{ background: 'rgba(90,140,46,.08)', border: '1px solid rgba(90,140,46,.25)' }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.45)'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.25)'}
+                  >
+                    <div className="w-9 h-9 rounded-[9px] flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(90,140,46,.15)', border: '1px solid rgba(90,140,46,.3)' }}>
+                      <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
+                    </div>
+                    <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.5 }}>
+                      <strong className="block mb-[2px]" style={{ fontSize: 13, color: 'var(--white)', fontWeight: 600 }}>{strong}</strong>
+                      {sub}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <AnimatePresence>
+              {showEstimator && (
+                <motion.div
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 28 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                  <div className="est-live-wrap w-full">
+                    <SolarEstimatorWizard
+                      startFromStep={1}
+                      onBack={() => setShowEstimator(false)}
+                      embedded={true}
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
-        Estimate Your System
-      </button>
-    </div>
-
-    {/* Cards below content ONLY after button click */}
-    {showEstimator && (
-      <div className="est-cards-grid rd2" style={{ marginTop: 32 }}>
-        {estimatorCards.map(([icon, strong, sub]) => (
-          <div
-            key={strong}
-            className="ef-item relative flex items-start gap-[12px] rounded-[16px] p-4 overflow-hidden transition-all duration-300 hover:-translate-y-[2px]"
-            style={{ background: 'rgba(90,140,46,.08)', border: '1px solid rgba(90,140,46,.25)' }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.45)'}
-            onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.25)'}
-          >
-            <div className="w-9 h-9 rounded-[9px] flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(90,140,46,.15)', border: '1px solid rgba(90,140,46,.3)' }}>
-              <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
-            </div>
-            <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.5 }}>
-              <strong className="block mb-[2px]" style={{ fontSize: 13, color: 'var(--white)', fontWeight: 600 }}>{strong}</strong>
-              {sub}
-            </div>
-          </div>
-        ))}
-      </div>
-    )}
-  </div>
-
-  {/* RIGHT: cards by default, wizard after click */}
-  <div className="est-right">
-    <div id="estimator-wizard" />
-
-    {/* Cards on right ONLY before button click */}
-    {!showEstimator && (
-      <div className="est-cards-grid rd2" style={{ marginTop: 0 }}>
-        {estimatorCards.map(([icon, strong, sub]) => (
-          <div
-            key={strong}
-            className="ef-item relative flex items-start gap-[12px] rounded-[16px] p-4 overflow-hidden transition-all duration-300 hover:-translate-y-[2px]"
-            style={{ background: 'rgba(90,140,46,.08)', border: '1px solid rgba(90,140,46,.25)' }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.45)'}
-            onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.25)'}
-          >
-            <div className="w-9 h-9 rounded-[9px] flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(90,140,46,.15)', border: '1px solid rgba(90,140,46,.3)' }}>
-              <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
-            </div>
-            <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.5 }}>
-              <strong className="block mb-[2px]" style={{ fontSize: 13, color: 'var(--white)', fontWeight: 600 }}>{strong}</strong>
-              {sub}
-            </div>
-          </div>
-        ))}
-      </div>
-    )}
-
-    <AnimatePresence>
-      {showEstimator && (
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 28 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <div className="est-live-wrap w-full">
-            <SolarEstimatorWizard
-              startFromStep={1}
-              onBack={() => setShowEstimator(false)}
-              embedded={true}
-            />
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </div>
-</div>
       </section>
 
       {/* ── SAVINGS ── */}
       <section className="relative overflow-hidden border-t border-[var(--line)] border-b border-[var(--line)] s-savings">
         <div className="grid grid-cols-4 max-[900px]:grid-cols-2 max-[600px]:grid-cols-1">
-          {[["💷", "£816", "Average Annual Savings"], ["🌿", "1.2T", "CO₂ Saved Per Year"], ["📈", "25%", "Return on Investment"], ["⚡", "3,285", "kWh Generated Per Year"]].map(([icon, num, label]) => (
+          {[[moneyIcon, "£816", "Average Annual Savings"], [leafIcon, "1.2T", "CO₂ Saved Per Year"], [graphIcon, "25%", "Return on Investment"], [lightning, "3,285", "kWh Generated Per Year"]].map(([icon, num, label]) => (
             <div key={label} className="px-10 py-14 text-center border-r border-[var(--line)] last:border-r-0 relative transition-colors duration-300 hover:bg-[rgba(90,140,46,.05)] max-[900px]:border-b max-[600px]:border-r-0">
-              <div className="text-[32px] mb-4">{icon}</div>
+              <div
+                className="w-[58px] h-[58px] rounded-[16px] flex items-center justify-center mx-auto mb-5"
+                style={{
+                  background: 'rgba(90,140,46,.12)',
+                  border: '1px solid rgba(90,140,46,.28)',
+                  backdropFilter: 'blur(10px)'
+                }}
+              >
+                <img
+                  src={icon}
+                  alt=""
+                  className="svg-icon"
+                  style={{
+                    width: 26,
+                    height: 26,
+                    objectFit: 'contain',
+                    filter: ICON_FILTER
+                  }}
+                />
+              </div>
               <div className="sb-num">{num}</div>
               <div style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.5 }}>{label}</div>
             </div>
@@ -676,7 +736,7 @@ export default function Solar() {
               >
                 <div className="w-[54px] h-[54px] rounded-[14px] flex items-center justify-center mb-5" style={{ background: 'var(--green-dim)', border: '1px solid var(--line-g)' }}>
                   <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
-                   
+
                 </div>
                 <div className="mb-[10px]" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: 1 }}>{title}</div>
                 <div style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.7 }}>{desc}</div>
@@ -700,18 +760,29 @@ export default function Solar() {
           </div>
           <div className="grid grid-cols-6 gap-3 max-[1024px]:grid-cols-3 max-[600px]:grid-cols-2">
             {[
-              ["🏅", "MCS", "Microgeneration Certification Scheme", "in-progress", "+ IN PROGRESS"],
-              ["⚡", "BS 7671", "IET Wiring Regulations 18th Edition", "compliant", "✓ COMPLIANT"],
-              ["🌟", "IEC 61215", "Solar panel performance standard", "compliant", "✓ COMPLIANT"],
-              ["🛡️", "IEC 61730", "Solar module safety qualification", "compliant", "✓ COMPLIANT"],
-              ["🔌", "G98 / G99", "Grid connection compliance", "compliant", "✓ COMPLIANT"],
-              ["🇬🇧", "0% VAT", "Qualifying residential installs", "confirmed", "✓ CONFIRMED"],
+              [medalIcon, "MCS", "Microgeneration Certification Scheme", "in-progress", "+ IN PROGRESS"],
+              [lightning, "BS 7671", "IET Wiring Regulations 18th Edition", "compliant", "✓ COMPLIANT"],
+              [starIcon, "IEC 61215", "Solar panel performance standard", "compliant", "✓ COMPLIANT"],
+              [shieldIcon, "IEC 61730", "Solar module safety qualification", "compliant", "✓ COMPLIANT"],
+              [plugIcon, "G98 / G99", "Grid connection compliance", "compliant", "✓ COMPLIANT"],
+              [gbIcon, "0% VAT", "Qualifying residential installs", "confirmed", "✓ CONFIRMED"],
             ].map(([icon, name, desc, statusClass, statusLabel]) => (
               <div key={name} className="flex flex-col items-center text-center rounded-[var(--r2)] p-[28px_18px_20px] transition-all duration-300 hover:-translate-y-[3px] reveal" style={{ background: 'var(--panel)', border: '1px solid var(--line)' }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.45)'}
                 onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--line)'}
               >
-                <div className="text-[32px] mb-[14px]">{icon}</div>
+                <div className="text-[32px] mb-[14px]">
+                  <img
+                    src={icon}
+                    alt=""
+                    className="svg-icon"
+                    style={{
+                      width: 22,
+                      height: 22,
+                      flexShrink: 0,
+                      filter: "brightness(0) saturate(100%) invert(67%) sepia(63%) saturate(1856%) hue-rotate(176deg) brightness(101%) contrast(101%)"
+                    }}
+                  />                  </div>
                 <div className="mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 17, letterSpacing: 1, color: 'var(--green-hi)' }}>{name}</div>
                 <div className="mb-4 flex-1" style={{ fontSize: 11, color: 'var(--muted)', lineHeight: 1.5 }}>{desc}</div>
                 <span className={`std-status ${statusClass}`}>{statusLabel}</span>
@@ -728,13 +799,15 @@ export default function Solar() {
           <h2 className="sec-title reveal rd1">THE WATTEN DIFFERENCE</h2>
           <div className="grid grid-cols-4 mt-[52px] rounded-[var(--r2)] overflow-hidden max-[900px]:grid-cols-2 max-[600px]:grid-cols-1" style={{ border: '1px solid var(--line)' }}>
             {[
-              ["🏆", "MCS Certified", "Every installation carried out by MCS-certified engineers to the highest professional standard."],
-              ["📐", "Bespoke Design", "Each system is custom-designed for your specific property, energy usage, and financial goals."],
-              ["🤝", "End-to-End Service", "From initial survey to DNO application, installation, and handover — we manage everything."],
-              ["💷", "Transparent Pricing", "Clear, itemised quotes with no hidden costs. We explain every line of the proposal."],
+              [trophyIcon, "MCS Certified", "Every installation carried out by MCS-certified engineers to the highest professional standard."],
+              [setSquare, "Bespoke Design", "Each system is custom-designed for your specific property, energy usage, and financial goals."],
+              [handShakeIcon, "End-to-End Service", "From initial survey to DNO application, installation, and handover — we manage everything."],
+              [moneyIcon, "Transparent Pricing", "Clear, itemised quotes with no hidden costs. We explain every line of the proposal."],
             ].map(([icon, title, desc]) => (
               <div key={title} className="wr-item relative px-8 py-10 border-r border-[var(--line)] last:border-r-0 transition-colors duration-300 hover:bg-[rgba(90,140,46,.06)] max-[900px]:even:border-r-0 max-[600px]:border-r-0 max-[600px]:border-b max-[600px]:last:border-b-0">
-                <div className="w-[52px] h-[52px] rounded-[14px] flex items-center justify-center text-[22px] mb-[22px]" style={{ background: 'var(--green-dim)', border: '1px solid var(--line-g)' }}>{icon}</div>
+                <div className="w-[52px] h-[52px] rounded-[14px] flex items-center justify-center text-[22px] mb-[22px]" style={{ background: 'var(--green-dim)', border: '1px solid var(--line-g)' }}>
+                  <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
+                </div>
                 <div className="mb-3" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: 1 }}>{title}</div>
                 <div style={{ fontSize: 16, color: 'var(--muted)', lineHeight: 1.7 }}>{desc}</div>
               </div>
@@ -751,7 +824,28 @@ export default function Solar() {
           <p className="sec-desc reveal rd2 mx-auto text-center mb-10">Book a free, no-obligation site survey and receive a tailored quote for your property. Our team will handle everything from start to finish.</p>
           <div className="flex gap-[14px] justify-center flex-wrap px-4 reveal rd3 max-[600px]:flex-col max-[600px]:items-center">
             <Link to="/contact-us" className="btn-main btn-green max-[600px]:w-full max-[600px]:max-w-[320px] max-[600px]:justify-center">Book a Free Survey →</Link>
-            <a href="tel:07404378787" className="btn-outline max-[600px]:w-full max-[600px]:max-w-[320px] max-[600px]:justify-center">📞 07404 378787</a>
+            <a
+              href="tel:07404378787"
+              className="btn-outline max-[600px]:w-full max-[600px]:max-w-[320px] max-[600px]:justify-center"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}
+            >
+              <img
+                src={phoneIcon2}
+                alt=""
+                className="svg-icon"
+                style={{
+                  width: 18,
+                  height: 18,
+                  objectFit: 'contain',
+                  flexShrink: 0,
+                  filter: ICON_FILTER
+                }}
+              />
+
+              <span style={{ lineHeight: 1 }}>
+                07404 378787
+              </span>
+            </a>
           </div>
         </div>
       </section>

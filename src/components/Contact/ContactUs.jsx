@@ -14,6 +14,23 @@ import tickIcon from '../../assets/new/tick3.svg';
 import houseIcon from '../../assets/new/house.svg';
 import phoneIcon from '../../assets/new/phonesetting.svg';
 import phoneIcon2 from '../../assets/new/phonecall.svg';
+import lightning from '../../assets/new/lightning.svg';
+import solar from '../../assets/new/sun.svg';
+import camera from '../../assets/new/Camera.svg';
+import attachmentIcon from '../../assets/new/attachment.svg';
+import emailIcon from '../../assets/new/Email.svg';
+import messageIcon from '../../assets/new/message.svg';
+import clockIcon from '../../assets/new/timer.svg';
+import profile from '../../assets/new/human.svg';
+import buildingIcon from '../../assets/new/building.svg';
+import industryIcon from '../../assets/new/industry.svg';
+import vechileIcon from '../../assets/new/vechile.svg';
+import garageIcon from '../../assets/new/garage.svg';
+import flatRoofIcon from '../../assets/new/flat_roof.svg';
+import questionMarkIcon from '../../assets/new/question_mark.svg';
+
+
+const ICON_FILTER = 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)';
 
 const navItems = [
   { label: "Home", link: "/" },
@@ -373,6 +390,25 @@ export default function Contact() {
           .c-next-timeline { grid-template-columns: 1fr 1fr; }
           .c-next-timeline::before { display: none; }
         }
+
+        .svg-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.icon-wrap {
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
       `}</style>
 
       <Navbar />
@@ -401,9 +437,11 @@ export default function Contact() {
           </div>
         </div>
         <div className="c-hero-photo-row">
-          {[["⚡", "EV Charger Installation", "Home & commercial solutions"], ["☀️", "Solar System Installation", "Residential & commercial PV"], ["🕐", "24-Hour Response", "Free, no-obligation consultation"]].map(([icon, strong, text]) => (
+          {[[lightning, "EV Charger Installation", "Home & commercial solutions"], [solar, "Solar System Installation", "Residential & commercial PV"], [clockIcon, "24-Hour Response", "Free, no-obligation consultation"]].map(([icon, strong, text]) => (
             <div key={strong} className="hpr-cell flex items-center justify-center">
-              <div className="hpr-icon">{icon}</div>
+              <div className="hpr-icon">
+                <img src={icon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+              </div>
               <div className="hpr-text"><strong>{strong}</strong>{text}</div>
             </div>
           ))}
@@ -418,9 +456,9 @@ export default function Contact() {
             {[[searchIcon, "We Review Your Enquiry", "Our team carefully assesses your requirements and the details you have submitted"], [phoneIcon2, "We May Contact You", "For any clarification needed to prepare the most accurate recommendation"], [houseIcon, "Site Survey If Required", "A site visit may be scheduled to assess your property and infrastructure"], [tickIcon, "Tailored Quote Delivered", "You receive a personalised recommendation and detailed quote"]].map(([icon, title, desc]) => (
               <div key={title} className="nt-item">
                 <div className="nt-dot">{
-             
-                    <img src={icon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
-                  
+
+                  <img src={icon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+
                 }</div>
                 <div className="nt-title">{title}</div>
                 <div className="nt-desc">{desc}</div>
@@ -437,7 +475,10 @@ export default function Contact() {
         <div className="fsec c-reveal">
           <div className="fsec-deco-num">01</div>
           <div className="fsec-head">
-            <div className="fsec-icon blue-ic">👤</div>
+            <div className="fsec-icon blue-ic">
+              <img src={profile} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+
+            </div>
             <div className="fsec-meta">
               <div className="fsec-kicker">Step 01</div>
               <div className="fsec-title">BASIC DETAILS</div>
@@ -473,7 +514,9 @@ export default function Contact() {
         <div className="fsec c-reveal">
           <div className="fsec-deco-num">02</div>
           <div className="fsec-head">
-            <div className="fsec-icon green-ic">⚡</div>
+            <div className="fsec-icon green-ic">
+              <img src={lightning} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+            </div>
             <div className="fsec-meta">
               <div className="fsec-kicker">Step 02</div>
               <div className="fsec-title">SERVICE REQUIRED</div>
@@ -481,9 +524,11 @@ export default function Contact() {
           </div>
           <div className="flabel" style={{ marginBottom: 14 }}>Select one or both services <span className="req">*</span></div>
           <div className="svc-grid">
-            {[["ev", "⚡", "EV CHARGER INSTALLATION", "Home or commercial EV charging point — 7 kW to 22 kW systems"], ["solar", "☀️", "SOLAR SYSTEM INSTALLATION", "Residential or commercial solar PV system — with optional battery storage"]].map(([key, icon, name, info]) => (
+            {[["ev", lightning, "EV CHARGER INSTALLATION", "Home or commercial EV charging point — 7 kW to 22 kW systems"], ["solar", solar, "SOLAR SYSTEM INSTALLATION", "Residential or commercial solar PV system — with optional battery storage"]].map(([key, icon, name, info]) => (
               <div key={key} className={`svc-box${services[key] ? " selected" : ""}`} onClick={() => { setServices(p => ({ ...p, [key]: !p[key] })); setErrors(p => ({ ...p, service: "" })); }}>
-                <div className="svc-big-icon">{icon}</div>
+                <div className="svc-big-icon">
+                  <img src={icon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+                </div>
                 <div className="svc-name">{name}</div>
                 <div className="svc-info">{info}</div>
                 <div className="svc-check-ic">{services[key] ? "✓" : ""}</div>
@@ -495,18 +540,57 @@ export default function Contact() {
           {/* EV Details */}
           <div className={`cond-block${services.ev ? " open" : ""}`}>
             <div className="cond-inner">
-              <div className="cond-banner"><span>⚡</span> EV Charger Installation Details</div>
+              <div className="cond-banner">
+                <img src={lightning} alt="" style={{ width: 16, height: 16, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+                EV Charger Installation Details
+              </div>
+
               <div className="fg2" style={{ marginBottom: 18 }}>
                 <div className="fgroup">
                   <div className="flabel">Property Type</div>
                   <div className="rpills">
-                    {["🏠 House", "🏢 Flat", "🏭 Commercial"].map(v => <span key={v} className={`rp-btn${evDetails.property === v ? " selected" : ""}`} onClick={() => setEvDetails(p => ({ ...p, property: v }))}>{v}</span>)}
+                    {[
+                      { label: "House", value: "House", icon: houseIcon },
+                      { label: "Flat", value: "Flat", icon: buildingIcon },
+                      { label: "Commercial", value: "Commercial", icon: industryIcon },
+                    ].map(({ label, value, icon }) => (
+                      <span
+                        key={value}
+                        className={`rp-btn${evDetails.property === value ? " selected" : ""}`}
+                        onClick={() => setEvDetails(p => ({ ...p, property: value }))}
+                        style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+                      >
+                        <img src={icon} alt="" style={{ width: 14, height: 14, filter:ICON_FILTER }} />
+                        {label}
+                      </span>
+                    ))}
                   </div>
                 </div>
+
                 <div className="fgroup">
                   <div className="flabel">Parking Type</div>
                   <div className="rpills">
-                    {["🏡 Driveway", "🚪 Garage", "🚗 Street"].map(v => <span key={v} className={`rp-btn${evDetails.parking === v ? " selected" : ""}`} onClick={() => setEvDetails(p => ({ ...p, parking: v }))}>{v}</span>)}
+                    {[
+                      { label: "Driveway", value: "Driveway", icon: houseIcon },
+                      { label: "Garage", value: "Garage", icon: garageIcon },
+                      { label: "Street", value: "Street", icon: vechileIcon },
+                    ].map(({ label, value, icon }) => (
+                      <span
+                        key={value}
+                        className={`rp-btn${evDetails.parking === value ? " selected" : ""}`}
+                        onClick={() => setEvDetails(p => ({ ...p, parking: value }))}
+                        style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+                      >
+                        <img
+    src={icon}
+    alt=""
+    className="svg-icon"
+    style={{ filter: ICON_FILTER }}
+  />
+
+                        {label}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -535,22 +619,54 @@ export default function Contact() {
 
           {/* Solar Details */}
           <div className={`cond-block${services.solar ? " open" : ""}`}>
-            <div className="cond-inner">
-              <div className="cond-banner"><span>☀️</span> Solar System Installation Details</div>
-              <div className="fg2" style={{ marginBottom: 18 }}>
-                <div className="fgroup">
-                  <div className="flabel">Property Type</div>
-                  <div className="rpills">
-                    {["🏠 House", "🏢 Commercial"].map(v => <span key={v} className={`rp-btn${solarDetails.property === v ? " selected" : ""}`} onClick={() => setSolarDetails(p => ({ ...p, property: v }))}>{v}</span>)}
-                  </div>
-                </div>
-                <div className="fgroup">
-                  <div className="flabel">Roof Type</div>
-                  <div className="rpills">
-                    {["📐 Pitched", "▬ Flat", "❓ Not Sure"].map(v => <span key={v} className={`rp-btn${solarDetails.roof === v ? " selected" : ""}`} onClick={() => setSolarDetails(p => ({ ...p, roof: v }))}>{v}</span>)}
-                  </div>
-                </div>
-              </div>
+  <div className="cond-inner">
+    <div className="cond-banner">
+      <img src={solar} alt="" style={{ width: 16, height: 16, filter: ICON_FILTER }} />
+      Solar System Installation Details
+    </div>
+
+    <div className="fg2" style={{ marginBottom: 18 }}>
+      <div className="fgroup">
+        <div className="flabel">Property Type</div>
+        <div className="rpills">
+          {[
+            { label: "House",      value: "House",      icon: houseIcon },
+            { label: "Commercial", value: "Commercial", icon: industryIcon },
+          ].map(({ label, value, icon }) => (
+            <span
+              key={value}
+              className={`rp-btn${solarDetails.property === value ? " selected" : ""}`}
+              onClick={() => setSolarDetails(p => ({ ...p, property: value }))}
+              style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+            >
+              <img src={icon} alt="" style={{ width: 14, height: 14, filter: ICON_FILTER }} />
+              {label}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="fgroup">
+        <div className="flabel">Roof Type</div>
+        <div className="rpills">
+          {[
+            { label: "Pitched",  value: "Pitched",  icon: houseIcon },
+            { label: "Flat",     value: "Flat",     icon: flatRoofIcon },
+            { label: "Not Sure", value: "Not Sure", icon: questionMarkIcon },
+          ].map(({ label, value, icon }) => (
+            <span
+              key={value}
+              className={`rp-btn${solarDetails.roof === value ? " selected" : ""}`}
+              onClick={() => setSolarDetails(p => ({ ...p, roof: value }))}
+              style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+            >
+              <img src={icon} alt="" style={{ width: 14, height: 14, filter: ICON_FILTER }} />
+              {label}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
               <div className="fg2">
                 <div className="fgroup">
                   <div className="flabel">Monthly Electricity Bill (Optional)</div>
@@ -573,7 +689,9 @@ export default function Contact() {
         <div className="fsec c-reveal">
           <div className="fsec-deco-num">03</div>
           <div className="fsec-head">
-            <div className="fsec-icon blue-ic">💬</div>
+            <div className="fsec-icon blue-ic">
+              <img src={messageIcon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+              </div>
             <div className="fsec-meta">
               <div className="fsec-kicker">Step 03</div>
               <div className="fsec-title">ADDITIONAL INFORMATION</div>
@@ -591,7 +709,9 @@ export default function Contact() {
         <div className="fsec c-reveal">
           <div className="fsec-deco-num">04</div>
           <div className="fsec-head">
-            <div className="fsec-icon gold-ic">📎</div>
+            <div className="fsec-icon gold-ic">
+              <img src={attachmentIcon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+            </div>
             <div className="fsec-meta">
               <div className="fsec-kicker">Step 04 — Optional but Recommended</div>
               <div className="fsec-title">UPLOAD PHOTOS</div>
@@ -656,7 +776,9 @@ export default function Contact() {
               <div className="cd-item"><div className="cd-ic">
                 <img src={phoneIcon2} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)', flexShrink: 0 }} />
               </div><div className="cd-val"><a href="tel:07404378787">07404 378787</a></div></div>
-              <div className="cd-item"><div className="cd-ic">✉️</div><div className="cd-val"><a href="mailto:info@wattenpower.com">info@wattenpower.com</a></div></div>
+              <div className="cd-item"><div className="cd-ic">
+                <img src={emailIcon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+              </div><div className="cd-val"><a href="mailto:info@wattenpower.com">info@wattenpower.com</a></div></div>
             </div>
           </div>
         </div>

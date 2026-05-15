@@ -11,7 +11,7 @@ import tesla_logo from '../../assets/tesla.png';
 import ohme_logo from '../../assets/Ohme.png';
 import easee_logo from '../../assets/easee-one.png';
 import zappi_logo from '../../assets/Logo_Zappi.png';
-import hypervolt from '../../assets/hypervolt.png';
+import hypervolt from '../../assets/hypervolt_1.png';
 
 import searchIcon from '../../assets/new/search.svg';
 import tickIcon from '../../assets/new/tick3.svg';
@@ -23,6 +23,16 @@ import phoneIcon from '../../assets/new/phonesetting.svg';
 import lockIcon from '../../assets/new/locksafe.svg';
 import chatIcon from '../../assets/new/chat.svg';
 import reportIcon from '../../assets/new/notes.svg';
+import plugIcon from '../../assets/new/plug.svg';
+import mobileIcon from '../../assets/new/mobile.svg';
+import buildingIcon from '../../assets/new/building.svg';
+import lightningIcon from '../../assets/new/lightning.svg';
+import batteryIcon from '../../assets/new/batterycharger.svg';
+import industryIcon from '../../assets/new/industry.svg';
+import globalIcon from '../../assets/new/global.svg';
+import solar from '../../assets/new/sun.svg';
+
+
 
 import ev_installation_img from '../../assets/images/ev-charger-installation.webp'
 import ev_vehicle_img from '../../assets/images/electric-vehicle-technology-utilized-home-charging-station-nowatermarks.jpeg'
@@ -274,8 +284,18 @@ export default function EV() {
         .compliance-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
         .compliance-note { font-size: 13px; color: var(--muted); max-width: 340px; line-height: 1.75; padding-left: 16px; border-left: 2px solid var(--line-g); margin-top: 20px; }
         .standards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; align-self: start; }
-        .std-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r2); padding: 24px 18px; text-align: center; transition: all .28s; }
-        .std-card:hover { border-color: rgba(43,91,168,.45); transform: translateY(-3px); }
+.std-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r2);
+  padding: 24px 18px;
+  text-align: center;
+  transition: all .28s;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}        .std-card:hover { border-color: rgba(43,91,168,.45); transform: translateY(-3px); }
         .std-icon { font-size: 28px; margin-bottom: 12px; }
         .std-name { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; color: var(--blue-hi); margin-bottom: 5px; }
         .std-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
@@ -299,10 +319,32 @@ export default function EV() {
         .future-img { border-radius: var(--r2); overflow: hidden; }
         .future-img img { width: 100%; height: 420px; object-fit: cover; filter: brightness(.7) saturate(.8); }
         .future-ecosystem { display: flex; flex-direction: column; gap: 18px; }
-        .fe-item { display: flex; align-items: flex-start; gap: 16px; }
-        .fe-icon { font-size: 24px; flex-shrink: 0; }
-        .fe-text { font-size: 16px; color: var(--light); line-height: 1.65; }
-        .fe-text strong { color: var(--white); font-weight: 500; }
+        .fe-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.fe-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fe-text {
+  font-size: 16px;
+  color: var(--light);
+  line-height: 1.65;
+}
+
+.fe-text strong {
+  color: var(--white);
+  font-weight: 500;
+}
 
         /* CTA */
         .e-cta { padding: 100px 0; border-top: 1px solid var(--line); background: linear-gradient(135deg,rgba(43,91,168,.08),rgba(90,140,46,.06)); text-align: center; }
@@ -489,14 +531,16 @@ export default function EV() {
           </div>
           <div className="range-grid">
             {[
-              ["🔌", "ENTRY RANGE", "Simple, reliable and cost-effective", ["Ideal for daily residential use", "7.4 kW single-phase", "Basic smart functionality", "Compact and practical"], false],
-              ["📱", "SMART RANGE", "Enhanced control and efficiency", ["App-enabled control", "Off-peak scheduling", "Energy monitoring", "Suitable for most homes and small businesses"], false],
-              ["⚡", "PREMIUM RANGE", "Advanced performance and design", ["Advanced smart features", "Faster charging capability (subject to supply)", "Sleek modern design", "Enhanced user interface"], true],
-              ["🏢", "COMMERCIAL", "Built for scale and reliability", ["Multiple charger installations", "Load balancing", "User access control", "Usage reporting"], false],
-              ["🔋", "FUTURE-READY", "Designed for integrated energy", ["Solar-compatible", "Battery-ready integration", "Smart energy ecosystem", "Ideal for long-term energy optimisation"], false],
+              [plugIcon, "ENTRY RANGE", "Simple, reliable and cost-effective", ["Ideal for daily residential use", "7.4 kW single-phase", "Basic smart functionality", "Compact and practical"], false],
+              [mobileIcon, "SMART RANGE", "Enhanced control and efficiency", ["App-enabled control", "Off-peak scheduling", "Energy monitoring", "Suitable for most homes and small businesses"], false],
+              [lightningIcon, "PREMIUM RANGE", "Advanced performance and design", ["Advanced smart features", "Faster charging capability (subject to supply)", "Sleek modern design", "Enhanced user interface"], true],
+              [buildingIcon, "COMMERCIAL", "Built for scale and reliability", ["Multiple charger installations", "Load balancing", "User access control", "Usage reporting"], false],
+              [batteryIcon, "FUTURE-READY", "Designed for integrated energy", ["Solar-compatible", "Battery-ready integration", "Smart energy ecosystem", "Ideal for long-term energy optimisation"], false],
             ].map(([icon, name, tagline, feats, featured], i) => (
               <div key={name} className={`rc reveal rd${i + 1}${featured ? " featured" : ""}`}>
-                <div className="rc-icon">{icon}</div>
+                <div className="rc-icon">
+                  <img src={icon} alt="" style={{ width: 24, height: 24, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+                </div>
                 <div className="rc-name">{name}</div>
                 <div className="rc-tagline">{tagline}</div>
                 <ul className="rc-feats">
@@ -534,7 +578,14 @@ export default function EV() {
           <div className="brands-track">
             {[
               { img: zappi_logo, name: "ZAPPI", tag: "Eco Smart", height: 38, filter: 'brightness(10) saturate(0)', blend: 'screen' },
-              { img: hypervolt, name: "HYPERVOLT", tag: "Home & Pro", height: 85, filter: 'invert(1)', blend: 'normal' },
+              {
+                img: hypervolt,
+                name: "HYPERVOLT",
+                tag: "Home & Pro",
+                height: 85,
+                filter: 'none',
+                blend: 'normal'
+              },
               { img: ohme_logo, name: "OHME", tag: "Smart Tariff", height: 40, filter: 'brightness(10) saturate(0)', blend: 'screen' },
               { img: tesla_logo, name: "TESLA", tag: "Wall Connector", height: 40, filter: 'invert(1)', blend: 'normal' },
               { img: easee_logo, name: "EASEE ONE", tag: "Compact", height: 38, filter: 'invert(1)', blend: 'normal' },
@@ -659,15 +710,17 @@ export default function EV() {
             </div>
             <div className="standards-grid">
               {[
-                ["⚡", "BS 7671", "IET Wiring Regulations"],
-                ["🔌", "BS EN 61851", "EV Charging Systems"],
-                ["📱", "Smart CP Regs", "UK Smart Charge Point Regulations"],
-                ["🌐", "G98 / G99", "Grid Connection Compliance"],
-                ["🔋", "OCPP 1.6J", "Compatibility where applicable"],
-                ["🏭", "Mfr. Standards", "Installed as per approved guidelines"],
+                [lightningIcon, "BS 7671", "IET Wiring Regulations"],
+                [plugIcon, "BS EN 61851", "EV Charging Systems"],
+                [phoneIcon, "Smart CP Regs", "UK Smart Charge Point Regulations"],
+                [globalIcon, "G98 / G99", "Grid Connection Compliance"],
+                [batteryIcon, "OCPP 1.6J", "Compatibility where applicable"],
+                [industryIcon, "Mfr. Standards", "Installed as per approved guidelines"],
               ].map(([icon, name, desc]) => (
                 <div key={name} className="std-card reveal">
-                  <div className="std-icon">{icon}</div>
+                  <div className="std-icon">
+                    <img src={icon} alt="" style={{ width: 24, height: 24, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+                  </div>
                   <div className="std-name">{name}</div>
                   <div className="std-desc">{desc}</div>
                 </div>
@@ -717,12 +770,14 @@ export default function EV() {
               <p className="sec-desc reveal rd2" style={{ marginBottom: 28 }}>Your EV charger is not just a charging point. It is part of a wider energy ecosystem. Our systems are designed to integrate with solar PV systems, battery storage solutions, and smart energy management platforms.</p>
               <div className="future-ecosystem reveal rd3">
                 {[
-                  ["☀️", "Solar PV systems", "integrate EV charging with renewable energy generation"],
-                  ["🔋", "Battery storage", "support battery storage solutions as part of your wider energy system"],
-                  ["📊", "Smart energy platforms", "connect with smart energy management platforms for long-term flexibility"],
+                  [solar, "Solar PV systems", "integrate EV charging with renewable energy generation"],
+                  [batteryIcon, "Battery storage", "support battery storage solutions as part of your wider energy system"],
+                  [graphIcon, "Smart energy platforms", "connect with smart energy management platforms for long-term flexibility"],
                 ].map(([icon, bold, text]) => (
                   <div key={bold} className="fe-item">
-                    <div className="fe-icon">{icon}</div>
+                    <div className="fe-icon">
+                      <img src={icon} alt="" style={{ width: 24, height: 24, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
+                    </div>
                     <div className="fe-text"><strong>{bold}</strong> — {text}</div>
                   </div>
                 ))}
