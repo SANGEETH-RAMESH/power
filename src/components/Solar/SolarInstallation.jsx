@@ -33,7 +33,7 @@ import leafIcon from '../../assets/new/leaf.svg';
 import surveryIcon from '../../assets/new/sitesurvey.svg';
 import trophyIcon from '../../assets/new/trophy.svg';
 import moneyIcon from '../../assets/new/lotmoney.svg';
-import leaf1Icon from '../../assets/new/leaf1.svg';
+import leaf1Icon from '../../assets/new/Leaf1.svg';
 import phoneIcon2 from '../../assets/new/phonecall.svg';
 import medalIcon from '../../assets/new/medal.svg';
 import starIcon from '../../assets/new/star.svg';
