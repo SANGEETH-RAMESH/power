@@ -146,7 +146,8 @@ export default function EV() {
         .e-hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right,rgba(4,16,31,.92) 42%,rgba(4,16,31,.35) 100%),linear-gradient(to top,rgba(4,16,31,.9) 0%,transparent 50%); }
         .e-hero-bg::before { content: ''; position: absolute; inset: 0; z-index: 2; background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(43,91,168,.02) 3px,transparent 4px); animation: scan 8s linear infinite; }
         @keyframes scan { from{background-position:0 0} to{background-position:0 100px} }
-        .e-hero-content { position: relative; z-index: 3; padding: 140px 52px 80px; max-width: 700px; }
+        .e-hero-content { position: relative; z-index: 3; padding: 140px 52px 80px 172px; max-width: 820px; }
+
         .e-hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
         .e-hero-breadcrumb a { color: var(--muted); text-decoration: none; transition: color .2s; }
         .e-hero-breadcrumb a:hover { color: var(--white); }
@@ -361,7 +362,8 @@ export default function EV() {
         @media (max-width: 900px) {
           .e-container { padding: 0 24px; }
           .e-nav { padding: 0 24px; }
-          .e-hero-content { padding: 120px 24px 60px; }
+          .e-hero-content { padding: 120px 24px 60px 24px; }
+
           .intro-grid, .process-header, .range-intro, .aftersales-grid, .compliance-inner, .future-inner { grid-template-columns: 1fr; }
           .install-grid { grid-template-columns: 1fr; }
           .range-grid { grid-template-columns: 1fr 1fr; }
@@ -400,9 +402,11 @@ export default function EV() {
           <img src={hero_img} alt="EV charging" />
         </div>
         <div className="e-hero-content">
-          <div className="e-hero-breadcrumb">
-            <Link to="/">Home</Link><span style={{ color: "var(--line)" }}>›</span><span className="cur">EV Charger Installation</span>
-          </div>
+          <div className="e-hero-breadcrumb" style={{ paddingTop: 8 }}>
+  <Link to="/">Home</Link>
+  <span style={{ color: "rgba(255,255,255,0.4)" }}>›</span>
+  <span className="cur">EV Charger Installation</span>
+</div>
           <div className="e-hero-eyebrow"><span className="dot" />Residential & Commercial</div>
           <h1 className="e-hero-title">
             <span className="ht-b">EV CHARGER</span>
