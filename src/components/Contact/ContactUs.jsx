@@ -409,6 +409,33 @@ export default function Contact() {
 
   flex-shrink: 0;
 }
+
+
+.ua-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.ua-icon-box {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: rgba(90,140,46,.12);
+  border: 1px solid rgba(90,140,46,.28);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ua-icon-box .svg-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
       `}</style>
 
       <Navbar />
@@ -560,7 +587,7 @@ export default function Contact() {
                         onClick={() => setEvDetails(p => ({ ...p, property: value }))}
                         style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
                       >
-                        <img src={icon} alt="" style={{ width: 14, height: 14, filter:ICON_FILTER }} />
+                        <img src={icon} alt="" style={{ width: 14, height: 14, filter: ICON_FILTER }} />
                         {label}
                       </span>
                     ))}
@@ -582,11 +609,11 @@ export default function Contact() {
                         style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
                       >
                         <img
-    src={icon}
-    alt=""
-    className="svg-icon"
-    style={{ filter: ICON_FILTER }}
-  />
+                          src={icon}
+                          alt=""
+                          className="svg-icon"
+                          style={{ filter: ICON_FILTER }}
+                        />
 
                         {label}
                       </span>
@@ -619,54 +646,54 @@ export default function Contact() {
 
           {/* Solar Details */}
           <div className={`cond-block${services.solar ? " open" : ""}`}>
-  <div className="cond-inner">
-    <div className="cond-banner">
-      <img src={solar} alt="" style={{ width: 16, height: 16, filter: ICON_FILTER }} />
-      Solar System Installation Details
-    </div>
+            <div className="cond-inner">
+              <div className="cond-banner">
+                <img src={solar} alt="" style={{ width: 16, height: 16, filter: ICON_FILTER }} />
+                Solar System Installation Details
+              </div>
 
-    <div className="fg2" style={{ marginBottom: 18 }}>
-      <div className="fgroup">
-        <div className="flabel">Property Type</div>
-        <div className="rpills">
-          {[
-            { label: "House",      value: "House",      icon: houseIcon },
-            { label: "Commercial", value: "Commercial", icon: industryIcon },
-          ].map(({ label, value, icon }) => (
-            <span
-              key={value}
-              className={`rp-btn${solarDetails.property === value ? " selected" : ""}`}
-              onClick={() => setSolarDetails(p => ({ ...p, property: value }))}
-              style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
-            >
-              <img src={icon} alt="" style={{ width: 14, height: 14, filter: ICON_FILTER }} />
-              {label}
-            </span>
-          ))}
-        </div>
-      </div>
+              <div className="fg2" style={{ marginBottom: 18 }}>
+                <div className="fgroup">
+                  <div className="flabel">Property Type</div>
+                  <div className="rpills">
+                    {[
+                      { label: "House", value: "House", icon: houseIcon },
+                      { label: "Commercial", value: "Commercial", icon: industryIcon },
+                    ].map(({ label, value, icon }) => (
+                      <span
+                        key={value}
+                        className={`rp-btn${solarDetails.property === value ? " selected" : ""}`}
+                        onClick={() => setSolarDetails(p => ({ ...p, property: value }))}
+                        style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+                      >
+                        <img src={icon} alt="" style={{ width: 14, height: 14, filter: ICON_FILTER }} />
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-      <div className="fgroup">
-        <div className="flabel">Roof Type</div>
-        <div className="rpills">
-          {[
-            { label: "Pitched",  value: "Pitched",  icon: houseIcon },
-            { label: "Flat",     value: "Flat",     icon: flatRoofIcon },
-            { label: "Not Sure", value: "Not Sure", icon: questionMarkIcon },
-          ].map(({ label, value, icon }) => (
-            <span
-              key={value}
-              className={`rp-btn${solarDetails.roof === value ? " selected" : ""}`}
-              onClick={() => setSolarDetails(p => ({ ...p, roof: value }))}
-              style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
-            >
-              <img src={icon} alt="" style={{ width: 14, height: 14, filter: ICON_FILTER }} />
-              {label}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
+                <div className="fgroup">
+                  <div className="flabel">Roof Type</div>
+                  <div className="rpills">
+                    {[
+                      { label: "Pitched", value: "Pitched", icon: houseIcon },
+                      { label: "Flat", value: "Flat", icon: flatRoofIcon },
+                      { label: "Not Sure", value: "Not Sure", icon: questionMarkIcon },
+                    ].map(({ label, value, icon }) => (
+                      <span
+                        key={value}
+                        className={`rp-btn${solarDetails.roof === value ? " selected" : ""}`}
+                        onClick={() => setSolarDetails(p => ({ ...p, roof: value }))}
+                        style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+                      >
+                        <img src={icon} alt="" style={{ width: 14, height: 14, filter: ICON_FILTER }} />
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
               <div className="fg2">
                 <div className="fgroup">
                   <div className="flabel">Monthly Electricity Bill (Optional)</div>
@@ -691,7 +718,7 @@ export default function Contact() {
           <div className="fsec-head">
             <div className="fsec-icon blue-ic">
               <img src={messageIcon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)' }} />
-              </div>
+            </div>
             <div className="fsec-meta">
               <div className="fsec-kicker">Step 03</div>
               <div className="fsec-title">ADDITIONAL INFORMATION</div>
@@ -719,7 +746,16 @@ export default function Contact() {
           </div>
           <div className={`upload-area${dragging ? " drag" : ""}`} onDragOver={e => { e.preventDefault(); setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={handleDrop}>
             <input type="file" multiple accept="image/*,.pdf" onChange={handleFileInput} />
-            <div className="ua-icon">📷</div>
+            <div className="ua-icon">
+              <div className="ua-icon-box">
+                <img
+                  src={camera}
+                  alt=""
+                  className="svg-icon"
+                  style={{ filter: ICON_FILTER }}
+                />
+              </div>
+            </div>
             <div className="ua-title">DRAG & DROP OR CLICK TO UPLOAD</div>
             <div className="ua-sub">Upload photos to help us prepare a more accurate quote for your property</div>
             <div className="ua-tags">
