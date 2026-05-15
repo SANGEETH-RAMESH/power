@@ -13,7 +13,7 @@ import slaveryPdf from '../../assets/pdfs/modern-slavery.pdf';
 
 import searchIcon from '../../assets/new/search.svg';
 import graphIcon from '../../assets/new/graph.svg';
-import handShakeIcon from '../../assets/new/handShake1.svg';
+import handShakeIcon from '../../assets/new/HandShake1.svg';
 import setSquare from '../../assets/new/SetSquare.svg';
 import spanner from '../../assets/new/spanner.svg';
 import phoneIcon from '../../assets/new/phonesetting.svg';
