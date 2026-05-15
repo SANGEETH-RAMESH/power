@@ -24,7 +24,7 @@ import lockIcon from '../../assets/new/locksafe.svg';
 import chatIcon from '../../assets/new/chat.svg';
 import reportIcon from '../../assets/new/notes.svg';
 import plugIcon from '../../assets/new/plug.svg';
-import mobileIcon from '../../assets/new/mobile.svg';
+import mobileIcon from '../../assets/new/SmartPhone.svg';
 import buildingIcon from '../../assets/new/building.svg';
 import lightningIcon from '../../assets/new/lightning.svg';
 import batteryIcon from '../../assets/new/batterycharger.svg';

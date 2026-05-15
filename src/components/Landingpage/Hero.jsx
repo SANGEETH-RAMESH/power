@@ -1,3 +1,5 @@
+import lightning from '../../assets/new/lightning.svg';
+
 export default function Hero() {
   return (
     <section style={{
@@ -92,24 +94,24 @@ export default function Hero() {
 
       {/* Visual cards — shifted left via paddingRight and reduced card width */}
       <div className="anim-fade-up-v hero-visual" style={{ position: 'relative', zIndex: 2, paddingTop: 70 }}>
-        <div 
+        <div
           className="w-5/6"
-        style={{ position: 'relative' }}>
+          style={{ position: 'relative' }}>
           {/* Main card */}
-          <div 
-          style={{
-            background: 'var(--panel)',
-            border: '1px solid var(--line)',
-            borderRadius: 20,
-            backdropFilter: 'blur(20px)',
-            padding: 28,
-            transition: 'transform .4s ease',
-            
+          <div
+            style={{
+              background: 'var(--panel)',
+              border: '1px solid var(--line)',
+              borderRadius: 20,
+              backdropFilter: 'blur(20px)',
+              padding: 28,
+              transition: 'transform .4s ease',
 
-            transform: 'scale(0.96)',   // 👈 slight shrink (perfect match)
-            transformOrigin: 'top left'
 
-          }}
+              transform: 'scale(0.96)',   // 👈 slight shrink (perfect match)
+              transformOrigin: 'top left'
+
+            }}
             onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
             onMouseLeave={e => e.currentTarget.style.transform = ''}
           >
@@ -118,7 +120,17 @@ export default function Hero() {
                 width: 44, height: 44, borderRadius: 12,
                 display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22,
                 background: 'rgba(43,91,168,.25)', border: '1px solid rgba(43,91,168,.4)',
-              }}>⚡</div>
+              }}>
+                <img
+                  src={lightning}
+                  alt=""
+                  style={{
+                    width: 28,
+                    height: 28,
+                    filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)',
+                  }}
+                />
+              </div>
               <span style={{
                 fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1,
                 padding: '4px 10px', borderRadius: 50,
@@ -158,8 +170,8 @@ export default function Hero() {
         </div>
       </div>
 
-      <style>{   
-      `
+      <style>{
+        `
        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap');
         /* Tablet */
         @media (max-width: 960px) {
