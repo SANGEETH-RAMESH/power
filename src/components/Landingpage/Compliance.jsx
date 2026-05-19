@@ -1,23 +1,30 @@
-import { useReveal } from '../../hooks/useReveal'
+import { useReveal } from '../../hooks/useReveal';
+import awardIcon from '../../assets/new/awards.svg';
+import plugIcon from '../../assets/new/plug.svg';
+import carIcon from '../../assets/new/vechile.svg';
+import lightningIcon from '../../assets/new/lightning.svg';
+import solarIcon from '../../assets/new/sun.svg';
+import gbIcon from '../../assets/new/gb1.svg';
+
 
 const certs = [
-  { icon: '🏅', name: 'MCS', desc: 'Microgeneration Certification Scheme for solar', status: 'in-progress' },
-  { icon: '🔌', name: 'NAPIT', desc: 'Approved Electrical Certification body', status: 'in-progress' },
-  { icon: '🚗', name: 'OZEV', desc: 'EV Chargepoint Grant compliance', status: 'in-progress' },
-  { icon: '⚡', name: 'BS 7671', desc: 'UK Wiring Regulations 18th Edition', status: 'compliant' },
-  { icon: '☀️', name: 'G98/G99', desc: 'DNO grid connection compliance', status: 'compliant' },
-  { icon: '🇬🇧', name: '0% VAT', desc: 'Residential solar & qualifying installs', status: 'confirmed' },
+  { icon: awardIcon, name: 'MCS', desc: 'Microgeneration Certification Scheme for solar', status: 'in-progress' },
+  { icon: plugIcon, name: 'NAPIT', desc: 'Approved Electrical Certification body', status: 'in-progress' },
+  { icon: carIcon, name: 'OZEV', desc: 'EV Chargepoint Grant compliance', status: 'in-progress' },
+  { icon: lightningIcon, name: 'BS 7671', desc: 'UK Wiring Regulations 18th Edition', status: 'compliant' },
+  { icon: solarIcon, name: 'G98/G99', desc: 'DNO grid connection compliance', status: 'compliant' },
+  { icon: gbIcon, name: '0% VAT', desc: 'Residential solar & qualifying installs', status: 'confirmed' },
 ]
 
 const statusConfig = {
   'in-progress': {
-  label: '+ IN PROGRESS',
-  style: {
-    background: 'rgba(255,140,0,0.15)',
-    color: '#FFA500',
-    border: '1px solid rgba(255,140,0,0.35)',
+    label: '+ IN PROGRESS',
+    style: {
+      background: 'rgba(255,140,0,0.15)',
+      color: '#FFA500',
+      border: '1px solid rgba(255,140,0,0.35)',
+    },
   },
-},
   compliant: {
     label: '✓ COMPLIANT',
     style: {
@@ -77,7 +84,9 @@ export default function Compliance() {
                   onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(90,140,46,.4)'}
                   onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--line)'}
                 >
-                  <div style={{ fontSize: 28, marginBottom: 10 }}>{c.icon}</div>
+                  <div style={{ fontSize: 28, marginBottom: 10 }}>
+                    <img src={c.icon} alt="" style={{ width: 18, height: 18, filter:  'invert(32%) sepia(98%) saturate(1600%) hue-rotate(200deg) brightness(98%) contrast(98%)' }} />
+                  </div>
                   <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1.5, color: 'var(--green-hi)', textTransform: 'uppercase', marginBottom: 4 }}>{c.name}</div>
                   <div style={{ fontSize: 11, color: 'var(--muted)', lineHeight: 1.5, marginBottom: 14, flexGrow: 1 }}>{c.desc}</div>
                   <div style={{

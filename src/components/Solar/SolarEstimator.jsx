@@ -2,6 +2,25 @@ import { useState, useRef } from "react";
 
 import logo from '../../assets/logo.png';
 
+import houseIcon from '../../assets/new/house.svg';
+import buildingIcon from '../../assets/new/building.svg';
+import plugIcon from '../../assets/new/plug.svg';
+import lightningIcon from '../../assets/new/lightning.svg';
+import solar from '../../assets/new/sun.svg';
+import southwestenglandIcon from '../../assets/new/southwestengland.svg';
+import midlandsIcon from '../../assets/new/midlands.svg';
+import northEnglandIcon from '../../assets/new/northengland.svg';
+import batteryIcon from '../../assets/new/battery.svg';
+import targetIcon from '../../assets/new/target.svg';
+import rocketIcon from '../../assets/new/rocket.svg';
+import moneyIcon from '../../assets/new/money.svg';
+import graphIcon from '../../assets/new/graph.svg';
+import calendar from '../../assets/new/calendar.svg';
+import globeIcon from '../../assets/new/globe.svg';
+import clipBoardIcon from '../../assets/new/clipboard.svg';
+
+
+
 const LOGO_SRC =
     "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/wAAACAAQABAAAAD/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AJWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//Z";
 
@@ -117,7 +136,10 @@ function OptionCard({ icon, title, desc, selected, onClick }) {
                 boxShadow: selected ? "0 0 0 1px #5A8C2E, 0 8px 32px rgba(90,140,46,0.15)" : "none",
             }}
         >
-            <span style={{ fontSize: 28 }}>{icon}</span>
+            <span style={{ fontSize: 28 }}>
+                <img src={icon} alt="" style={{ width: 18, height: 18, filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)', flexShrink: 0 }} />
+
+            </span>
             <span style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 700, color: "#fff", fontSize: 15 }}>{title}</span>
             <span style={{ fontSize: 12, color: "#8999bb", lineHeight: 1.5 }}>{desc}</span>
         </button>
@@ -289,14 +311,14 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
     const rootStyle = splitLayout
         ? { color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflow: "hidden", width: "100%", height: "100%" }
         : embedded
-? { color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflow: "visible", width: "100%", display: "block" }
-        : { minHeight: "100vh", color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflowX: "hidden", background: "#07111f" };
+            ? { color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflow: "visible", width: "100%", display: "block" }
+            : { minHeight: "100vh", color: "#fff", fontFamily: "'Plus Jakarta Sans',sans-serif", overflowX: "hidden", background: "#07111f" };
 
     const mainStyle = splitLayout
         ? { position: "relative", zIndex: 10, width: "100%", height: "100%", padding: "2rem 2rem", margin: 0, overflow: "auto", maxHeight: "calc(100vh - 100px)" }
         : embedded
-        ? { position: "relative", zIndex: 10, width: "100%", maxWidth: "100%", padding: 0, margin: 0, boxSizing: "border-box" }
-        : { position: "relative", zIndex: 10, maxWidth: 860, margin: "0 auto", padding: "6rem 1.5rem 5rem" };
+            ? { position: "relative", zIndex: 10, width: "100%", maxWidth: "100%", padding: 0, margin: 0, boxSizing: "border-box" }
+            : { position: "relative", zIndex: 10, maxWidth: 860, margin: "0 auto", padding: "6rem 1.5rem 5rem" };
 
     return (
         <div style={rootStyle}>
@@ -382,8 +404,8 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
                                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 28, width: "100%", boxSizing: "border-box" }}>
 
                                     {[
-                                        { v: "residential", icon: "🏠", t: "Residential", d: "House, flat, bungalow" },
-                                        { v: "commercial", icon: "🏢", t: "Commercial", d: "Office, shop, hotel, warehouse" },
+                                        { v: "residential", icon: houseIcon, t: "Residential", d: "House, flat, bungalow" },
+                                        { v: "commercial", icon: buildingIcon, t: "Commercial", d: "Office, shop, hotel, warehouse" },
                                     ].map(o => (
                                         <OptionCard key={o.v} icon={o.icon} title={o.t} desc={o.d}
                                             selected={data.propertyType === o.v}
@@ -432,9 +454,9 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
                                 <p style={{ fontSize: 13, color: "#8999bb", marginBottom: 28, lineHeight: 1.6 }}>Most UK homes go grid-tied or hybrid with battery storage for evening use.</p>
                                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12, marginBottom: 28 }}>
                                     {[
-                                        { v: "grid-tied", icon: "🔌", t: "Grid-Tied", d: "Lowest cost. Exports surplus to grid via SEG. No power in outage." },
-                                        { v: "hybrid", icon: "⚡", t: "Hybrid + Battery", d: "Store daytime solar for evening use. Best self-sufficiency." },
-                                        { v: "off-grid", icon: "🏡", t: "Off-Grid", d: "Fully independent. Ideal for rural or remote properties." },
+                                        { v: "grid-tied", icon: plugIcon, t: "Grid-Tied", d: "Lowest cost. Exports surplus to grid via SEG. No power in outage." },
+                                        { v: "hybrid", icon: lightningIcon, t: "Hybrid + Battery", d: "Store daytime solar for evening use. Best self-sufficiency." },
+                                        { v: "off-grid", icon: houseIcon, t: "Off-Grid", d: "Fully independent. Ideal for rural or remote properties." },
                                     ].map(o => (
                                         <OptionCard key={o.v} icon={o.icon} title={o.t} desc={o.d}
                                             selected={data.systemType === o.v}
@@ -452,10 +474,10 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
                                 <p style={{ fontSize: 13, color: "#8999bb", marginBottom: 28, lineHeight: 1.6 }}>Solar irradiance varies across England — the South West receives more sunshine than the North.</p>
                                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 28 }}>
                                     {[
-                                        { v: "sw", icon: "🌞", t: "South West England", d: "Cornwall, Devon, Bristol, Somerset (~4.0 hrs/day)" },
-                                        { v: "se", icon: "☀️", t: "South East & East England", d: "London, Kent, Essex, Cambridge (~3.5 hrs/day)" },
-                                        { v: "midlands", icon: "🌤️", t: "Midlands", d: "Birmingham, Coventry, Leicester, Nottingham (~3.1 hrs/day)" },
-                                        { v: "north", icon: "⛅", t: "North England", d: "Manchester, Leeds, Sheffield, Newcastle (~2.7 hrs/day)" },
+                                        { v: "sw", icon: southwestenglandIcon, t: "South West England", d: "Cornwall, Devon, Bristol, Somerset (~4.0 hrs/day)" },
+                                        { v: "se", icon: solar, t: "South East & East England", d: "London, Kent, Essex, Cambridge (~3.5 hrs/day)" },
+                                        { v: "midlands", icon: midlandsIcon, t: "Midlands", d: "Birmingham, Coventry, Leicester, Nottingham (~3.1 hrs/day)" },
+                                        { v: "north", icon: northEnglandIcon, t: "North England", d: "Manchester, Leeds, Sheffield, Newcastle (~2.7 hrs/day)" },
                                     ].map(o => (
                                         <OptionCard key={o.v} icon={o.icon} title={o.t} desc={o.d}
                                             selected={data.sunlight === o.v}
@@ -473,8 +495,8 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
                                 <p style={{ fontSize: 13, color: "#8999bb", marginBottom: 28, lineHeight: 1.6 }}>Most UK homes are single phase. Check your fuse box or ask your DNO if unsure.</p>
                                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 28 }}>
                                     {[
-                                        { v: "single", icon: "🔋", t: "Single Phase", d: "Most UK homes — supports systems up to ~3.68 kW per inverter" },
-                                        { v: "three", icon: "⚡", t: "Three Phase", d: "Larger homes & commercial — supports higher capacity systems" },
+                                        { v: "single", icon: batteryIcon, t: "Single Phase", d: "Most UK homes — supports systems up to ~3.68 kW per inverter" },
+                                        { v: "three", icon: lightningIcon, t: "Three Phase", d: "Larger homes & commercial — supports higher capacity systems" },
                                     ].map(o => (
                                         <OptionCard key={o.v} icon={o.icon} title={o.t} desc={o.d}
                                             selected={data.phase === o.v}
@@ -492,9 +514,9 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
                                 <p style={{ fontSize: 13, color: "#8999bb", marginBottom: 28, lineHeight: 1.6 }}>This helps us select the right panel technology and inverter for your needs.</p>
                                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12, marginBottom: 28 }}>
                                     {[
-                                        { v: "savings", icon: "💰", t: "Best Savings", d: "Fastest payback, maximise long-term ROI" },
-                                        { v: "performance", icon: "🚀", t: "Top Performance", d: "Premium panels — better output in low UK light" },
-                                        { v: "budget", icon: "🎯", t: "Lowest Upfront Cost", d: "Affordable entry, solid UK-certified quality" },
+                                        { v: "savings", icon: moneyIcon, t: "Best Savings", d: "Fastest payback, maximise long-term ROI" },
+                                        { v: "performance", icon: rocketIcon, t: "Top Performance", d: "Premium panels — better output in low UK light" },
+                                        { v: "budget", icon: targetIcon, t: "Lowest Upfront Cost", d: "Affordable entry, solid UK-certified quality" },
                                     ].map(o => (
                                         <OptionCard key={o.v} icon={o.icon} title={o.t} desc={o.d}
                                             selected={data.priority === o.v}
@@ -521,7 +543,22 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
 
                         {/* Cost card */}
                         <div style={{ marginBottom: 12 }}>
-                            <ResultCard hero label="💰 Estimated Total System Cost">
+                            <ResultCard
+                                label={
+                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                        <img
+                                            src={solar}
+                                            alt=""
+                                            style={{
+                                                width: 18,
+                                                height: 18,
+                                                filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)'
+                                            }}
+                                        />
+                                        <span>Estimated Total System Cost</span>
+                                    </div>
+                                }
+                            >
                                 <div style={{ display: "flex", gap: 0, alignItems: "stretch", flexWrap: "wrap" }}>
                                     <div style={{ flex: 1, minWidth: 120 }}>
                                         <div style={{ fontSize: 11, color: "#8999bb", marginBottom: 6, fontWeight: 500 }}>Minimum estimate</div>
@@ -541,30 +578,137 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
 
                         {/* 2-col stats */}
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
-                            <ResultCard label="⚡ System Size">
-                                <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 900, fontSize: "clamp(28px,4vw,36px)", letterSpacing: "-1px", lineHeight: 1, color: "#fff" }}>{results.ssize}</div>
-                                <div style={{ fontSize: 13, color: "#8999bb", marginTop: 8 }}>{results.panels}</div>
-                            </ResultCard>
-                            <ResultCard label="📉 Monthly Savings">
-                                <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 900, fontSize: "clamp(28px,4vw,36px)", letterSpacing: "-1px", lineHeight: 1, color: "#72b038" }}>{results.msave}</div>
-                                <div style={{ fontSize: 13, color: "#8999bb", marginTop: 8 }}>{results.asave}</div>
-                            </ResultCard>
-                            <ResultCard label="📅 Payback Period">
-                                <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 900, fontSize: "clamp(28px,4vw,36px)", letterSpacing: "-1px", lineHeight: 1, color: "#fff" }}>{results.payback}</div>
-                                <div style={{ height: 8, background: "rgba(255,255,255,0.05)", borderRadius: 4, overflow: "hidden", marginTop: 12 }}>
-                                    <div style={{ height: "100%", borderRadius: 4, background: "linear-gradient(90deg,#4a7fd4,#72b038)", width: `${pbWidth}%`, transition: "width 1.4s cubic-bezier(0.16,1,0.3,1)" }} />
+
+                            <ResultCard
+                                label={
+                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                        <img
+                                            src={lightningIcon}
+                                            alt=""
+                                            style={{
+                                                width: 18,
+                                                height: 18,
+                                                filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)'
+                                            }}
+                                        />
+                                        <span>System Size</span>
+                                    </div>
+                                }
+                            >
+                                <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 900, fontSize: "clamp(28px,4vw,36px)", letterSpacing: "-1px", lineHeight: 1, color: "#fff" }}>
+                                    {results.ssize}
                                 </div>
-                                <div style={{ fontSize: 13, color: "#8999bb", marginTop: 8 }}>Out of 25-year panel life</div>
+                                <div style={{ fontSize: 13, color: "#8999bb", marginTop: 8 }}>
+                                    {results.panels}
+                                </div>
                             </ResultCard>
-                            <ResultCard label="🌍 CO₂ Saved (25 yrs)">
-                                <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 900, fontSize: "clamp(28px,4vw,36px)", letterSpacing: "-1px", lineHeight: 1, color: "#72b038" }}>{results.co2}</div>
-                                <div style={{ fontSize: 13, color: "#8999bb", marginTop: 8 }}>{results.trees}</div>
+
+                            <ResultCard
+                                label={
+                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                        <img
+                                            src={graphIcon}
+                                            alt=""
+                                            style={{
+                                                width: 18,
+                                                height: 18,
+                                                filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)'
+                                            }}
+                                        />
+                                        <span>Monthly Savings</span>
+                                    </div>
+                                }
+                            >
+                                <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 900, fontSize: "clamp(28px,4vw,36px)", letterSpacing: "-1px", lineHeight: 1, color: "#72b038" }}>
+                                    {results.msave}
+                                </div>
+                                <div style={{ fontSize: 13, color: "#8999bb", marginTop: 8 }}>
+                                    {results.asave}
+                                </div>
                             </ResultCard>
+
+                            <ResultCard
+                                label={
+                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                        <img
+                                            src={calendar}
+                                            alt=""
+                                            style={{
+                                                width: 18,
+                                                height: 18,
+                                                filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)'
+                                            }}
+                                        />
+                                        <span>Payback Period</span>
+                                    </div>
+                                }
+                            >
+                                <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 900, fontSize: "clamp(28px,4vw,36px)", letterSpacing: "-1px", lineHeight: 1, color: "#fff" }}>
+                                    {results.payback}
+                                </div>
+
+                                <div style={{ height: 8, background: "rgba(255,255,255,0.05)", borderRadius: 4, overflow: "hidden", marginTop: 12 }}>
+                                    <div
+                                        style={{
+                                            height: "100%",
+                                            borderRadius: 4,
+                                            background: "linear-gradient(90deg,#4a7fd4,#72b038)",
+                                            width: `${pbWidth}%`,
+                                            transition: "width 1.4s cubic-bezier(0.16,1,0.3,1)"
+                                        }}
+                                    />
+                                </div>
+
+                                <div style={{ fontSize: 13, color: "#8999bb", marginTop: 8 }}>
+                                    Out of 25-year panel life
+                                </div>
+                            </ResultCard>
+
+                            <ResultCard
+                                label={
+                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                        <img
+                                            src={globeIcon}
+                                            alt=""
+                                            style={{
+                                                width: 18,
+                                                height: 18,
+                                                filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)'
+                                            }}
+                                        />
+                                        <span>CO₂ Saved (25 yrs)</span>
+                                    </div>
+                                }
+                            >
+                                <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 900, fontSize: "clamp(28px,4vw,36px)", letterSpacing: "-1px", lineHeight: 1, color: "#72b038" }}>
+                                    {results.co2}
+                                </div>
+
+                                <div style={{ fontSize: 13, color: "#8999bb", marginTop: 8 }}>
+                                    {results.trees}
+                                </div>
+                            </ResultCard>
+
                         </div>
 
                         {/* Breakdown */}
                         <div style={{ marginBottom: 12 }}>
-                            <ResultCard label="📋 System Breakdown">
+                            <ResultCard
+                                label={
+                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                        <img
+                                            src={clipBoardIcon}
+                                            alt=""
+                                            style={{
+                                                width: 18,
+                                                height: 18,
+                                                filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)'
+                                            }}
+                                        />
+                                        <span>System Breakdown</span>
+                                    </div>
+                                }
+                            >
                                 <BRow label="System Type" value={results.btype} />
                                 <BRow label="Panel Technology" value={results.bpanel} />
                                 <BRow label="Inverter" value={results.binv} />
@@ -574,7 +718,6 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
                                 <BRow label="Electricity Phase" value={results.bph} />
                             </ResultCard>
                         </div>
-
                         {/* CTA */}
                         <div style={{ position: "relative", overflow: "hidden", borderRadius: 18, padding: embedded ? "32px 24px" : "44px 40px", textAlign: "center", border: "1px solid rgba(43,91,168,0.28)", background: "linear-gradient(135deg,rgba(43,91,168,0.18),rgba(90,140,46,0.12))", marginBottom: 24 }}>
                             <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 0%,rgba(90,140,46,0.1),transparent 70%)", pointerEvents: "none" }} />

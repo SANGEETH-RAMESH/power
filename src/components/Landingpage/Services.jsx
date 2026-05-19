@@ -5,7 +5,7 @@ import solar from '../../assets/new/sun.svg';
 
 const services = [
   {
-    num: '01 / EV CHARGING',
+    num: 'EV CHARGING',
     icon: lightning,
     title: 'EV CHARGER INSTALLATION',
     desc: 'Home and commercial EV charger installation designed around your vehicle, property, and usage. We handle everything from survey to commissioning.',
@@ -21,7 +21,7 @@ const services = [
     link: '/contact-us'
   },
   {
-    num: '02 / SOLAR POWER',
+    num: 'SOLAR POWER',
     icon: solar,
     title: 'SOLAR SYSTEM INSTALLATION',
     desc: 'Grid-tied, hybrid, and off-grid solar systems installed to MCS standards. Reduce your energy bills and earn from surplus generation via the Smart Export Guarantee.',
@@ -148,14 +148,14 @@ export default function Services() {
                   : 'rgba(43,91,168,.4)'}`
               }}>
                 <img
-  src={s.icon}
-  alt=""
-  style={{
-    width: 34,
-    height: 34,
-    filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)',
-  }}
-/>
+                  src={s.icon}
+                  alt=""
+                  style={{
+                    width: 34,
+                    height: 34,
+                    filter: 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)',
+                  }}
+                />
               </div>
 
               <div style={{
