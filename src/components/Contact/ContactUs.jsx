@@ -28,6 +28,7 @@ import vechileIcon from '../../assets/new/vechile.svg';
 import garageIcon from '../../assets/new/garage.svg';
 import flatRoofIcon from '../../assets/new/flat_roof.svg';
 import questionMarkIcon from '../../assets/new/question_mark.svg';
+import axios from "axios";
 
 
 const ICON_FILTER = 'invert(62%) sepia(47%) saturate(500%) hue-rotate(50deg) brightness(95%)';
@@ -178,15 +179,82 @@ export default function Contact() {
     return errs;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const errs = validate();
-    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    setSubmitting(true);
-    setTimeout(() => {
+
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+
+      const selectedServices = [];
+
+if (services.ev) {
+  selectedServices.push({
+    service: "ev",
+    title: "EV Charger Installation",
+    details: {
+      propertyType: evDetails.property,
+      parkingType: evDetails.parking,
+      numberOfChargersRequired: evDetails.chargers,
+      electricalSupply: evDetails.phase,
+      alreadyHaveEV: evDetails.hasEV,
+    },
+  });
+}
+
+if (services.solar) {
+  selectedServices.push({
+    service: "solar",
+    title: "Solar System Installation",
+    details: {
+      propertyType: solarDetails.property,
+      roofType: solarDetails.roof,
+      monthlyElectricityBill: solarDetails.bill,
+      batteryStorage: solarDetails.battery,
+    },
+  });
+}
+
+const payload = {
+  formData,
+  services: selectedServices,
+  consented,
+  files: files.map((f) => ({
+    name: f.name,
+    size: f.size,
+    type: f.type,
+  })),
+};
+
+console.log(payload,'Payload')
+
+      const response = await axios.post(
+        "https://n8n.mentormerlin.com/webhook-test/e566c045-3ca3-46d5-b9a7-7491303c8752",
+        payload,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("Webhook Success:", response.data);
+
       setRefCode("WP-" + Math.floor(100000 + Math.random() * 900000));
       setSubmitted(true);
+
+    } catch (error) {
+      console.error(
+        "Webhook Error:",
+        error.response?.data || error.message
+      );
+    } finally {
       setSubmitting(false);
-    }, 1800);
+    }
   };
 
   const handleReset = () => {

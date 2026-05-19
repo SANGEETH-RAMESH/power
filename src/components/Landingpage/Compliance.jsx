@@ -85,7 +85,7 @@ export default function Compliance() {
                   onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--line)'}
                 >
                   <div style={{ fontSize: 28, marginBottom: 10 }}>
-                    <img src={c.icon} alt="" style={{ width: 18, height: 18, filter:  'invert(32%) sepia(98%) saturate(1600%) hue-rotate(200deg) brightness(98%) contrast(98%)' }} />
+                    <img src={c.icon} alt="" style={{ width: 18, height: 18, filter: 'invert(32%) sepia(98%) saturate(1600%) hue-rotate(200deg) brightness(98%) contrast(98%)' }} />
                   </div>
                   <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1.5, color: 'var(--green-hi)', textTransform: 'uppercase', marginBottom: 4 }}>{c.name}</div>
                   <div style={{ fontSize: 11, color: 'var(--muted)', lineHeight: 1.5, marginBottom: 14, flexGrow: 1 }}>{c.desc}</div>
