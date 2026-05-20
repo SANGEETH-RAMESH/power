@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from '../../assets/little_logo.png'
+import logo from '../../assets/logo.png'
 import termsPdf from '../../assets/pdfs/terms-and-conditions.pdf';
 import privacyPdf from '../../assets/pdfs/privacy-policy.pdf';
 import cookiePdf from '../../assets/pdfs/cookie-policy.pdf';
@@ -82,14 +82,9 @@ function Navbar() {
 
       <nav className={`wp-nav ${scrolled ? "scrolled" : "not-scrolled"}`}>
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="logo" className="h-[34px] w-auto" />
+          <img src={logo} alt="logo" className="h-[44px] w-auto" />
 
-          <span
-            className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
-            style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
-          >
-            WATTEN POWER
-          </span>
+          
         </Link>
 
         <button
@@ -899,14 +894,9 @@ console.log(payload,'Payload')
           <div>
             <div style={{ marginBottom: 16 }}>
               <Link to="/" className="flex items-center gap-2">
-                <img src={logo} alt="logo" className="h-[34px] w-auto" />
+                <img src={logo} alt="logo" className="h-[44px] w-auto" />
 
-                <span
-                  className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
-                  style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
-                >
-                  WATTEN POWER
-                </span>
+                
               </Link>
             </div>
             <p style={{ fontSize: 13, color: '#6278a0', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>

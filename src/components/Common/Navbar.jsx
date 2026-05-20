@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
-import logo from '../../assets/little_logo.png';
+import logo from '../../assets/logo.png';
 
 const navItems = [
   { label: 'Home', link: '/' },
@@ -28,14 +28,14 @@ export default function Navbar() {
     >
       {/* ── LOGO ── */}
       <Link to="/" className="flex items-center gap-2">
-        <img src={logo} alt="logo" className="h-[34px] w-auto" />
+        <img src={logo} alt="logo" className="h-[44px] w-auto" />
 
-        <span
+        {/* <span
           className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
           style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
         >
           WATTEN POWER
-        </span>
+        </span> */}
       </Link>
 
       {/* ── MOBILE HAMBURGER BUTTON ── */}

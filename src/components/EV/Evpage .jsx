@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from '../../assets/little_logo.png';
+import logo from '../../assets/logo.png';
 import { Link } from "react-router-dom";
 import termsPdf from '../../assets/pdfs/terms-and-conditions.pdf';
 import privacyPdf from '../../assets/pdfs/privacy-policy.pdf';
@@ -817,13 +817,8 @@ export default function EV() {
           <div>
             <div style={{ marginBottom: 16 }}>
               <Link to="/" className="flex items-center gap-2">
-                <img src={logo} alt="logo" className="h-[34px] w-auto" />
-                <span
-                  className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]"
-                  style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}
-                >
-                  WATTEN POWER
-                </span>
+                <img src={logo} alt="logo" className="h-[44px] w-auto" />
+                
               </Link>
             </div>
             <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
