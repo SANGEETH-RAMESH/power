@@ -4,7 +4,7 @@ import plugIcon from '../../assets/new/plug.svg';
 import carIcon from '../../assets/new/vechile.svg';
 import lightningIcon from '../../assets/new/lightning.svg';
 import solarIcon from '../../assets/new/sun.svg';
-import gbIcon from '../../assets/new/gb1.svg';
+import gbIcon from '../../assets/new/gb2.svg';
 
 
 const certs = [

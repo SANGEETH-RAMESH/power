@@ -28,6 +28,9 @@ import vechileIcon from '../../assets/new/vechile.svg';
 import garageIcon from '../../assets/new/garage.svg';
 import flatRoofIcon from '../../assets/new/flat_roof.svg';
 import questionMarkIcon from '../../assets/new/question_mark.svg';
+import questionIcon from '../../assets/new/questionmark.svg'
+import tickIcon1 from '../../assets/new/tick4.svg';
+import closeIcon from '../../assets/new/close.svg';
 import axios from "axios";
 
 
@@ -84,7 +87,7 @@ function Navbar() {
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="logo" className="h-[44px] w-auto" />
 
-          
+
         </Link>
 
         <button
@@ -187,45 +190,45 @@ export default function Contact() {
 
       const selectedServices = [];
 
-if (services.ev) {
-  selectedServices.push({
-    service: "ev",
-    title: "EV Charger Installation",
-    details: {
-      propertyType: evDetails.property,
-      parkingType: evDetails.parking,
-      numberOfChargersRequired: evDetails.chargers,
-      electricalSupply: evDetails.phase,
-      alreadyHaveEV: evDetails.hasEV,
-    },
-  });
-}
+      if (services.ev) {
+        selectedServices.push({
+          service: "ev",
+          title: "EV Charger Installation",
+          details: {
+            propertyType: evDetails.property,
+            parkingType: evDetails.parking,
+            numberOfChargersRequired: evDetails.chargers,
+            electricalSupply: evDetails.phase,
+            alreadyHaveEV: evDetails.hasEV,
+          },
+        });
+      }
 
-if (services.solar) {
-  selectedServices.push({
-    service: "solar",
-    title: "Solar System Installation",
-    details: {
-      propertyType: solarDetails.property,
-      roofType: solarDetails.roof,
-      monthlyElectricityBill: solarDetails.bill,
-      batteryStorage: solarDetails.battery,
-    },
-  });
-}
+      if (services.solar) {
+        selectedServices.push({
+          service: "solar",
+          title: "Solar System Installation",
+          details: {
+            propertyType: solarDetails.property,
+            roofType: solarDetails.roof,
+            monthlyElectricityBill: solarDetails.bill,
+            batteryStorage: solarDetails.battery,
+          },
+        });
+      }
 
-const payload = {
-  formData,
-  services: selectedServices,
-  consented,
-  files: files.map((f) => ({
-    name: f.name,
-    size: f.size,
-    type: f.type,
-  })),
-};
+      const payload = {
+        formData,
+        services: selectedServices,
+        consented,
+        files: files.map((f) => ({
+          name: f.name,
+          size: f.size,
+          type: f.type,
+        })),
+      };
 
-console.log(payload,'Payload')
+      console.log(payload, 'Payload')
 
       const response = await axios.post(
         "https://n8n.mentormerlin.com/webhook-test/e566c045-3ca3-46d5-b9a7-7491303c8752",
@@ -700,8 +703,36 @@ console.log(payload,'Payload')
               </div>
               <div className="fgroup">
                 <div className="flabel">Do you already have an EV?</div>
-                <div className="rpills">
-                  {["✅ Yes", "⏳ No"].map(v => <span key={v} className={`rp-btn${evDetails.hasEV === v ? " selected" : ""}`} onClick={() => setEvDetails(p => ({ ...p, hasEV: v }))}>{v}</span>)}
+
+                <div className="rpills" style={{ flexWrap: "nowrap" }}>
+                  {[
+                    { label: "Yes", value: "Yes", icon: tickIcon1 },
+                    { label: "No", value: "No", icon: closeIcon },
+                  ].map(({ label, value, icon }) => (
+                    <span
+                      key={value}
+                      className={`rp-btn${evDetails.hasEV === value ? " selected" : ""}`}
+                      onClick={() => setEvDetails(p => ({ ...p, hasEV: value }))}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 6,
+                        width: 90
+                      }}
+                    >
+                      <img
+                        src={icon}
+                        alt=""
+                        style={{
+                          width: 14,
+                          height: 14,
+                          filter: ICON_FILTER
+                        }}
+                      />
+                      {label}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -766,8 +797,37 @@ console.log(payload,'Payload')
                 </div>
                 <div className="fgroup">
                   <div className="flabel">Battery Storage?</div>
-                  <div className="rpills">
-                    {["✅ Yes", "❌ No", "❓ Not Sure"].map(v => <span key={v} className={`rp-btn${solarDetails.battery === v ? " selected" : ""}`} onClick={() => setSolarDetails(p => ({ ...p, battery: v }))}>{v}</span>)}
+
+                  <div className="rpills" style={{ flexWrap: "nowrap" }}>
+                    {[
+                      { label: "Yes", value: "Yes", icon: tickIcon1 },
+                      { label: "No", value: "No", icon: closeIcon },
+                      { label: "Not Sure", value: "Not Sure", icon: questionIcon },
+                    ].map(({ label, value, icon }) => (
+                      <span
+                        key={value}
+                        className={`rp-btn${solarDetails.battery === value ? " selected" : ""}`}
+                        onClick={() => setSolarDetails(p => ({ ...p, battery: value }))}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: 6,
+                          width: 100
+                        }}
+                      >
+                        <img
+                          src={icon}
+                          alt=""
+                          style={{
+                            width: 14,
+                            height: 14,
+                            filter: ICON_FILTER
+                          }}
+                        />
+                        {label}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -896,7 +956,7 @@ console.log(payload,'Payload')
               <Link to="/" className="flex items-center gap-2">
                 <img src={logo} alt="logo" className="h-[44px] w-auto" />
 
-                
+
               </Link>
             </div>
             <p style={{ fontSize: 13, color: '#6278a0', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
