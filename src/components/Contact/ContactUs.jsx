@@ -188,51 +188,110 @@ export default function Contact() {
     try {
       setSubmitting(true);
 
-      const selectedServices = [];
+      const formPayload = new FormData();
 
+      // =========================
+      // BASIC DETAILS
+      // =========================
+      formPayload.append("formData[fullName]", formData.fullName);
+      formPayload.append("formData[phone]", formData.phone);
+      formPayload.append("formData[email]", formData.email);
+      formPayload.append("formData[postcode]", formData.postcode);
+      formPayload.append("formData[message]", formData.message || "");
+
+      // =========================
+      // EV SERVICE
+      // =========================
       if (services.ev) {
-        selectedServices.push({
-          service: "ev",
-          title: "EV Charger Installation",
-          details: {
-            propertyType: evDetails.property,
-            parkingType: evDetails.parking,
-            numberOfChargersRequired: evDetails.chargers,
-            electricalSupply: evDetails.phase,
-            alreadyHaveEV: evDetails.hasEV,
-          },
-        });
+        formPayload.append(
+          "services[0][service]",
+          "ev"
+        );
+
+        formPayload.append(
+          "services[0][title]",
+          "EV Charger Installation"
+        );
+
+        formPayload.append(
+          "services[0][details][propertyType]",
+          evDetails.property
+        );
+
+        formPayload.append(
+          "services[0][details][parkingType]",
+          evDetails.parking
+        );
+
+        formPayload.append(
+          "services[0][details][numberOfChargersRequired]",
+          evDetails.chargers
+        );
+
+        formPayload.append(
+          "services[0][details][electricalSupply]",
+          evDetails.phase
+        );
+
+        formPayload.append(
+          "services[0][details][alreadyHaveEV]",
+          evDetails.hasEV
+        );
       }
 
+      // =========================
+      // SOLAR SERVICE
+      // =========================
       if (services.solar) {
-        selectedServices.push({
-          service: "solar",
-          title: "Solar System Installation",
-          details: {
-            propertyType: solarDetails.property,
-            roofType: solarDetails.roof,
-            monthlyElectricityBill: solarDetails.bill,
-            batteryStorage: solarDetails.battery,
-          },
-        });
+        formPayload.append(
+          "services[1][service]",
+          "solar"
+        );
+
+        formPayload.append(
+          "services[1][title]",
+          "Solar System Installation"
+        );
+
+        formPayload.append(
+          "services[1][details][propertyType]",
+          solarDetails.property
+        );
+
+        formPayload.append(
+          "services[1][details][roofType]",
+          solarDetails.roof
+        );
+
+        formPayload.append(
+          "services[1][details][monthlyElectricityBill]",
+          solarDetails.bill
+        );
+
+        formPayload.append(
+          "services[1][details][batteryStorage]",
+          solarDetails.battery
+        );
       }
 
-      const payload = {
-        formData,
-        services: selectedServices,
-        consented,
-        files: files.map((f) => ({
-          name: f.name,
-          size: f.size,
-          type: f.type,
-        })),
-      };
+      // =========================
+      // CONSENT
+      // =========================
+      formPayload.append("consented", consented);
 
-      console.log(payload, 'Payload')
+      // =========================
+      // FILES / IMAGES
+      // =========================
+      files.forEach((file) => {
+        formPayload.append("data", file, file.name);
+      });
 
+      // =========================
+      // API CALL
+      // =========================
       const response = await axios.post(
-        "https://n8n.mentormerlin.com/webhook-test/e566c045-3ca3-46d5-b9a7-7491303c8752",
-        payload,
+        "https://n8n.mentormerlin.com/webhook/e566c045-3ca3-46d5-b9a7-7491303c8752",
+        formPayload,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -242,7 +301,10 @@ export default function Contact() {
 
       console.log("Webhook Success:", response.data);
 
-      setRefCode("WP-" + Math.floor(100000 + Math.random() * 900000));
+      setRefCode(
+        "WP-" + Math.floor(100000 + Math.random() * 900000)
+      );
+
       setSubmitted(true);
 
     } catch (error) {
