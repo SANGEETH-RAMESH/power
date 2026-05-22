@@ -18,6 +18,7 @@ import graphIcon from '../../assets/new/graph.svg';
 import calendar from '../../assets/new/calendar.svg';
 import globeIcon from '../../assets/new/globe.svg';
 import clipBoardIcon from '../../assets/new/clipboard.svg';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -270,6 +271,7 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
     const [results, setResults] = useState(null);
     const [pbWidth, setPbWidth] = useState(0);
     const mainRef = useRef(null);
+    const navigate = useNavigate();
 
     const scrollTop = () => mainRef.current?.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -727,7 +729,7 @@ function SolarEstimator({ startFromStep, onBack, embedded, splitLayout } = {}) {
                             </p>
                             <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", position: "relative" }}>
                                 <button
-                                    onClick={() => alert("Thank you! Our Watten Power team will be in touch within 24 hours.")}
+                                    onClick={() => navigate('/contact-us')}
                                     style={{ ...nextBtnStyle, fontSize: 14, padding: "16px 36px" }}>
                                     Book Free Survey →
                                 </button>
