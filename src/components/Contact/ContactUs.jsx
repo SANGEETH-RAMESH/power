@@ -968,8 +968,12 @@ export default function Contact() {
           <div className="consent-row" onClick={() => { setConsented(p => !p); setErrors(e => ({ ...e, consent: "" })); }}>
             <div className={`consent-cb${consented ? " on" : ""}`}>{consented ? "✓" : ""}</div>
             <div className="consent-txt">
-              I agree to Watten Power Ltd contacting me regarding this enquiry. My information will be handled in accordance with the <a href="#" onClick={e => e.stopPropagation()}>Privacy Policy</a> and will not be shared with third parties. <span style={{ color: "var(--green-hi)" }}>*</span>
-            </div>
+  I consent to Watten Power Limited contacting me in relation to this enquiry. My personal data will be processed in accordance with the{" "}
+  <a href="#" onClick={e => e.stopPropagation()}>
+    Privacy Policy
+  </a>{" "}
+  and will not be shared with third parties.
+</div>
           </div>
           {errors.consent && <div className="ferr show" style={{ paddingLeft: 34, marginTop: 6 }}>{errors.consent}</div>}
         </div>
