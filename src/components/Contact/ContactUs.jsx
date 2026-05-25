@@ -286,18 +286,11 @@ export default function Contact() {
         formPayload.append("data", file, file.name);
       });
 
-      // =========================
-      // API CALL
-      // =========================
+
       const response = await axios.post(
-        "https://n8n.mentormerlin.com/webhook/e566c045-3ca3-46d5-b9a7-7491303c8752",
-        formPayload,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+  "https://n8n.mentormerlin.com/webhook/e566c045-3ca3-46d5-b9a7-7491303c8752",
+  formPayload
+);
 
       console.log("Webhook Success:", response.data);
 
