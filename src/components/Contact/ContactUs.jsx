@@ -288,9 +288,14 @@ export default function Contact() {
 
 
       const response = await axios.post(
-  "https://n8n.mentormerlin.com/webhook/e566c045-3ca3-46d5-b9a7-7491303c8752",
-  formPayload
-);
+        "https://n8n.mentormerlin.com/webhook/e566c045-3ca3-46d5-b9a7-7491303c8752",
+        formPayload,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       console.log("Webhook Success:", response.data);
 
