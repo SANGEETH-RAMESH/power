@@ -966,12 +966,12 @@ export default function Contact() {
           <div className="consent-row" onClick={() => { setConsented(p => !p); setErrors(e => ({ ...e, consent: "" })); }}>
             <div className={`consent-cb${consented ? " on" : ""}`}>{consented ? "✓" : ""}</div>
             <div className="consent-txt">
-  I consent to Watten Power Limited contacting me in relation to this enquiry. My personal data will be processed in accordance with the{" "}
-  <a href="#" onClick={e => e.stopPropagation()}>
-    Privacy Policy
-  </a>{" "}
-  and will not be shared with third parties.
-</div>
+              I consent to Watten Power Limited contacting me in relation to this enquiry. My personal data will be processed in accordance with the{" "}
+              <a href="#" onClick={e => e.stopPropagation()}>
+                Privacy Policy
+              </a>{" "}
+              and will not be shared with third parties.
+            </div>
           </div>
           {errors.consent && <div className="ferr show" style={{ paddingLeft: 34, marginTop: 6 }}>{errors.consent}</div>}
         </div>
@@ -1104,6 +1104,7 @@ export default function Contact() {
           <p className="success-desc">Thank you for your enquiry. Our team will review your details and get back to you within 24 hours with a tailored recommendation.</p>
           <p className="success-ref">{refCode}</p>
           <button className="btn-submit" onClick={handleReset} style={{ marginTop: 8 }}>Submit Another Enquiry</button>
+          <Link to="/" className="hbtn-outline" style={{ marginTop: 12, justifyContent: 'center' }}>← Back to Home</Link>
         </div>
       </div>
     </div>
