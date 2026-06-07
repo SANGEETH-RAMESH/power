@@ -17,43 +17,102 @@ export default function CircuitCanvas() {
 
     class Line {
       constructor() { this.reset(true) }
+      
       reset(init = false) {
         this.x = Math.random() * W
-        this.y = init ? Math.random() * H : (Math.random() < .5 ? -10 : H + 10)
-        this.dir = Math.random() < .5 ? 1 : -1
-        this.speed = .3 + Math.random() * .6
-        this.alpha = .12 + Math.random() * .18
-        this.color = Math.random() < .6 ? '43,91,168' : '90,140,46'
-        this.segments = []
-        let cx = this.x, cy = this.y
-        for (let i = 0; i < 6; i++) {
-          const horiz = Math.random() < .5
-          const d = (30 + Math.random() * 60) * (Math.random() < .5 ? 1 : -1)
-          if (horiz) cx += d; else cy += d
-          this.segments.push({ x: cx, y: cy })
+        this.y = Math.random() * H
+        
+        // Vibrant neon colors matching the screenshot (Cyan and Bright Green)
+        this.color = Math.random() < 0.4 ? '138, 255, 104' : '0, 195, 255'
+        this.points = [{ x: this.x, y: this.y }]
+        this.totalLength = 0
+
+        let cx = this.x
+        let cy = this.y
+        let direction = Math.floor(Math.random() * 4) // 0: Up, 1: Right, 2: Down, 3: Left
+
+        // Generate orthogonal circuit board-like segments
+        const numSegments = 3 + Math.floor(Math.random() * 4)
+        for (let i = 0; i < numSegments; i++) {
+          let dist = 50 + Math.random() * 150
+          
+          // Occasionally add a 45-degree diagonal bend for variety
+          if (Math.random() < 0.15) {
+            const dirX = Math.random() < 0.5 ? 1 : -1
+            const dirY = Math.random() < 0.5 ? 1 : -1
+            cx += dist * dirX
+            cy += dist * dirY
+            this.totalLength += Math.sqrt(dist * dist + dist * dist)
+          } else {
+            if (direction === 0) cy -= dist
+            else if (direction === 1) cx += dist
+            else if (direction === 2) cy += dist
+            else if (direction === 3) cx -= dist
+            this.totalLength += dist
+          }
+
+          this.points.push({ x: cx, y: cy })
+          
+          // Force a 90-degree turn left or right for the next segment
+          direction = (direction + (Math.random() < 0.5 ? 1 : 3)) % 4
         }
+
+        // Delay the start of some lines so they don't all animate at once
+        this.progress = init ? -Math.random() * this.totalLength : -Math.random() * 500
+        this.speed = 0.8 + Math.random() * 1.5
+        this.pulseLength = 30 + Math.random() * 50
       }
+
       draw() {
-        ctx.strokeStyle = `rgba(${this.color},${this.alpha})`
+        // 1. Draw the faint, fixed background track
+        ctx.shadowBlur = 0
+        ctx.beginPath()
+        ctx.moveTo(this.points[0].x, this.points[0].y)
+        for (let i = 1; i < this.points.length; i++) {
+          ctx.lineTo(this.points[i].x, this.points[i].y)
+        }
+        ctx.strokeStyle = `rgba(${this.color}, 0.15)`
         ctx.lineWidth = 1
-        ctx.beginPath()
-        ctx.moveTo(this.x, this.y)
-        this.segments.forEach(s => ctx.lineTo(s.x, s.y))
+        ctx.setLineDash([])
         ctx.stroke()
-        const last = this.segments[this.segments.length - 1]
-        ctx.fillStyle = `rgba(${this.color},${this.alpha * 2})`
+
+        // 2. Draw the animated glowing pulse traveling along the path
+        if (this.progress > -this.pulseLength && this.progress < this.totalLength) {
+          ctx.beginPath()
+          ctx.moveTo(this.points[0].x, this.points[0].y)
+          for (let i = 1; i < this.points.length; i++) {
+            ctx.lineTo(this.points[i].x, this.points[i].y)
+          }
+
+          ctx.shadowColor = `rgb(${this.color})`
+          ctx.shadowBlur = 10 // Creates the glowing effect
+          ctx.strokeStyle = `rgba(${this.color}, 0.8)`
+          ctx.lineWidth = 2
+          
+          // Trick: Use a dash pattern of [pulse_size, massive_gap] and offset it
+          ctx.setLineDash([this.pulseLength, 99999]) 
+          ctx.lineDashOffset = -this.progress
+          ctx.stroke()
+        }
+
+        // 3. Draw a static node dot at the end of the line
+        ctx.shadowBlur = 4
         ctx.beginPath()
-        ctx.arc(last.x, last.y, 2, 0, Math.PI * 2)
+        const lastP = this.points[this.points.length - 1]
+        ctx.arc(lastP.x, lastP.y, 2.5, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(${this.color}, 0.6)`
         ctx.fill()
       }
+
       update() {
-        this.y += this.speed * this.dir
-        this.segments.forEach(s => s.y += this.speed * this.dir)
-        if (this.y > H + 200 || this.y < -200) this.reset()
+        this.progress += this.speed
+        // Reset the line when the pulse finishes traveling
+        if (this.progress > this.totalLength + 100) this.reset()
       }
     }
 
-    for (let i = 0; i < 28; i++) lines.push(new Line())
+    // Initialize lines
+    for (let i = 0; i < 25; i++) lines.push(new Line())
 
     function animate() {
       ctx.clearRect(0, 0, W, H)
@@ -71,7 +130,13 @@ export default function CircuitCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: 0.35 }}
+      style={{ 
+        position: 'fixed', 
+        inset: 0, 
+        zIndex: -1, 
+        pointerEvents: 'none' 
+        // Note: Removed `opacity: 0.35` so the canvas glow effects stay bright!
+      }}
     />
   )
 }

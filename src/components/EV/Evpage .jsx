@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo1.png';
 import { Link } from "react-router-dom";
 import termsPdf from '../../assets/pdfs/terms-and-conditions.pdf';
 import privacyPdf from '../../assets/pdfs/privacy-policy.pdf';

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo1.png';
 
 import termsPdf from '../../assets/pdfs/terms-and-conditions.pdf';
 import privacyPdf from '../../assets/pdfs/privacy-policy.pdf';
