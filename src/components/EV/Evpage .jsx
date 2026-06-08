@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from '../../assets/logo1.png';
+import logo from '../../assets/logo1.webp';
 import { Link } from "react-router-dom";
 import termsPdf from '../../assets/pdfs/terms-and-conditions.pdf';
 import privacyPdf from '../../assets/pdfs/privacy-policy.pdf';
@@ -817,7 +817,7 @@ export default function EV() {
           <div>
             <div style={{ marginBottom: 16 }}>
               <Link to="/" className="flex items-center gap-2">
-                <img src={logo} alt="logo" className="h-[44px] w-auto" />
+                <img src={logo} alt="logo" className="h-[64px] w-auto" />
                 
               </Link>
             </div>

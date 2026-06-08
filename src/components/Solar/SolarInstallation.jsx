@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from '../../assets/logo1.png';
+import logo from '../../assets/logo1.webp';
 import { Link } from "react-router-dom";
 import { SolarEstimatorWizard } from './SolarEstimator';
 
@@ -856,7 +856,7 @@ export default function Solar() {
           <div>
             <div className="mb-4">
               <Link to="/" className="flex items-center gap-2">
-                <img src={logo} alt="logo" className="h-[44px] w-auto" />
+                <img src={logo} alt="logo" className="h-[64px] w-auto" />
                 {/* <span className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]" style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}>WATTEN POWER</span> */}
               </Link>
             </div>

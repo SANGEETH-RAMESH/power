@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from '../../assets/logo1.png'
+import logo from '../../assets/logo1.webp'
 import termsPdf from '../../assets/pdfs/terms-and-conditions.pdf';
 import privacyPdf from '../../assets/pdfs/privacy-policy.pdf';
 import cookiePdf from '../../assets/pdfs/cookie-policy.pdf';
@@ -85,7 +85,7 @@ function Navbar() {
 
       <nav className={`wp-nav ${scrolled ? "scrolled" : "not-scrolled"}`}>
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="logo" className="h-[44px] w-auto" />
+          <img src={logo} alt="logo" className="h-[64px] w-auto" />
 
 
         </Link>
@@ -1018,7 +1018,7 @@ export default function Contact() {
           <div>
             <div style={{ marginBottom: 16 }}>
               <Link to="/" className="flex items-center gap-2">
-                <img src={logo} alt="logo" className="h-[44px] w-auto" />
+                <img src={logo} alt="logo" className="h-[64px] w-auto" />
 
 
               </Link>
