@@ -59,7 +59,7 @@ function SolFooterCol({ title, links }) {
           <li key={i}>
             <a
               href={l.href}
-              className="text-[var(--muted)] no-underline transition-colors duration-200 hover:text-[var(--white)] break-words"
+              className="text-[var(--light)] no-underline transition-colors duration-200 hover:text-[var(--white)] break-words"
               style={{ fontSize: 13 }}
             >{l.label}</a>
           </li>
@@ -145,7 +145,7 @@ export default function Solar() {
           /* NAV mobile */
           .nav-mobile { display: none; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: rgba(4,16,31,.97); padding: 24px; gap: 20px; border-bottom: 1px solid rgba(43,91,168,.25); backdrop-filter: blur(20px); z-index: 199; list-style: none; }
           .nav-mobile.open { display: flex; }
-          .nav-mobile a { color: var(--muted); text-decoration: none; font-size: 14px; }
+          .nav-mobile a { color: var(--light); text-decoration: none; font-size: 14px; }
           .nav-mobile a.active { color: var(--green-hi); }
 
           /* HERO */
@@ -258,8 +258,8 @@ export default function Solar() {
         </div>
         <div className="s-hero-rays" />
         <div className="relative z-[3] flex-1 flex flex-col items-center justify-center w-full max-w-[900px] mx-auto px-6 pt-[100px] pb-12" style={{ animation: 'fadeUp .8s ease both' }}>
-          <div className="flex items-center justify-center gap-2 mb-7" style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--muted)', animation: 'fadeUp .8s ease both' }}>
-            <Link to="/" className="text-[var(--muted)] no-underline hover:text-[var(--white)] transition-colors">Home</Link>
+          <div className="flex items-center justify-center gap-2 mb-7" style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--light)', animation: 'fadeUp .8s ease both' }}>
+            <Link to="/" className="text-[var(--light)] no-underline hover:text-[var(--white)] transition-colors">Home</Link>
             <span>›</span>
             <span style={{ color: 'var(--green-hi)' }}>Solar Installation</span>
           </div>
@@ -294,7 +294,7 @@ export default function Solar() {
             <div key={label} className="flex-1 min-w-[120px] max-w-[260px] px-6 py-5 text-center border-r border-[rgba(43,91,168,.2)] last:border-r-0 bg-[rgba(4,16,31,.85)] backdrop-blur-md">
               <div className="hb-val">{val}</div>
               <span className="hb-divider" />
-              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'var(--muted)', lineHeight: 1.5 }}>{label}</div>
+              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'var(--light)', lineHeight: 1.5 }}>{label}</div>
             </div>
           ))}
         </div>
@@ -306,9 +306,9 @@ export default function Solar() {
           <div className="relative overflow-hidden reveal">
             <img src={img1} alt="Solar install" className="w-full h-full object-cover" style={{ filter: 'brightness(.65) saturate(.8)' }} />
             <div className="absolute bottom-10 left-10 z-[2] rounded-[14px] p-4 backdrop-blur-md" style={{ background: 'rgba(4,16,31,.85)', border: '1px solid var(--line-g)' }}>
-              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 4 }}>Avg. System Size</div>
+              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--light)', marginBottom: 4 }}>Avg. System Size</div>
               <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, letterSpacing: 1, color: 'var(--green-hi)' }}>4.2 kWp</div>
-              <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 2 }}>UK residential average</div>
+              <div style={{ fontSize: 12, color: 'var(--light)', marginTop: 2 }}>UK residential average</div>
             </div>
           </div>
           <div className="flex flex-col justify-center px-[60px] py-[72px] bg-[var(--ink-2)] max-[600px]:px-5 max-[600px]:py-9">
@@ -336,7 +336,7 @@ export default function Solar() {
             </div>
             <div className="flex flex-col justify-center px-10 py-9 backdrop-blur-md max-[600px]:px-5" style={{ background: 'var(--panel)' }}>
               <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, letterSpacing: '1.5px', marginBottom: 14 }}>RESIDENTIAL SOLAR SYSTEMS</div>
-              <div className="mb-6" style={{ fontSize: 16, color: 'var(--muted)', lineHeight: 1.75 }}>Roof-mounted solar PV systems designed and optimised for household energy consumption — with export capability to earn via the Smart Export Guarantee.</div>
+              <div className="mb-6" style={{ fontSize: 16, color: 'var(--light)', lineHeight: 1.75 }}>Roof-mounted solar PV systems designed and optimised for household energy consumption — with export capability to earn via the Smart Export Guarantee.</div>
               <ul className="list-none flex flex-col gap-[10px]">
                 {["Roof-mounted solar PV systems", "Single-phase inverter setups", "Optimised for household consumption", "Export-ready — earn via Smart Export Guarantee"].map(f => (
                   <li key={f} className="flex items-start gap-[10px]" style={{ fontSize: 15, color: 'var(--light)' }}>
@@ -354,7 +354,7 @@ export default function Solar() {
             </div>
             <div className="flex flex-col justify-center px-10 py-9 backdrop-blur-md max-[600px]:px-5" style={{ background: 'var(--panel)' }}>
               <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, letterSpacing: '1.5px', marginBottom: 14 }}>COMMERCIAL SOLAR SYSTEMS</div>
-              <div className="mb-6" style={{ fontSize: 16, color: 'var(--muted)', lineHeight: 1.75 }}>Large-scale rooftop installations engineered to significantly reduce business energy costs with scalable three-phase infrastructure for the future.</div>
+              <div className="mb-6" style={{ fontSize: 16, color: 'var(--light)', lineHeight: 1.75 }}>Large-scale rooftop installations engineered to significantly reduce business energy costs with scalable three-phase infrastructure for the future.</div>
               <ul className="list-none flex flex-col gap-[10px]">
                 {["Large-scale rooftop installations", "Three-phase systems", "Significant energy cost reduction", "Scalable for future business growth"].map(f => (
                   <li key={f} className="flex items-start gap-[10px]" style={{ fontSize: 15, color: 'var(--light)' }}>
@@ -375,7 +375,7 @@ export default function Solar() {
                 <div className="text-[28px] mb-[10px]">
                   <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
                 </div>
-                <div style={{ fontSize: 9, color: 'var(--muted)', lineHeight: 1.5, fontFamily: "'Space Mono', monospace", letterSpacing: '.5px', textTransform: 'uppercase' }}>{label}</div>
+                <div style={{ fontSize: 9, color: 'var(--light)', lineHeight: 1.5, fontFamily: "'Space Mono', monospace", letterSpacing: '.5px', textTransform: 'uppercase' }}>{label}</div>
               </div>
             ))}
           </div>
@@ -429,7 +429,7 @@ export default function Solar() {
                 {i < 5 && <div className="tl-connector" />}
                 <div className="tl-content rounded-[var(--r2)] p-7 transition-colors" style={{ background: 'var(--panel)', border: '1px solid var(--line)' }}>
                   <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, letterSpacing: 1, marginBottom: 8 }}>{title}</div>
-                  <div style={{ fontSize: 16, color: 'var(--muted)', lineHeight: 1.7 }}>{desc}</div>
+                  <div style={{ fontSize: 16, color: 'var(--light)', lineHeight: 1.7 }}>{desc}</div>
                 </div>
               </div>
             ))}
@@ -475,7 +475,7 @@ export default function Solar() {
                   />
                 </div>
                 <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 40, letterSpacing: 2, marginBottom: 8 }}>PREMIUM SYSTEM</div>
-                <div className="mb-7" style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.5 }}>Maximum efficiency and output</div>
+                <div className="mb-7" style={{ fontSize: 15, color: 'var(--light)', lineHeight: 1.5 }}>Maximum efficiency and output</div>
                 <ul className="list-none flex flex-col gap-[10px] rs-main-feats">
                   {["Higher capacity systems", "Advanced inverter options", "Best long-term savings", "Battery storage ready", "EV charger compatible"].map(f => (
                     <li key={f} className="flex items-start gap-[10px]" style={{ fontSize: 15, color: 'var(--light)' }}>{f}</li>
@@ -495,7 +495,7 @@ export default function Solar() {
                   <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
                 </div>
                 <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: '1.5px' }}>{name}</div>
-                <div style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.4 }}>{tag}</div>
+                <div style={{ fontSize: 13, color: 'var(--light)', lineHeight: 1.4 }}>{tag}</div>
                 <ul className="list-none flex flex-col gap-[6px] mt-1 rs-card-feats">
                   {feats.map(f => <li key={f} className="flex gap-[7px] items-start" style={{ fontSize: 13, color: 'var(--light)' }}>{f}</li>)}
                 </ul>
@@ -505,7 +505,7 @@ export default function Solar() {
           <div className="range-cta-band mt-9 flex items-center justify-between gap-5 px-9 py-7 rounded-[var(--r2)] flex-wrap reveal" style={{ background: 'linear-gradient(135deg,rgba(90,140,46,.12),rgba(43,91,168,.08))', border: '1px solid var(--line-g)' }}>
             <div>
               <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 22, letterSpacing: 1, marginBottom: 4 }}>Not sure what system size suits your property?</div>
-              <div style={{ fontSize: 16, color: 'var(--muted)' }}>We will analyse your usage and recommend the most efficient system.</div>
+              <div style={{ fontSize: 16, color: 'var(--light)' }}>We will analyse your usage and recommend the most efficient system.</div>
             </div>
             <Link to="/contact-us" className="btn-main btn-green">Request a Quote →</Link>
           </div>
@@ -617,7 +617,7 @@ export default function Solar() {
                     <div className="w-9 h-9 rounded-[9px] flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(90,140,46,.15)', border: '1px solid rgba(90,140,46,.3)' }}>
                       <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
                     </div>
-                    <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.5 }}>
+                    <div style={{ fontSize: 12, color: 'var(--light)', lineHeight: 1.5 }}>
                       <strong className="block mb-[2px]" style={{ fontSize: 13, color: 'var(--white)', fontWeight: 600 }}>{strong}</strong>
                       {sub}
                     </div>
@@ -645,7 +645,7 @@ export default function Solar() {
                     <div className="w-9 h-9 rounded-[9px] flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(90,140,46,.15)', border: '1px solid rgba(90,140,46,.3)' }}>
                       <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
                     </div>
-                    <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.5 }}>
+                    <div style={{ fontSize: 12, color: 'var(--light)', lineHeight: 1.5 }}>
                       <strong className="block mb-[2px]" style={{ fontSize: 13, color: 'var(--white)', fontWeight: 600 }}>{strong}</strong>
                       {sub}
                     </div>
@@ -702,7 +702,7 @@ export default function Solar() {
                 />
               </div>
               <div className="sb-num">{num}</div>
-              <div style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.5 }}>{label}</div>
+              <div style={{ fontSize: 13, color: 'var(--light)', lineHeight: 1.5 }}>{label}</div>
             </div>
           ))}
         </div>
@@ -739,7 +739,7 @@ export default function Solar() {
 
                 </div>
                 <div className="mb-[10px]" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: 1 }}>{title}</div>
-                <div style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.7 }}>{desc}</div>
+                <div style={{ fontSize: 15, color: 'var(--light)', lineHeight: 1.7 }}>{desc}</div>
               </div>
             ))}
           </div>
@@ -754,7 +754,7 @@ export default function Solar() {
               <div className="sec-label reveal">Standards</div>
               <h2 className="sec-title reveal rd1">BUILT TO<br />UK STANDARDS.<br />ALWAYS.</h2>
             </div>
-            <p className="reveal pl-4 self-end" style={{ fontSize: 14, color: 'var(--muted)', lineHeight: 1.75, borderLeft: '2px solid var(--line-g)' }}>
+            <p className="reveal pl-4 self-end" style={{ fontSize: 14, color: 'var(--light)', lineHeight: 1.75, borderLeft: '2px solid var(--line-g)' }}>
               Our MCS registration is currently in progress. All installations comply with applicable UK electrical and solar standards and regulations from day one.
             </p>
           </div>
@@ -784,7 +784,7 @@ export default function Solar() {
                     }}
                   />                  </div>
                 <div className="mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 17, letterSpacing: 1, color: 'var(--green-hi)' }}>{name}</div>
-                <div className="mb-4 flex-1" style={{ fontSize: 11, color: 'var(--muted)', lineHeight: 1.5 }}>{desc}</div>
+                <div className="mb-4 flex-1" style={{ fontSize: 11, color: 'var(--light)', lineHeight: 1.5 }}>{desc}</div>
                 <span className={`std-status ${statusClass}`}>{statusLabel}</span>
               </div>
             ))}
@@ -809,7 +809,7 @@ export default function Solar() {
                   <img src={icon} alt="" className="svg-icon" style={{ width: 22, height: 22, flexShrink: 0, filter: ICON_FILTER }} />
                 </div>
                 <div className="mb-3" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: 1 }}>{title}</div>
-                <div style={{ fontSize: 16, color: 'var(--muted)', lineHeight: 1.7 }}>{desc}</div>
+                <div style={{ fontSize: 16, color: 'var(--light)', lineHeight: 1.7 }}>{desc}</div>
               </div>
             ))}
           </div>
@@ -860,7 +860,7 @@ export default function Solar() {
                 {/* <span className="text-[#26599b] font-bold text-[23px] leading-none tracking-[0.02em] mt-[2px]" style={{ fontFamily: "'Montserrat', 'Poppins', sans-serif" }}>WATTEN POWER</span> */}
               </Link>
             </div>
-            <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
+            <p style={{ fontSize: 13, color: 'var(--light)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
               Watten Power Ltd is a UK-based clean energy solutions provider specialising in EV charging and solar installations for residential and commercial properties.
             </p>
           </div>
@@ -883,7 +883,7 @@ export default function Solar() {
             { label: 'Modern Slavery Statement', href: slaveryPdf },
           ]} />
         </div>
-        <div className="flex items-center justify-between pt-7 border-t border-[var(--line)] flex-wrap gap-3" style={{ fontSize: 12, color: 'var(--muted)' }}>
+        <div className="flex items-center justify-between pt-7 border-t border-[var(--line)] flex-wrap gap-3" style={{ fontSize: 12, color: 'var(--light)' }}>
           <span>© 2026 Watten Power Ltd. All rights reserved.</span>
           <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>Made with ❤️ by poweroins</span>
         </div>

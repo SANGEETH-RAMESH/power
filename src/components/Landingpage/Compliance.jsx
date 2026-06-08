@@ -64,7 +64,7 @@ export default function Compliance() {
               Our installations are aligned with UK electrical and safety standards, ensuring long-term performance you can trust.
             </p>
             <div className="reveal reveal-delay-3" style={{
-              fontSize: 13, color: 'var(--muted)', marginTop: 20,
+              fontSize: 13, color: 'var(--light)', marginTop: 20,
               lineHeight: 1.7, padding: 16, borderLeft: '2px solid var(--line-g)',
             }}>
               We are actively working towards full MCS, NAPIT, and OZEV certification. All current installations meet applicable UK electrical regulations and standards.
@@ -88,7 +88,7 @@ export default function Compliance() {
                     <img src={c.icon} alt="" style={{ width: 18, height: 18, filter: 'invert(32%) sepia(98%) saturate(1600%) hue-rotate(200deg) brightness(98%) contrast(98%)' }} />
                   </div>
                   <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1.5, color: 'var(--green-hi)', textTransform: 'uppercase', marginBottom: 4 }}>{c.name}</div>
-                  <div style={{ fontSize: 11, color: 'var(--muted)', lineHeight: 1.5, marginBottom: 14, flexGrow: 1 }}>{c.desc}</div>
+                  <div style={{ fontSize: 11, color: 'var(--light)', lineHeight: 1.5, marginBottom: 14, flexGrow: 1 }}>{c.desc}</div>
                   <div style={{
                     ...status.style,
                     borderRadius: 999,

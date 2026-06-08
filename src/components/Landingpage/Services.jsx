@@ -125,7 +125,7 @@ export default function Services() {
                 fontFamily: "'Space Mono', monospace",
                 fontSize: 11,
                 letterSpacing: 2,
-                color: 'var(--muted)',
+                color: 'var(--light)',
                 marginBottom: 28
               }}>
                 {s.num}
@@ -189,7 +189,7 @@ export default function Services() {
                     display: 'flex',
                     gap: 10,
                     fontSize: 13,
-                    color: 'var(--muted)'
+                    color: 'var(--light)'
                   }}>
                     <span style={{ color: 'var(--green-hi)' }}>→</span>
                     {f}

@@ -57,7 +57,7 @@ export default function WhyUs() {
                     background: 'linear-gradient(135deg,var(--blue-hi),var(--green-hi))',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                   }}>{s.num}</div>
-                  <div style={{ fontSize: 10, color: 'var(--muted)', fontFamily: "'Space Mono', monospace", letterSpacing: 1, marginTop: 4 }}>{s.label}</div>
+                  <div style={{ fontSize: 10, color: 'var(--light)', fontFamily: "'Space Mono', monospace", letterSpacing: 1, marginTop: 4 }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -88,7 +88,7 @@ export default function WhyUs() {
 />
                 </div>
                 <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 1, marginBottom: 8 }}>{p.title}</div>
-                <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.7 }}>{p.desc}</div>
+                <div style={{ fontSize: 12, color: 'var(--light)', lineHeight: 1.7 }}>{p.desc}</div>
               </div>
             ))}
           </div>

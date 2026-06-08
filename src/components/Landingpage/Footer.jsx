@@ -26,7 +26,7 @@ export default function Footer() {
               
             </Link>
           </div>
-          <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
+          <p style={{ fontSize: 13, color: 'var(--light)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
             Watten Power Ltd is a UK-based clean energy solutions provider specialising in EV
             charging and solar installations for residential and commercial properties.
           </p>
@@ -88,7 +88,7 @@ export default function Footer() {
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         paddingTop: 28, borderTop: '1px solid var(--line)',
-        fontSize: 12, color: 'var(--muted)', flexWrap: 'wrap', gap: 12,
+        fontSize: 12, color: 'var(--light)', flexWrap: 'wrap', gap: 12,
       }}>
         <span>© 2026 Watten Power Ltd. All rights reserved.</span>
         <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>
@@ -120,9 +120,9 @@ function FooterCol({ title, links }) {
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
         {links.map((l, i) => (
           <li key={i}>
-            <a href={l.href} style={{ fontSize: 13, color: 'var(--muted)', textDecoration: 'none', transition: 'color .2s', wordBreak: 'break-word' }}
+            <a href={l.href} style={{ fontSize: 13, color: 'var(--light)', textDecoration: 'none', transition: 'color .2s', wordBreak: 'break-word' }}
               onMouseEnter={e => e.target.style.color = 'var(--white)'}
-              onMouseLeave={e => e.target.style.color = 'var(--muted)'}
+              onMouseLeave={e => e.target.style.color = 'var(--light)'}
             >{l.label}</a>
           </li>
         ))}

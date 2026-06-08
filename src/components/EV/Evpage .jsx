@@ -55,9 +55,9 @@ function EVFooterCol({ title, links }) {
         {links.map((l, i) => (
           <li key={i}>
             <a href={l.href}
-              style={{ fontSize: 13, color: 'var(--muted)', textDecoration: 'none', transition: 'color .2s', wordBreak: 'break-word' }}
+              style={{ fontSize: 13, color: 'var(--light)', textDecoration: 'none', transition: 'color .2s', wordBreak: 'break-word' }}
               onMouseEnter={e => e.target.style.color = 'var(--white)'}
-              onMouseLeave={e => e.target.style.color = 'var(--muted)'}
+              onMouseLeave={e => e.target.style.color = 'var(--light)'}
             >{l.label}</a>
           </li>
         ))}
@@ -129,14 +129,14 @@ export default function EV() {
         .e-nav.scrolled { background: rgba(4,16,31,.97); }
         .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
         .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
-        .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 400; letter-spacing: .3px; transition: color .2s; }
+        .nav-links a { color: var(--light); text-decoration: none; font-size: 13px; font-weight: 400; letter-spacing: .3px; transition: color .2s; }
         .nav-links a:hover { color: var(--white); }
         .nav-links a.active { color: var(--green-hi); }
         .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
-        .nav-burger span { display: block; width: 22px; height: 2px; background: var(--muted); border-radius: 1px; }
+        .nav-burger span { display: block; width: 22px; height: 2px; background: var(--light); border-radius: 1px; }
         .nav-mobile { display: none; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: rgba(4,16,31,.97); padding: 24px; gap: 20px; border-bottom: 1px solid rgba(43,91,168,.25); backdrop-filter: blur(20px); z-index: 199; list-style: none; }
         .nav-mobile.open { display: flex; }
-        .nav-mobile a { color: var(--muted); text-decoration: none; font-size: 14px; }
+        .nav-mobile a { color: var(--light); text-decoration: none; font-size: 14px; }
         .nav-mobile a.active { color: var(--green-hi); }
 
         /* HERO */
@@ -148,8 +148,8 @@ export default function EV() {
         @keyframes scan { from{background-position:0 0} to{background-position:0 100px} }
         .e-hero-content { position: relative; z-index: 3; padding: 140px 52px 80px 172px; max-width: 820px; }
 
-        .e-hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
-        .e-hero-breadcrumb a { color: var(--muted); text-decoration: none; transition: color .2s; }
+        .e-hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); margin-bottom: 28px; }
+        .e-hero-breadcrumb a { color: var(--light); text-decoration: none; transition: color .2s; }
         .e-hero-breadcrumb a:hover { color: var(--white); }
         .e-hero-breadcrumb .cur { color: var(--green-hi); }
         .e-hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--line-g); background: var(--green-dim); border-radius: 50px; padding: 6px 16px 6px 10px; margin-bottom: 24px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--green-hi); animation: fadeUp .8s ease both; }
@@ -158,13 +158,13 @@ export default function EV() {
         .e-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px,7.5vw,100px); line-height: .93; letter-spacing: 2px; margin-bottom: 10px; animation: fadeUp .8s .1s ease both; }
         .e-hero-title .ht-b { color: var(--blue-hi); display: block; }
         .e-hero-title .ht-g { color: var(--green-hi); display: block; }
-        .e-hero-tagline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px,2.5vw,28px); letter-spacing: 3px; color: var(--muted); margin-bottom: 24px; animation: fadeUp .8s .15s ease both; }
+        .e-hero-tagline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px,2.5vw,28px); letter-spacing: 3px; color: var(--light); margin-bottom: 24px; animation: fadeUp .8s .15s ease both; }
         .e-hero-desc { font-size: 17px; color: var(--light); max-width: 520px; line-height: 1.75; margin-bottom: 40px; animation: fadeUp .8s .2s ease both; }
         .e-hero-btns { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp .8s .25s ease both; }
         .e-hero-stats { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 44px; animation: fadeUp .8s .35s ease both; }
         .hs-pill { display: flex; align-items: center; gap: 10px; background: rgba(4,16,31,.6); border: 1px solid var(--line); border-radius: 50px; padding: 9px 18px; backdrop-filter: blur(10px); }
         .hs-val { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--white); }
-        .hs-label { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; letter-spacing: .5px; }
+        .hs-label { font-size: 11px; color: var(--light); font-family: 'Space Mono', monospace; letter-spacing: .5px; }
         .e-hero-img-accent { position: absolute; right: 0; top: 68px; bottom: 0; width: 44%; z-index: 2; overflow: hidden; }
         .e-hero-img-accent img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.55) saturate(.7); }
         .e-hero-img-accent::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to right,rgba(4,16,31,1) 0%,transparent 40%),linear-gradient(to top,rgba(4,16,31,.8) 0%,transparent 60%); z-index: 1; }
@@ -177,7 +177,7 @@ export default function EV() {
         .intro-img img { width: 100%; height: 420px; object-fit: cover; filter: brightness(.8) saturate(.85); }
         .intro-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(43,91,168,.15),transparent 60%); }
         .intro-img-badge { position: absolute; bottom: 24px; left: 24px; background: rgba(4,16,31,.8); border: 1px solid var(--line-g); border-radius: 12px; padding: 14px 18px; backdrop-filter: blur(12px); z-index: 1; }
-        .iib-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+        .iib-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); margin-bottom: 4px; }
         .iib-val { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; color: var(--green-hi); }
 
         /* INSTALL */
@@ -192,7 +192,7 @@ export default function EV() {
         .ic-tag { position: absolute; top: 14px; left: 14px; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--green-hi); background: rgba(4,16,31,.7); border: 1px solid var(--line-g); border-radius: 50px; padding: 4px 12px; backdrop-filter: blur(8px); }
         .ic-body { padding: 26px 24px; }
         .ic-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1.5px; margin-bottom: 10px; }
-        .ic-desc { font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
+        .ic-desc { font-size: 16px; color: var(--light); line-height: 1.7; margin-bottom: 18px; }
         .ic-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
         .ic-features li { font-size: 15px; color: var(--light); display: flex; align-items: flex-start; gap: 8px; }
         .ic-features li::before { content: '→'; color: var(--green-hi); font-family: 'Space Mono', monospace; flex-shrink: 0; font-size: 10px; margin-top: 2px; }
@@ -208,17 +208,17 @@ export default function EV() {
         .ps:hover .ps-num { color: var(--blue-hi); }
         .ps-body { padding: 28px; }
         .ps-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 6px; }
-        .ps-desc { font-size: 16px; color: var(--muted); line-height: 1.65; max-width: 480px; }
-        .ps-icon { padding: 28px; font-size: 22px; color: var(--muted); }
+        .ps-desc { font-size: 16px; color: var(--light); line-height: 1.65; max-width: 480px; }
+        .ps-icon { padding: 28px; font-size: 22px; color: var(--light); }
         .process-visual { position: relative; }
-        .process-visual img { width: 100%; height: 480px; object-fit: cover; border-radius: var(--r2); filter: brightness(.7) saturate(.8); }
-        .process-visual::after { content: ''; position: absolute; inset: 0; border-radius: var(--r2); background: linear-gradient(135deg,rgba(43,91,168,.1),transparent 60%); }
+        .process-visual img { width: 100%; height: 480px; object-fit: cover; border-radius: var(--r2); filter: none; }
+.process-visual::after { content: ''; position: absolute; inset: 0; border-radius: var(--r2); }
         .pv-stat { position: absolute; background: var(--panel); border: 1px solid var(--line-g); border-radius: 14px; padding: 16px 20px; backdrop-filter: blur(14px); }
         .pv-stat-1 { top: 28px; right: 28px; }
         .pv-stat-2 { bottom: 28px; left: 28px; }
-        .pvs-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+        .pvs-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); margin-bottom: 4px; }
         .pvs-val { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; color: var(--green-hi); }
-        .pvs-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+        .pvs-sub { font-size: 11px; color: var(--light); margin-top: 2px; }
 
         /* RANGE */
         .e-range { padding: 90px 0; border-top: 1px solid var(--line); }
@@ -227,17 +227,17 @@ export default function EV() {
         .rc { background: var(--panel); border: 2px solid var(--line); border-radius: var(--r2); padding: 28px 22px; transition: all .28s; cursor: default; }
         .rc:hover { border-color: rgba(43,91,168,.55); transform: translateY(-4px); background: rgba(14,28,58,.85); }
         .rc.featured { border-color: var(--green); background: linear-gradient(135deg,rgba(90,140,46,.12),rgba(43,91,168,.08)); }
-        .rc-badge { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; color: var(--muted); }
+        .rc-badge { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; color: var(--light); }
         .rc.featured .rc-badge { color: var(--green-hi); }
         .rc-icon { font-size: 32px; margin-bottom: 14px; }
         .rc-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; margin-bottom: 6px; }
-        .rc-tagline { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+        .rc-tagline { font-size: 14px; color: var(--light); margin-bottom: 18px; line-height: 1.5; }
         .rc-feats { list-style: none; display: flex; flex-direction: column; gap: 7px; }
         .rc-feats li { font-size: 14px; color: var(--light); display: flex; align-items: flex-start; gap: 7px; }
         .rc-feats li::before { content: '·'; color: var(--green-hi); flex-shrink: 0; font-size: 14px; line-height: 1.1; }
         .range-cta-band { margin-top: 40px; background: linear-gradient(135deg,rgba(43,91,168,.15),rgba(90,140,46,.1)); border: 1px solid var(--line); border-radius: var(--r2); padding: 32px 36px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
         .rcb-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; margin-bottom: 4px; }
-        .rcb-sub { font-size: 16px; color: var(--muted); }
+        .rcb-sub { font-size: 16px; color: var(--light); }
         .rcb-btns { display: flex; gap: 12px; flex-shrink: 0; }
 
         /* BRANDS */
@@ -251,9 +251,9 @@ export default function EV() {
         .brand-logo { color: var(--light); height: 40px; display: flex; align-items: center; }
         .brand-logo svg { max-height: 40px; }
         .brand-name { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--green-hi); }
-        .brand-tag { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+        .brand-tag { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); }
         .brands-brochure { margin-top: 44px; text-align: center; }
-        .brands-brochure p { font-size: 14px; color: var(--muted); margin-bottom: 18px; line-height: 1.75; }
+        .brands-brochure p { font-size: 14px; color: var(--light); margin-bottom: 18px; line-height: 1.75; }
         .brochure-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 50px; padding: 14px 28px; color: var(--light); text-decoration: none; font-size: 14px; font-weight: 500; transition: all .25s; }
         .brochure-btn:hover { border-color: rgba(43,91,168,.5); color: var(--white); }
         .brochure-btn-icon { color: var(--green-hi); display: flex; }
@@ -269,7 +269,7 @@ export default function EV() {
         .asl-num { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; color: var(--blue-pale); line-height: 1; padding-top: 2px; }
         .asl-item:hover .asl-num { color: var(--blue-hi); }
         .asl-title { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; margin-bottom: 5px; }
-        .asl-desc { font-size: 15px; color: var(--muted); line-height: 1.65; }
+        .asl-desc { font-size: 15px; color: var(--light); line-height: 1.65; }
         .aftersales-visual { display: flex; flex-direction: column; gap: 20px; }
         .av-img { border-radius: var(--r2); overflow: hidden; }
         .av-img img { width: 100%; height: 260px; object-fit: cover; filter: brightness(.7) saturate(.8); }
@@ -278,12 +278,12 @@ export default function EV() {
         .av-card:hover { border-color: rgba(43,91,168,.4); }
         .av-card-icon { font-size: 22px; margin-bottom: 10px; }
         .av-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; margin-bottom: 6px; }
-        .av-card-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+        .av-card-desc { font-size: 14px; color: var(--light); line-height: 1.6; }
 
         /* COMPLIANCE */
         .e-compliance { padding: 80px 0; border-top: 1px solid var(--line); background: var(--ink-2); }
         .compliance-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-        .compliance-note { font-size: 13px; color: var(--muted); max-width: 340px; line-height: 1.75; padding-left: 16px; border-left: 2px solid var(--line-g); margin-top: 20px; }
+        .compliance-note { font-size: 13px; color: var(--light); max-width: 340px; line-height: 1.75; padding-left: 16px; border-left: 2px solid var(--line-g); margin-top: 20px; }
         .standards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; align-self: start; }
 .std-card {
   background: var(--panel);
@@ -299,7 +299,7 @@ export default function EV() {
 }        .std-card:hover { border-color: rgba(43,91,168,.45); transform: translateY(-3px); }
         .std-icon { font-size: 28px; margin-bottom: 12px; }
         .std-name { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; color: var(--blue-hi); margin-bottom: 5px; }
-        .std-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+        .std-desc { font-size: 11px; color: var(--light); line-height: 1.5; }
 
         /* WHY */
         .e-why { padding: 100px 0; border-top: 1px solid var(--line); }
@@ -312,7 +312,7 @@ export default function EV() {
         .why-card:hover::after { opacity: 1; }
         .wc-icon { font-size: 26px; padding-top: 2px; }
         .wc-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 10px; }
-        .wc-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
+        .wc-desc { font-size: 15px; color: var(--light); line-height: 1.7; }
 
         /* FUTURE */
         .e-future { padding: 100px 0; border-top: 1px solid var(--line); background: linear-gradient(180deg,var(--ink-2) 0%,var(--ink) 100%); }
@@ -574,7 +574,7 @@ export default function EV() {
             <h2 className="sec-title reveal rd1" style={{ textAlign: "center", fontSize: 'clamp(24px,3vw,36px)' }}>
               BRANDS WE INSTALL
             </h2>
-            <p className="reveal rd2" style={{ fontSize: 14, color: "var(--muted)", marginTop: 10 }}>
+            <p className="reveal rd2" style={{ fontSize: 14, color: "var(--light)", marginTop: 10 }}>
               We work with a carefully selected range of trusted manufacturers — recommending the right brand for your specific needs, property, and budget.
             </p>
           </div>
@@ -821,7 +821,7 @@ export default function EV() {
                 
               </Link>
             </div>
-            <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
+            <p style={{ fontSize: 13, color: 'var(--light)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>
               Watten Power Ltd is a UK-based clean energy solutions provider specialising in EV charging and solar installations for residential and commercial properties.
             </p>
           </div>
@@ -877,7 +877,7 @@ export default function EV() {
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           paddingTop: 28, borderTop: '1px solid var(--line)',
-          fontSize: 12, color: 'var(--muted)', flexWrap: 'wrap', gap: 12,
+          fontSize: 12, color: 'var(--light)', flexWrap: 'wrap', gap: 12,
         }}>
           <span>© 2026 Watten Power Ltd. All rights reserved.</span>
           <span style={{ fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 1 }}>

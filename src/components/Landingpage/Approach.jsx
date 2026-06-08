@@ -42,7 +42,7 @@ export default function Approach() {
               )}
               <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, letterSpacing: 2, color: 'var(--green-hi)', marginBottom: 20 }}>{s.num}</div>
               <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: 1, marginBottom: 12 }}>{s.title}</div>
-              <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.75 }}>{s.desc}</div>
+              <div style={{ fontSize: 12, color: 'var(--light)', lineHeight: 1.75 }}>{s.desc}</div>
             </div>
           ))}
         </div>

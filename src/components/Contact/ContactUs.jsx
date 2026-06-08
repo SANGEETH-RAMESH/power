@@ -373,7 +373,7 @@ export default function Contact() {
         .c-hero-h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px,9vw,120px); line-height: .9; letter-spacing: 3px; margin-bottom: 8px; animation: fadeUp .7s .08s ease both; }
         .c-hero-h1 .hl1 { display: block; color: var(--white); }
         .c-hero-h1 .hl2 { display: block; color: var(--green-hi); }
-        .c-hero-sub { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px,3vw,34px); letter-spacing: 4px; color: var(--muted); margin-bottom: 24px; animation: fadeUp .7s .14s ease both; }
+        .c-hero-sub { font-family: 'Bebas Neue', sans-serif; font-size: clamp(20px,3vw,34px); letter-spacing: 4px; color: var(--light); margin-bottom: 24px; animation: fadeUp .7s .14s ease both; }
         .c-hero-desc { font-size: 16px; color: var(--light); max-width: 560px; margin: 0 auto 40px; line-height: 1.75; animation: fadeUp .7s .2s ease both; }
         .c-hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; animation: fadeUp .7s .26s ease both; }
         .hbtn-primary { display: inline-flex; align-items: center; gap: 9px; background: linear-gradient(135deg,var(--green),var(--green-hi)); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 1.5px; padding: 14px 36px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: all .25s; box-shadow: 0 8px 28px rgba(90,140,46,.4); }
@@ -384,7 +384,7 @@ export default function Contact() {
         .hpr-cell { padding: 20px 28px; border-right: 1px solid rgba(43,91,168,.2); display: flex; align-items: center; gap: 12px; background: rgba(4,16,31,.6); backdrop-filter: blur(12px); }
         .hpr-cell:last-child { border-right: none; }
         .hpr-icon { font-size: 20px; flex-shrink: 0; }
-        .hpr-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+        .hpr-text { font-size: 12px; color: var(--light); line-height: 1.4; }
         .hpr-text strong { display: block; font-size: 13px; color: var(--light); margin-bottom: 1px; }
         @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 
@@ -398,7 +398,7 @@ export default function Contact() {
         .nt-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--ink-2); border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 18px; transition: border-color .3s; flex-shrink: 0; }
         .nt-item:hover .nt-dot { border-color: var(--green-hi); }
         .nt-title { font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; margin-bottom: 8px; }
-        .nt-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+        .nt-desc { font-size: 13px; color: var(--light); line-height: 1.6; }
 
         /* FORM WRAP */
         .form-wrap { max-width: 900px; margin: 0 auto; padding: 60px 52px; display: flex; flex-direction: column; gap: 48px; }
@@ -409,7 +409,7 @@ export default function Contact() {
         .blue-ic { background: var(--blue-dim); border: 1px solid var(--line); }
         .green-ic { background: var(--green-dim); border: 1px solid var(--line-g); }
         .gold-ic { background: rgba(255,180,0,.1); border: 1px solid rgba(255,180,0,.25); }
-        .fsec-kicker { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+        .fsec-kicker { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); margin-bottom: 4px; }
         .fsec-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1.5px; }
         .fg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
         .fg1 { margin-bottom: 20px; }
@@ -433,7 +433,7 @@ export default function Contact() {
         .svc-box.selected { border-color: var(--green-hi); background: var(--green-dim); }
         .svc-big-icon { font-size: 36px; margin-bottom: 12px; }
         .svc-name { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1.5px; margin-bottom: 6px; }
-        .svc-info { font-size: 13px; color: var(--muted); line-height: 1.5; }
+        .svc-info { font-size: 13px; color: var(--light); line-height: 1.5; }
         .svc-check-ic { position: absolute; top: 14px; right: 14px; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all .25s; }
         .svc-box.selected .svc-check-ic { background: var(--green); border-color: var(--green); }
 
@@ -445,7 +445,7 @@ export default function Contact() {
 
         /* RADIO PILLS */
         .rpills { display: flex; gap: 8px; flex-wrap: wrap; }
-        .rp-btn { padding: 9px 16px; background: rgba(4,16,31,.5); border: 1px solid var(--line); border-radius: 50px; font-size: 13px; color: var(--muted); cursor: pointer; transition: all .2s; white-space: nowrap; }
+        .rp-btn { padding: 9px 16px; background: rgba(4,16,31,.5); border: 1px solid var(--line); border-radius: 50px; font-size: 13px; color: var(--light); cursor: pointer; transition: all .2s; white-space: nowrap; }
         .rp-btn:hover { border-color: rgba(43,91,168,.5); color: var(--light); }
         .rp-btn.selected { border-color: var(--green-hi); color: var(--green-hi); background: var(--green-dim); }
 
@@ -455,20 +455,20 @@ export default function Contact() {
         .upload-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
         .ua-icon { font-size: 40px; margin-bottom: 12px; }
         .ua-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 8px; }
-        .ua-sub { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+        .ua-sub { font-size: 13px; color: var(--light); margin-bottom: 16px; }
         .ua-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
         .ua-tag { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--green-hi); background: var(--green-dim); border: 1px solid var(--line-g); border-radius: 50px; padding: 4px 12px; }
         .file-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
         .file-row { display: flex; justify-content: space-between; align-items: center; background: rgba(4,16,31,.5); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 14px; font-size: 13px; color: var(--light); }
-        .file-rm { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 14px; padding: 0 4px; transition: color .2s; }
+        .file-rm { background: none; border: none; cursor: pointer; color: var(--light); font-size: 14px; padding: 0 4px; transition: color .2s; }
         .file-rm:hover { color: #e05050; }
-        .upload-tip { display: flex; gap: 12px; align-items: flex-start; margin-top: 16px; background: rgba(43,91,168,.08); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; font-size: 13px; color: var(--muted); line-height: 1.6; }
+        .upload-tip { display: flex; gap: 12px; align-items: flex-start; margin-top: 16px; background: rgba(43,91,168,.08); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; font-size: 13px; color: var(--light); line-height: 1.6; }
 
         /* CONSENT */
         .consent-row { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; padding: 2px; }
         .consent-cb { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--line); background: rgba(4,16,31,.6); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; margin-top: 1px; cursor: pointer; font-size: 13px; color: #fff; }
         .consent-cb.on { background: var(--green); border-color: var(--green); }
-        .consent-txt { font-size: 13px; color: var(--muted); line-height: 1.65; }
+        .consent-txt { font-size: 13px; color: var(--light); line-height: 1.65; }
         .consent-txt a { color: var(--blue-hi); text-decoration: none; }
 
         /* CTA BAND */
@@ -482,9 +482,9 @@ export default function Contact() {
         .btn-submit { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg,var(--green),var(--green-hi)); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1.5px; padding: 16px 38px; border-radius: 50px; border: none; cursor: pointer; transition: all .25s; box-shadow: 0 8px 28px rgba(90,140,46,.4); width: 100%; justify-content: center; margin-bottom: 14px; }
         .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(90,140,46,.5); }
         .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
-        .submit-note { text-align: center; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted); margin-bottom: 28px; }
+        .submit-note { text-align: center; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--light); margin-bottom: 28px; }
         .contact-direct { background: rgba(4,16,31,.5); border: 1px solid var(--line); border-radius: var(--r2); padding: 20px 22px; }
-        .cd-title { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+        .cd-title { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); margin-bottom: 14px; }
         .cd-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
         .cd-item:last-child { margin-bottom: 0; }
         .cd-ic { font-size: 18px; }
@@ -500,10 +500,10 @@ export default function Contact() {
         .success-icon { font-size: 60px; margin-bottom: 24px; }
         .success-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 2px; color: var(--green-hi); margin-bottom: 14px; }
         .success-desc { font-size: 15px; color: var(--light); line-height: 1.75; margin-bottom: 8px; }
-        .success-ref { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--muted); margin-bottom: 36px; }
+        .success-ref { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--light); margin-bottom: 36px; }
 
         /* FOOTER */
-        .c-footer { display: flex; justify-content: space-between; align-items: center; padding: 24px 52px; border-top: 1px solid var(--line); background: var(--ink-2); font-size: 12px; color: var(--muted); }
+        .c-footer { display: flex; justify-content: space-between; align-items: center; padding: 24px 52px; border-top: 1px solid var(--line); background: var(--ink-2); font-size: 12px; color: var(--light); }
 
         @media (max-width: 900px) {
           .form-wrap { padding: 32px 20px; }
@@ -949,7 +949,7 @@ export default function Contact() {
             <div className="file-list">
               {files.map((f, i) => (
                 <div key={f.name} className="file-row">
-                  <span>📄 {f.name} <span style={{ color: "var(--muted)", fontSize: 11 }}>({(f.size / 1024).toFixed(1)} KB)</span></span>
+                  <span>📄 {f.name} <span style={{ color: "var(--light)", fontSize: 11 }}>({(f.size / 1024).toFixed(1)} KB)</span></span>
                   <button className="file-rm" onClick={() => setFiles(prev => prev.filter((_, j) => j !== i))}>✕</button>
                 </div>
               ))}

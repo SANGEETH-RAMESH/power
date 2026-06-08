@@ -85,9 +85,9 @@ export default function Hero() {
         <div className="hero-scroll-hint" style={{
           display: 'flex', alignItems: 'center', gap: 12, marginTop: 52,
           fontFamily: "'Space Mono', monospace", fontSize: 10, letterSpacing: 2,
-          color: 'var(--muted)', textTransform: 'uppercase',
+          color: 'var(--light)', textTransform: 'uppercase',
         }}>
-          <div style={{ width: 40, height: 1, background: 'var(--muted)' }} />
+          <div style={{ width: 40, height: 1, background: 'var(--light)' }} />
           Scroll to explore
         </div>
       </div>
@@ -139,7 +139,7 @@ export default function Hero() {
               }}>● LIVE</span>
             </div>
             <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 1, marginBottom: 4 }}>EV CHARGING SYSTEM</div>
-            <div style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.6 }}>
+            <div style={{ fontSize: 12, color: 'var(--light)', lineHeight: 1.6 }}>
               Smart 7–22 kW home & commercial charger installations. OZEV-grant compliant, NAPIT-certified.
             </div>
             <div style={{
@@ -148,11 +148,11 @@ export default function Hero() {
             }}>
               <div>
                 <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, letterSpacing: 1, color: 'var(--green-hi)' }}>7–22 kW</div>
-                <div style={{ fontSize: 11, color: 'var(--muted)', fontFamily: "'Space Mono', monospace" }}>CHARGE RATE</div>
+                <div style={{ fontSize: 11, color: 'var(--light)', fontFamily: "'Space Mono', monospace" }}>CHARGE RATE</div>
               </div>
               <div style={{ textAlign: 'right' }}>
                 <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, letterSpacing: 1, color: 'var(--blue-hi)' }}>~50mi</div>
-                <div style={{ fontSize: 11, color: 'var(--muted)', fontFamily: "'Space Mono', monospace" }}>PER HOUR</div>
+                <div style={{ fontSize: 11, color: 'var(--light)', fontFamily: "'Space Mono', monospace" }}>PER HOUR</div>
               </div>
             </div>
           </div>
@@ -163,7 +163,7 @@ export default function Hero() {
             background: 'var(--panel)', border: '1px solid var(--line-g)',
             borderRadius: 16, backdropFilter: 'blur(20px)', padding: '18px 20px',
           }}>
-            <div style={{ fontSize: 11, color: 'var(--muted)', fontFamily: "'Space Mono', monospace", letterSpacing: 1, marginBottom: 8 }}>SOLAR OUTPUT</div>
+            <div style={{ fontSize: 11, color: 'var(--light)', fontFamily: "'Space Mono', monospace", letterSpacing: 1, marginBottom: 8 }}>SOLAR OUTPUT</div>
             <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, color: 'var(--white)', letterSpacing: 1 }}>4.2 kWp</div>
             <div style={{ fontSize: 11, color: 'var(--green-hi)', marginTop: 4 }}>↑ Saving £1,200/yr</div>
           </div>
