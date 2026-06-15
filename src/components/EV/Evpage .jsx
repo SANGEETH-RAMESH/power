@@ -174,8 +174,8 @@ export default function EV() {
         .e-intro { padding: 100px 0; }
         .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .intro-img { border-radius: var(--r2); overflow: hidden; position: relative; }
-        .intro-img img { width: 100%; height: 420px; object-fit: cover; filter: brightness(.8) saturate(.85); }
-        .intro-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(43,91,168,.15),transparent 60%); }
+        .intro-img img { width: 100%; height: 420px; object-fit: cover; filter: none; }
+.intro-img::after { display: none; }
         .intro-img-badge { position: absolute; bottom: 24px; left: 24px; background: rgba(4,16,31,.8); border: 1px solid var(--line-g); border-radius: 12px; padding: 14px 18px; backdrop-filter: blur(12px); z-index: 1; }
         .iib-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); margin-bottom: 4px; }
         .iib-val { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; color: var(--green-hi); }
@@ -186,8 +186,8 @@ export default function EV() {
         .install-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r2); overflow: hidden; transition: transform .3s, border-color .3s; }
         .install-card:hover { transform: translateY(-4px); border-color: rgba(43,91,168,.5); }
         .ic-img { height: 200px; overflow: hidden; position: relative; }
-        .ic-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.65) saturate(.75); transition: transform .5s ease, filter .4s; }
-        .install-card:hover .ic-img img { transform: scale(1.04); filter: brightness(.8) saturate(.9); }
+.ic-img img { width: 100%; height: 100%; object-fit: cover; filter: none; transition: transform .5s ease; }
+        .install-card:hover .ic-img img { transform: scale(1.04); }
         .ic-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top,rgba(10,22,46,.95) 0%,transparent 55%); }
         .ic-tag { position: absolute; top: 14px; left: 14px; font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--green-hi); background: rgba(4,16,31,.7); border: 1px solid var(--line-g); border-radius: 50px; padding: 4px 12px; backdrop-filter: blur(8px); }
         .ic-body { padding: 26px 24px; }
@@ -272,7 +272,7 @@ export default function EV() {
         .asl-desc { font-size: 15px; color: var(--light); line-height: 1.65; }
         .aftersales-visual { display: flex; flex-direction: column; gap: 20px; }
         .av-img { border-radius: var(--r2); overflow: hidden; }
-        .av-img img { width: 100%; height: 260px; object-fit: cover; filter: brightness(.7) saturate(.8); }
+        .av-img img { width: 100%; height: 260px; object-fit: cover; filter: none; }
         .av-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .av-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 20px 18px; transition: border-color .25s; }
         .av-card:hover { border-color: rgba(43,91,168,.4); }
@@ -318,7 +318,7 @@ export default function EV() {
         .e-future { padding: 100px 0; border-top: 1px solid var(--line); background: linear-gradient(180deg,var(--ink-2) 0%,var(--ink) 100%); }
         .future-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .future-img { border-radius: var(--r2); overflow: hidden; }
-        .future-img img { width: 100%; height: 420px; object-fit: cover; filter: brightness(.7) saturate(.8); }
+        .future-img img { width: 100%; height: 420px; object-fit: cover; filter: none; }
         .future-ecosystem { display: flex; flex-direction: column; gap: 18px; }
         .fe-item {
   display: flex;
@@ -403,10 +403,10 @@ export default function EV() {
         </div>
         <div className="e-hero-content">
           <div className="e-hero-breadcrumb" style={{ paddingTop: 8 }}>
-  <Link to="/">Home</Link>
-  <span style={{ color: "rgba(255,255,255,0.4)" }}>›</span>
-  <span className="cur">EV Charger Installation</span>
-</div>
+            <Link to="/">Home</Link>
+            <span style={{ color: "rgba(255,255,255,0.4)" }}>›</span>
+            <span className="cur">EV Charger Installation</span>
+          </div>
           <div className="e-hero-eyebrow"><span className="dot" />Residential & Commercial</div>
           <h1 className="e-hero-title">
             <span className="ht-b">EV CHARGER</span>
@@ -818,7 +818,7 @@ export default function EV() {
             <div style={{ marginBottom: 16 }}>
               <Link to="/" className="flex items-center gap-2">
                 <img src={logo} alt="logo" className="h-[64px] w-auto" />
-                
+
               </Link>
             </div>
             <p style={{ fontSize: 13, color: 'var(--light)', lineHeight: 1.7, maxWidth: 260, margin: 0 }}>

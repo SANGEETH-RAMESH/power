@@ -164,15 +164,13 @@ export default function Solar() {
           @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 
           /* INTRO */
-          .s-intro-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right,transparent 50%,var(--ink-2) 100%); }
 
           /* INSTALL */
           .install-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: 400px; border: 1px solid var(--line); border-radius: var(--r2); overflow: hidden; margin-bottom: 24px; transition: border-color .3s; }
           .install-row:hover { border-color: rgba(90,140,46,.4); }
           .install-row.reverse { direction: rtl; }
           .install-row.reverse > * { direction: ltr; }
-          .ir-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.6) saturate(.75); transition: transform .6s ease, filter .4s; }
-          .install-row:hover .ir-img img { transform: scale(1.04); filter: brightness(.75) saturate(.9); }
+.ir-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1) saturate(1); transition: transform .6s ease, filter .4s; }          .install-row:hover .ir-img img { transform: scale(1.04); filter: brightness(.75) saturate(.9); }
           .ir-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right,transparent 40%,rgba(10,22,46,.6)); }
           .install-row.reverse .ir-img-overlay { background: linear-gradient(to left,transparent 40%,rgba(10,22,46,.6)); }
 
@@ -304,7 +302,7 @@ export default function Solar() {
       <section className="overflow-hidden border-b border-[var(--line)]">
         <div className="grid grid-cols-2 min-h-[560px] max-[900px]:grid-cols-1">
           <div className="relative overflow-hidden reveal">
-            <img src={img1} alt="Solar install" className="w-full h-full object-cover" style={{ filter: 'brightness(.65) saturate(.8)' }} />
+            <img src={img1} alt="Solar install" className="w-full h-full object-cover" style={{ filter: 'brightness(.85) saturate(.8)' }} />
             <div className="absolute bottom-10 left-10 z-[2] rounded-[14px] p-4 backdrop-blur-md" style={{ background: 'rgba(4,16,31,.85)', border: '1px solid var(--line-g)' }}>
               <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--light)', marginBottom: 4 }}>Avg. System Size</div>
               <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, letterSpacing: 1, color: 'var(--green-hi)' }}>4.2 kWp</div>
@@ -331,7 +329,6 @@ export default function Solar() {
           <div className="install-row reveal rd2">
             <div className="ir-img relative overflow-hidden">
               <img src={img2} alt="Residential solar" />
-              <div className="ir-img-overlay" />
               <div className="absolute top-5 left-5 rounded-[50px] px-[14px] py-[5px] backdrop-blur-md" style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--green-hi)', background: 'rgba(4,16,31,.75)', border: '1px solid var(--line-g)' }}>Residential</div>
             </div>
             <div className="flex flex-col justify-center px-10 py-9 backdrop-blur-md max-[600px]:px-5" style={{ background: 'var(--panel)' }}>
@@ -349,7 +346,6 @@ export default function Solar() {
           <div className="install-row reverse reveal rd2">
             <div className="ir-img relative overflow-hidden">
               <img src={img4} alt="Commercial solar" />
-              <div className="ir-img-overlay" />
               <div className="absolute top-5 left-5 rounded-[50px] px-[14px] py-[5px] backdrop-blur-md" style={{ fontFamily: "'Space Mono', monospace", fontSize: 9, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--green-hi)', background: 'rgba(4,16,31,.75)', border: '1px solid var(--line-g)' }}>Commercial</div>
             </div>
             <div className="flex flex-col justify-center px-10 py-9 backdrop-blur-md max-[600px]:px-5" style={{ background: 'var(--panel)' }}>
@@ -392,7 +388,7 @@ export default function Solar() {
               <p className="sec-desc reveal rd2">A structured, engineering-led process from initial assessment to final commissioning — ensuring safety, compliance, and long-term performance.</p>
             </div>
             <div className="rounded-[var(--r2)] overflow-hidden relative reveal rd2">
-              <img src={img6} alt="Solar installation" className="w-full object-cover" style={{ minHeight: 300, maxHeight: 340, filter: 'brightness(.65) saturate(.8)' }} />
+              <img src={img6} alt="Solar installation" className="w-full object-cover" style={{ minHeight: 300, maxHeight: 340, filter: 'brightness(1) saturate(1)' }} />
             </div>
           </div>
           <div className="timeline reveal rd3">
@@ -718,7 +714,7 @@ export default function Solar() {
               <p className="sec-desc reveal rd2">Every installation is backed by comprehensive warranties, monitoring, and ongoing support — giving you complete peace of mind.</p>
             </div>
             <div className="rounded-[var(--r2)] overflow-hidden reveal rd2">
-              <img src={img3} alt="Support" className="w-full h-[300px] object-cover" style={{ filter: 'brightness(.65) saturate(.8)' }} />
+              <img src={img3} alt="Support" className="w-full h-[300px] object-cover" style={{ filter: 'brightness(1) saturate(1)' }} />
             </div>
           </div>
           <div className="grid grid-cols-3 gap-5 max-[900px]:grid-cols-2 max-[600px]:grid-cols-1">
